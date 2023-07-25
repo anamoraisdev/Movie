@@ -1,0 +1,8 @@
+:root {
+  background-color: #001E0E;
+  color: bisque
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
