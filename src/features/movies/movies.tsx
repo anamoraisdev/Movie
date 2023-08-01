@@ -1,6 +1,8 @@
 
 const Movies = () => {
-    return(
+
+    return (
+
         <div>
             Welcome to the page Movies
         </div>
