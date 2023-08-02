@@ -23,7 +23,7 @@ export interface responseGenres {
 
 const apiService = {
 
-    movies: async () => {
+    releases: async () => {
         try {
             const response: responseReleases = await axios.get("https://api.themoviedb.org/3/trending/all/day", optionsRequest)
             const data = response?.data?.results;
@@ -41,7 +41,7 @@ const apiService = {
         } catch (error) {
             console.log(error)
         }
-    }
+    },
 }
 
 export default apiService;

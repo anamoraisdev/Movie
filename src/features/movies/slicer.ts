@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import apiService from '../../app/service';
 
 
-export const searchMovies = createAsyncThunk(
+export const searchReleases = createAsyncThunk(
   'movies/search',
-  apiService.movies
+  apiService.releases
 );
 
 const initialState = { 
@@ -20,7 +20,7 @@ export const moviesSlicer = createSlice({
 
   extraReducers: builder => {
     builder.addCase(
-      searchMovies.fulfilled,
+      searchReleases.fulfilled,
       (state, {payload}) => {
         state.releases = payload
       }
