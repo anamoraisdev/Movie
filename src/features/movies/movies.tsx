@@ -2,6 +2,8 @@ import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { searchReleases } from "./slicer"
 import ScrollCard from "../../components/scrollCard"
+import { searchGenres } from "../genres/slicer"
+import Filter from "../../components/filter"
 
 const Movies = () => {
     const dispatch = useAppDispatch()
@@ -9,11 +11,12 @@ const Movies = () => {
 
     useEffect(() => {
         dispatch(searchReleases())
+        dispatch(searchGenres())
     }, [dispatch])
 
     return (
         <div>
-            Welcome to the page Movies
+            <Filter/>
             <ScrollCard releases={releases}/>
         </div>
     )
