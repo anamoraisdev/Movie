@@ -1,10 +1,11 @@
 import { useEffect } from "react"
-import { useAppDispatch } from "../../app/hooks"
-import CardReleases from "../../components/CardReleases"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { searchReleases } from "./slicer"
+import ScrollCard from "../../components/scrollCard"
 
 const Movies = () => {
     const dispatch = useAppDispatch()
+    const releases = useAppSelector(state => state.movies.releases)
 
     useEffect(() => {
         dispatch(searchReleases())
@@ -13,7 +14,7 @@ const Movies = () => {
     return (
         <div>
             Welcome to the page Movies
-            <CardReleases />
+            <ScrollCard releases={releases}/>
         </div>
     )
 }
