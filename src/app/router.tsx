@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Movies from "../features/movies/movies"
-import Home from "../features/home/home"
+import Movies from "../pages/movies"
+import Home from "../pages/home"
 
 function Router() {
 

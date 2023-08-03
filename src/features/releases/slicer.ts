@@ -25,22 +25,19 @@ export interface Release{
   vote_count: number
 }
 
-export interface MoviesState{
-  movies: []
+export interface ReleasesState{
   releases: Release[]
 }
 
-const initialState = {
-  movies: [],
+const initialState: ReleasesState = {
   releases: []
 }
 
-
-
-export const moviesSlicer = createSlice({
-  name: 'movies',
+export const releaseSlicer = createSlice({
+  name: 'releases',
   initialState,
   reducers: {
+
   },
 
   extraReducers: builder => {
@@ -54,6 +51,6 @@ export const moviesSlicer = createSlice({
 })
 
 
-export const { } = moviesSlicer.actions
+export const { } = releaseSlicer.actions
 
-export default moviesSlicer.reducer
+export default releaseSlicer.reducer

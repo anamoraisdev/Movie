@@ -1,5 +1,5 @@
 
-import Movies from "../movies/movies"
+import Movies from "./movies"
 
 const Home = () => {
     return (
