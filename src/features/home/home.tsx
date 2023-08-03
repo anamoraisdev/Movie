@@ -4,7 +4,7 @@ import Movies from "../movies/movies"
 const Home = () => {
     return (
         <main>
-            <Movies/>
+            HOME
         </main>
     )
 }
