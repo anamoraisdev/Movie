@@ -3,6 +3,20 @@
   color: bisque
 }
 
+::-webkit-scrollbar-track {
+  background:#ebebeb62;
+  border-radius: 10px;
+}
+::-webkit-scrollbar {
+ background-color: #02361a;
+ border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #02361a;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
