@@ -4,13 +4,16 @@ import Filter from "../components/filter"
 import ScrollCard from "../components/scrollCard"
 import { searchGenres } from "../features/genres/slicer"
 import { searchReleases } from "../features/releases/slicer"
+import { searchMovies } from "../features/movies/slicer"
 
 
 const Movies = () => {
     const dispatch = useAppDispatch()
-    const releases = useAppSelector(state => state.movies.releases)
+    const releases = useAppSelector(state => state.releases.releases)
+    const movies = useAppSelector(state => state.moviesPopulity.movies)
 
     useEffect(() => {
+        dispatch(searchMovies())
         dispatch(searchReleases())
         dispatch(searchGenres())
     }, [dispatch])
@@ -18,7 +21,8 @@ const Movies = () => {
     return (
         <div>
             <Filter/>
-            <ScrollCard releases={releases}/>
+            <ScrollCard title={"Tendencias do dia"} itens={releases}/>
+            <ScrollCard title={"Mais votados"} itens={movies}/>
         </div>
     )
 }
