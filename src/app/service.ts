@@ -25,9 +25,9 @@ const apiService = {
 
     releases: async () => {
         try {
-            const response: responseReleases = await axios.get("https://api.themoviedb.org/3/trending/all/day", optionsRequest)
-            const data = response?.data?.results;
-            return data
+            const responseReleases: responseReleases = await axios.get("https://api.themoviedb.org/3/trending/all/day", optionsRequest)
+            const releases = responseReleases?.data?.results;
+            return releases
         } catch (error) {
             console.log(error)
         }

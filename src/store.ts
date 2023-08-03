@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import moviesReducer from './features/movies/slicer'
+import moviesReducer from './features/releases/slicer'
 import genresReducer from './features/genres/slicer'
 
 export const store = configureStore({
