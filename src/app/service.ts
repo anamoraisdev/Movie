@@ -68,6 +68,7 @@ const apiService = {
         try {
             const response: responseReleases = await axios.get(`https://api.themoviedb.org/3/movie/upcoming`, optionsRequest)
             const data = response.data.results
+            console.log(data)
             return data
         } catch (error) {
             console.log(error)

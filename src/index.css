@@ -1,10 +1,10 @@
 :root {
-  background-color: #001E0E;
+  background-color: #000A05;
   color: bisque
 }
 
 ::-webkit-scrollbar-track {
-  background:#001E0E;
+  background:#ebebeb62;
   border-radius: 10px;
 }
 ::-webkit-scrollbar {
