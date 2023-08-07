@@ -7,6 +7,8 @@ import { searchReleases } from "../features/movies/releases/slicer"
 import ScrollCard from "../components/scrollCard"
 import { searchUpcoming } from "../features/movies/upcoming/slicer"
 import UpcomingList from "../components/upcomingList"
+import Menu from "../components/menu"
+import Navbar from "../components/navbar"
 
 
 
@@ -27,14 +29,15 @@ const Movies = () => {
 
     return (
         <div>
-            <div className="flex justify-between">
-                <div className="w-[80%]">
-                    <ScrollCard title={"Agora nos cinemas"} itens={nowPlaying}/>
-                    <ScrollCard title={"Tendencias do dia"} itens={releases}/>
-                    <ScrollCard title={"Mais votados"} itens={movies}/>
+            <div className="flex justify-between py-[2rem]">
+                <Menu />
+                <div className="w-[70%]">
+                    <ScrollCard title={"Agora nos cinemas"} itens={nowPlaying} />
+                    <ScrollCard title={"Tendencias do dia"} itens={releases} />
+                    <ScrollCard title={"Mais votados"} itens={movies} />
                 </div>
-                <div className="p-5">
-                    <UpcomingList title={"upcoming movies"} itens={upcoming}/>    
+                <div className="px-5">
+                    <UpcomingList title={"upcoming movies"} itens={upcoming} />
                 </div>
             </div>
         </div>
