@@ -2,14 +2,16 @@ import { configureStore } from '@reduxjs/toolkit'
 import releasesReducer from './features/movies/releases/slicer'
 import genresReducer from './features/genres/slicer'
 import moviesReducer from './features/movies/populity/slicer'
-import upcomingReducer from './features/movies/nowPlaying/slicer'
+import nowPlaying from './features/movies/nowPlaying/slicer'
+import upcomingReducer from './features/movies/upcoming/slicer'
 
 export const store = configureStore({
   reducer: {
     releases: releasesReducer,
     genres: genresReducer,
     moviesPopulity: moviesReducer,
-    nowPlaying: upcomingReducer
+    nowPlaying: nowPlaying,
+    upcoming: upcomingReducer
   }
 })
 

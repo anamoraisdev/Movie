@@ -6,6 +6,7 @@ import { searchMovies } from "../features/movies/populity/slicer"
 import { searchReleases } from "../features/movies/releases/slicer"
 import ScrollCard from "../components/scrollCard"
 import Filter from "../components/filter"
+import { searchUpcoming } from "../features/movies/upcoming/slicer"
 
 
 
@@ -14,12 +15,14 @@ const Movies = () => {
     const releases = useAppSelector(state => state.releases.releases)
     const movies = useAppSelector(state => state.moviesPopulity.movies)
     const nowPlaying = useAppSelector(state => state.nowPlaying.movies)
+    const upcoming = useAppSelector(state => state.upcoming.movies)
 
     useEffect(() => {
         dispatch(searchMovies())
         dispatch(searchReleases())
         dispatch(searchGenres())
         dispatch(searchNowPlaying())
+        dispatch(searchUpcoming())
     }, [dispatch])
 
     return (
@@ -28,6 +31,7 @@ const Movies = () => {
             <ScrollCard title={"Agora nos cinemas"} itens={nowPlaying}/>
             <ScrollCard title={"Tendencias do dia"} itens={releases}/>
             <ScrollCard title={"Mais votados"} itens={movies}/>
+            <ScrollCard title={"Em breve nos cinemas"} itens={upcoming}/>
         </div>
     )
 }
