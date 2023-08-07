@@ -22,7 +22,7 @@ export interface responseGenres {
 }
 
 const apiService = {
-
+    //em destaque hoje
     releases: async () => {
         try {
             const responseReleases: responseReleases = await axios.get("https://api.themoviedb.org/3/trending/all/day", optionsRequest)
@@ -42,7 +42,7 @@ const apiService = {
             console.log(error)
         }
     },
-
+    //mais votado
     moviesPopulary: async () => {
         try {
             const response: responseReleases = await axios.get(`https://api.themoviedb.org/3/movie/top_rated `, optionsRequest)
@@ -52,16 +52,27 @@ const apiService = {
             console.log(error)
         }
     },
-
+    //agora nos cinemas 
     nowPlaying: async () => {
         try {
-            const response: responseReleases = await axios.get(`https://api.themoviedb.org/3/movie/upcoming`, optionsRequest)
+            const response: responseReleases = await axios.get(`https://api.themoviedb.org/3/movie/now_playing`, optionsRequest)
             const data = response.data.results
            return data
         } catch (error) {
             console.log(error)
         }
     },
+
+    //em breve nos cinemas
+    upcoming:async () => {
+        try {
+            const response: responseReleases = await axios.get(`https://api.themoviedb.org/3/movie/upcoming`, optionsRequest)
+            const data = response.data.results
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 export default apiService;
