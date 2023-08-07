@@ -1,6 +1,4 @@
 
-import Movies from "./movies"
-
 const Home = () => {
     return (
         <main>

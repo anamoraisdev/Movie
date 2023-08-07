@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import apiService from '../../app/service';
+import apiService from '../../../app/service';
 
 
-export const searchReleases = createAsyncThunk(
-  'movies/search',
-  apiService.releases
+
+export const searchMovies = createAsyncThunk(
+  'moviesPopulity/search',
+  apiService.moviesPopulary
 );
 
-export interface Release{
+export interface Movie{
   adult: boolean,
   backdrop_path: string,
   genre_ids: [],
@@ -25,16 +26,16 @@ export interface Release{
   vote_count: number
 }
 
-export interface ReleasesState{
-  releases: Release[]
+export interface MoviesState{
+  movies: Movie[]
 }
 
-const initialState: ReleasesState = {
-  releases: []
+const initialState: MoviesState = {
+  movies: []
 }
 
-export const releaseSlicer = createSlice({
-  name: 'releases',
+export const moviesSlicer = createSlice({
+  name: 'moviesPopulity',
   initialState,
   reducers: {
 
@@ -42,15 +43,15 @@ export const releaseSlicer = createSlice({
 
   extraReducers: builder => {
     builder.addCase(
-      searchReleases.fulfilled,
+      searchMovies.fulfilled,
       (state, { payload }) => {
-        state.releases = payload
+        state.movies = payload
       }
     )
   }
 })
 
 
-export const { } = releaseSlicer.actions
+export const { } = moviesSlicer.actions
 
-export default releaseSlicer.reducer
+export default moviesSlicer.reducer

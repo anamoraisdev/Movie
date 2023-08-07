@@ -1,14 +1,14 @@
 import Card from "./card"
 
 
-const ScrollCard = ({releases}) => {
+const ScrollCard = ({itens, title}) => {
    
     return (
         <main>
-            <h1>Lancamentos</h1>
+            <h1>{title}</h1>
             <div className="flex overflow-hidden hover:overflow-x-scroll gap-2 touch-auto">
-                {releases.map((release) =>
-                   <Card release={release}/>
+                {itens.map((item) =>
+                   <Card item={item}/>
                 )}
             </div>
         </main>
