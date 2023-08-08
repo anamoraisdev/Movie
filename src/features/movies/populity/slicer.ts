@@ -34,7 +34,7 @@ const initialState: MoviesState = {
   movies: []
 }
 
-export const moviesSlicer = createSlice({
+export const populitySlicer = createSlice({
   name: 'moviesPopulity',
   initialState,
   reducers: {
@@ -52,6 +52,6 @@ export const moviesSlicer = createSlice({
 })
 
 
-export const { } = moviesSlicer.actions
+export const { } = populitySlicer.actions
 
-export default moviesSlicer.reducer
+export default populitySlicer.reducer
