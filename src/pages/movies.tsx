@@ -23,9 +23,9 @@ const Movies = () => {
       
             <div className="flex justify-between py-[2rem]">
                 <Menu />
-                <div className="w-[70%] inline-grid grid-cols-7 gap-2">
-                    {movies.map((movie) =>
-                        <Card item={movie} />
+                <div className=" w-[70%] flex justify-center flex-wrap">
+                    {movies.map((movie) => 
+                        <Card item={movie}/>
                     )}
                 </div>
                 <div className="px-5">
