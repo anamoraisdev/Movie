@@ -8,8 +8,8 @@ import Navbar from './components/navbar.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Navbar/>
     <Provider store={store}>
+      <Navbar/>
       <Router/>
     </Provider>
  </React.StrictMode>,

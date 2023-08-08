@@ -6,7 +6,14 @@ export const searchGenres = createAsyncThunk(
   'genres/search',
   apiService.genres
 );
+export interface Genre{
+  id: number
+  name: string 
+}
 
+export interface stateGenre {
+  genres: Genre[]
+}
 const initialState = {
   genres: []
 }
