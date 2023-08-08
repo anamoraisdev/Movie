@@ -1,3 +1,5 @@
+import Filter from "./filter"
+
 const Navbar = () => {
     return (
         <div className="flex justify-start gap-[7rem] p-5">
@@ -16,9 +18,7 @@ const Navbar = () => {
                     <li>Favoritos</li>
                 </a>
             </ul>
-
-           
-    
+           <Filter/>
         </div>
     )
 }

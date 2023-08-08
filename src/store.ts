@@ -4,6 +4,7 @@ import genresReducer from './features/genres/slicer'
 import moviesReducer from './features/movies/populity/slicer'
 import nowPlaying from './features/movies/nowPlaying/slicer'
 import upcomingReducer from './features/movies/upcoming/slicer'
+import genreMoviesReducer from './features/movies/genreMovies/slicer'
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     genres: genresReducer,
     moviesPopulity: moviesReducer,
     nowPlaying: nowPlaying,
-    upcoming: upcomingReducer
+    upcoming: upcomingReducer,
+    genreMovies: genreMoviesReducer
   }
 })
 
