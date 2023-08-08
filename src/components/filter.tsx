@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { searchGenreMovies } from "../features/movies/genreMovies/slicer"
 import {Genre, searchGenres} from "../features/genres/slicer"
+import { searchMovies } from "../features/movies/renderMovies/slicer"
+
 
 const Filter = () => {
     const dispatch = useAppDispatch()
@@ -11,9 +12,9 @@ const Filter = () => {
     const filter = () => {
         const genre_id = genres.find((item) => item.name === genre)
         const id = genre_id?.id
-        dispatch(searchGenreMovies(id))
+        dispatch(searchMovies(id)) 
     }
-
+    
     useEffect(() => {
         dispatch(searchGenres())
     }, [dispatch])

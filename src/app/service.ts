@@ -83,6 +83,28 @@ const apiService = {
         } catch (error) {
             console.log(error)
         }
+    },
+
+    movies:async (genre_id: number) => {
+        if(genre_id){
+            try {
+                const response: responseReleases = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${genre_id}`, optionsRequest)
+                const data = response.data.results
+                console.log("genreMovies:", data)
+                return data
+            } catch (error) {
+                console.log(error)
+            }
+        }else{
+            try {
+                const response: responseReleases = await axios.get(`https://api.themoviedb.org/3/discover/movie`, optionsRequest)
+                const data = response.data.results
+                return data
+               
+            } catch (error) {
+                console.log(error)
+            }
+        }
     }
 }
 
