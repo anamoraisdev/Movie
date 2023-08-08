@@ -23,7 +23,7 @@ const Movies = () => {
       
             <div className="flex justify-between py-[2rem]">
                 <Menu />
-                <div className="flex flex-wrap">
+                <div className="w-[70%] inline-grid grid-cols-7 gap-2">
                     {movies.map((movie) =>
                         <Card item={movie} />
                     )}
