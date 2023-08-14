@@ -3,10 +3,11 @@ import apiService from '../../../app/service';
 
 
 
-export const searchMovies = createAsyncThunk(
+export const searchMoviesPopulity = createAsyncThunk(
   'moviesPopulity/search',
-  apiService.moviesPopulary
+  apiService.populity
 );
+
 
 export interface Movie{
   adult: boolean,
@@ -27,31 +28,40 @@ export interface Movie{
 }
 
 export interface MoviesState{
-  movies: Movie[]
+  moviesAllDay: Movie[],
+  upcoming: Movie[],
+  topRated: Movie[],
+  nowPlaying: Movie[]
 }
 
 const initialState: MoviesState = {
-  movies: []
+  moviesAllDay: [],
+  upcoming: [],
+  topRated: [],
+  nowPlaying: []
 }
 
-export const populitySlicer = createSlice({
+export const moviesPopulitySlicer = createSlice({
   name: 'moviesPopulity',
   initialState,
   reducers: {
-
+    
   },
 
   extraReducers: builder => {
     builder.addCase(
-      searchMovies.fulfilled,
+      searchMoviesPopulity.fulfilled,
       (state, { payload }) => {
-        state.movies = payload
+        state.moviesAllDay = payload?.moviesAllDay,
+        state.nowPlaying = payload?.nowPlaying,
+        state.upcoming = payload?.upcoming,
+        state.topRated = payload?.topRated
       }
     )
   }
 })
 
 
-export const { } = populitySlicer.actions
+export const {} = moviesPopulitySlicer.actions
 
-export default populitySlicer.reducer
+export default moviesPopulitySlicer.reducer
