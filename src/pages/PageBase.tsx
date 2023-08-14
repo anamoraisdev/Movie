@@ -1,17 +1,16 @@
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
-import Menu from "../components/menu"
-import ScrollCard from "../components/scrollCard"
-import UpcomingList from "../components/upcomingList"
-import Carrosel from "../components/carrosel"
 import { searchMoviesPopulity } from "../features/movies/populity/slicer"
 import { searchMovies } from "../features/movies/renderMovies/slicer"
 import { searchGenres } from "../features/genres/slicer"
+import { Outlet } from "react-router-dom"
+import Menu from "../components/menu"
+import UpcomingList from "../components/upcomingList"
 
 
-const Home = () => {
+const PageBase = () => {
     const dispatch = useAppDispatch()
-    const moviesPopulity = useAppSelector(state => state.moviesPopulity)
+    const upcoming = useAppSelector(state => state.moviesPopulity.upcoming)
 
     useEffect(() => {
         dispatch(searchGenres())
@@ -24,15 +23,14 @@ const Home = () => {
             <div className="flex justify-between py-[2rem]">
                 <Menu />
                 <div className="w-[70%]">
-                    <Carrosel items={moviesPopulity.nowPlaying}/>
-                    <ScrollCard title={"Tendencias do dia"} itens={moviesPopulity.moviesAllDay} />
+                    <Outlet />
                 </div>
-                <div className="px-5">
-                    <UpcomingList title={"upcoming movies"} itens={moviesPopulity.upcoming} />
+                <div className="p-2">
+                    <UpcomingList itens={upcoming} title={"upcoming Movies"} />
                 </div>
             </div>
         </main>
     )
 }
 
-export default Home
+export default PageBase
