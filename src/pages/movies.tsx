@@ -7,7 +7,6 @@ import { searchMoviesPopulity } from "../features/movies/populity/slicer.ts"
 
 const Movies = () => {
     const dispatch = useAppDispatch()
-    const upcoming = useAppSelector(state => state.moviesPopulity.upcoming)
     const movies = useAppSelector(state => state.movies.movies)
 
 
@@ -19,12 +18,9 @@ const Movies = () => {
 
     return (
         <>
-
             {movies.map((movie) =>
                 <Card item={movie} />
             )}
-
-
         </>
 
 

@@ -8,9 +8,10 @@ import Menu from "../components/menu"
 import UpcomingList from "../components/upcomingList"
 
 
-const Home = () => {
+const PageBase = () => {
     const dispatch = useAppDispatch()
     const upcoming = useAppSelector(state => state.moviesPopulity.upcoming)
+
     useEffect(() => {
         dispatch(searchGenres())
         dispatch(searchMoviesPopulity())
@@ -32,4 +33,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default PageBase

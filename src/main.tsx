@@ -5,7 +5,6 @@ import { Provider } from 'react-redux'
 import { store } from './store.ts'
 import Router from './app/router.tsx'
 import Navbar from './components/navbar.tsx'
-import PageBase from './pages/pageBase.tsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
