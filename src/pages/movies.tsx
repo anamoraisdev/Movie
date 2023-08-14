@@ -1,21 +1,21 @@
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { searchUpcoming } from "../features/movies/upcoming/slicer"
 import UpcomingList from "../components/upcomingList"
 import Menu from "../components/menu.tsx"
 import Card from "../components/card.tsx"
 import { searchMovies } from "../features/movies/renderMovies/slicer.ts"
+import { searchMoviesPopulity } from "../features/movies/populity/slicer.ts"
 
 
 const Movies = () => {
     const dispatch = useAppDispatch()
-    const upcoming = useAppSelector(state => state.upcoming.movies)
+    const upcoming = useAppSelector(state => state.moviesPopulity.upcoming)
     const movies = useAppSelector(state => state.movies.movies)
 
 
 
     useEffect(() => {
-        dispatch(searchUpcoming())
+        dispatch(searchMoviesPopulity())
         dispatch(searchMovies())
     }, [dispatch])
 
