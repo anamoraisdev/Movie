@@ -2,6 +2,7 @@
 import '../index.css'
 
 const UpcomingList = ({title, itens}) => {
+    console.log(title)
     return (
         <div>
             <h1 className='font-bold '>{title}</h1>
