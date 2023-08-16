@@ -1,14 +1,16 @@
+
+import { PropsMovies } from "../interfaces/movie"
 import Card from "./card"
 
 
-const ScrollCard = ({itens, title}) => {
+const ScrollCard = ({itens, title}: PropsMovies) => {
    
     return (
-        <main>
+        <main className="flex flex-col gap-3">
             <h1 className="font-bold">{title}</h1>
-            <div className="flex overflow-hidden hover:overflow-x-scroll gap-2 touch-auto">
+            <div className="flex overflow-x-scroll gap-3 touch-auto py-5">
                 {itens.map((item) =>
-                   <Card item={item}/>
+                   <Card key={item.id} item={item}/>
                 )}
             </div>
         </main>

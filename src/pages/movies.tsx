@@ -1,15 +1,14 @@
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import Card from "../components/card.tsx"
-import { searchMovies } from "../features/movies/renderMovies/slicer.ts"
-import { searchMoviesPopulity } from "../features/movies/populity/slicer.ts"
+import { searchMovies } from "../redux/movies/renderMovies/slicer.ts"
+import { searchMoviesPopulity } from "../redux/movies/populity/slicer.ts"
+import { Movie } from "../interfaces/movie.ts"
 
 
 const Movies = () => {
     const dispatch = useAppDispatch()
-    const movies = useAppSelector(state => state.movies.movies)
-
-
+    const movies: Movie[] = useAppSelector(state => state.movies.movies)
 
     useEffect(() => {
         dispatch(searchMoviesPopulity())
@@ -19,7 +18,7 @@ const Movies = () => {
     return (
         <>
             {movies.map((movie) =>
-                <Card item={movie} />
+                <Card key={movie.id} item={movie} />
             )}
         </>
 

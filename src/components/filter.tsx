@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
-import {Genre, searchGenres} from "../features/genres/slicer"
-import { searchMovies } from "../features/movies/renderMovies/slicer"
+import {searchGenres} from "../redux/genres/slicer"
+import { searchMovies } from "../redux/movies/renderMovies/slicer"
+import { Genre } from "../interfaces/genre"
 
 
 const Filter = () => {
