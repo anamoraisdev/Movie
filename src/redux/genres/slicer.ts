@@ -1,15 +1,12 @@
 import { createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 import apiService from '../../app/service';
+import { Genre } from '../../interfaces/genre';
 
 
 export const searchGenres = createAsyncThunk(
   'genres/search',
   apiService.genres
 );
-export interface Genre{
-  id: number
-  name: string 
-}
 
 export interface stateGenre {
   genres: Genre[]

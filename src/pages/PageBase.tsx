@@ -1,16 +1,17 @@
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { searchMoviesPopulity } from "../features/movies/populity/slicer"
-import { searchMovies } from "../features/movies/renderMovies/slicer"
-import { searchGenres } from "../features/genres/slicer"
+import { searchMoviesPopulity } from "../redux/movies/populity/slicer"
+import { searchMovies } from "../redux/movies/renderMovies/slicer"
+import { searchGenres } from "../redux/genres/slicer"
 import { Outlet } from "react-router-dom"
 import Menu from "../components/menu"
 import UpcomingList from "../components/upcomingList"
+import { Movie } from "../interfaces/movie"
 
 
 const PageBase = () => {
     const dispatch = useAppDispatch()
-    const upcoming = useAppSelector(state => state.moviesPopulity.upcoming)
+    const upcoming: Movie[] = useAppSelector(state => state.moviesPopulity.upcoming)
 
     useEffect(() => {
         dispatch(searchGenres())
@@ -22,12 +23,10 @@ const PageBase = () => {
         <main>
             <div className="flex justify-between py-[2rem]">
                 <Menu />
-                <div className="w-[70%]">
+                <div className="w-[70%] flex flex-col justify-start">
                     <Outlet />
                 </div>
-                <div className="p-2">
-                    <UpcomingList itens={upcoming} title={"upcoming Movies"} />
-                </div>
+                <UpcomingList itens={upcoming} title={"upcoming Movies"} />
             </div>
         </main>
     )

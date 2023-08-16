@@ -1,6 +1,6 @@
 const Menu = () => {
     return(
-        <div className="px-[4rem]">
+        <div className="px-[3rem]">
             <p>MENU</p>
             <br></br>
             <ul>

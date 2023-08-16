@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import genresReducer from './features/genres/slicer'
-import populityReducer from './features/movies/populity/slicer'
-import moviesReducer from './features/movies/renderMovies/slicer'
+import genresReducer from './redux/genres/slicer'
+import populityReducer from './redux/movies/populity/slicer'
+import moviesReducer from './redux/movies/renderMovies/slicer'
 
 export const store = configureStore({
   reducer: {
