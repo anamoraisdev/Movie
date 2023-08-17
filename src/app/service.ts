@@ -27,10 +27,13 @@ const apiService = {
         try {
             const responseAllDay: ResponseMovies = await axios.get("https://api.themoviedb.org/3/trending/all/day", optionsRequest)
             const allDay = responseAllDay?.data?.results;
+
             const responseTopRated: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/movie/top_rated `, optionsRequest)
             const topRated = responseTopRated.data.results
+
             const responseNowPlaying: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/movie/now_playing`, optionsRequest)
             const nowPlaying = responseNowPlaying.data.results
+
             const responseUpcoming: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/movie/upcoming`, optionsRequest)
             const upcoming = responseUpcoming.data.results
 
@@ -42,7 +45,7 @@ const apiService = {
             }
 
             return moviesPopulity
-            
+
         } catch (error) {
             console.log(error)
         }
@@ -77,6 +80,20 @@ const apiService = {
             } catch (error) {
                 console.log(error)
             }
+        }
+    },
+
+    seriesPopulity:async () => {
+       
+        try {
+            const response: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/tv/popular`, optionsRequest)
+            const data = response.data.results
+            return {
+                allDay: data
+            }
+
+        } catch (error) {
+            console.log(error)
         }
     }
 

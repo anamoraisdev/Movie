@@ -1,3 +1,5 @@
+import { Serie } from "./serie"
+
 export interface Movie {
     adult: boolean,
     backdrop_path: string,
@@ -17,9 +19,9 @@ export interface Movie {
 }
 
 export interface PropsMovie {
-    item: Movie
+    item: Movie | Serie
 }
 export interface PropsMovies{
-    itens: Movie[]
+    itens: Movie[] | Serie[],
     title: string
 }

@@ -1,5 +1,5 @@
 :root {
-  background-color: #172928;
+  background-color: #000913f3;
   color: bisque
 }
 
@@ -14,7 +14,7 @@
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: #001E0E;
+  background-color: #000913f3;
 }
 
 @tailwind base;

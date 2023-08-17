@@ -7,6 +7,7 @@ import { Outlet } from "react-router-dom"
 import Menu from "../components/menu"
 import UpcomingList from "../components/upcomingList"
 import { Movie } from "../interfaces/movie"
+import { searchSeriesPopulity } from "../redux/series/slicer"
 
 
 const PageBase = () => {
@@ -17,6 +18,7 @@ const PageBase = () => {
         dispatch(searchGenres())
         dispatch(searchMoviesPopulity())
         dispatch(searchMovies())
+        dispatch(searchSeriesPopulity())
     }, [dispatch])
 
     return (
