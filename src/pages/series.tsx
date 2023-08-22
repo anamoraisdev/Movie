@@ -1,15 +1,17 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { searchSeriesPopulity } from "../redux/series/slicer";
+
+import { useAppSelector } from "../app/hooks";
+import Carrosel from "../components/carrosel";
+
 import ScrollCard from "../components/scrollCard";
 
 const Series = () => {
-    const seriesAllDay = useAppSelector(state => state.seriesPopulity.AllDay)
+    const seriesPopulity = useAppSelector(state => state.seriesPopulity)
     
     return (
         <div>
-            <ScrollCard itens={seriesAllDay} title="Series populity today"/>
-
+            <Carrosel itens={seriesPopulity.nowPlaying} title="now playing"/>
+            <ScrollCard itens={seriesPopulity.AllDay} title="Series populity today"/>
+            <ScrollCard itens={seriesPopulity.topRated} title="Top rated"/>
         </div>
     )
 }

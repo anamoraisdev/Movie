@@ -15,7 +15,7 @@ const CardCarrosel = ({ item }: PropsMovie) => {
                 </div>
                 <div className="absolute flex gap-10 top-[10%] left-[8%]">
                     <img className=" w-44 rounded-xl shadow-xl" src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} />
-                    <DescriptionBanner item={item}/>
+                    <DescriptionBanner key={item.id} item={item}/>
                 </div>
                 
             </div>

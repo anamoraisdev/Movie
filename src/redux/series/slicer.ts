@@ -10,12 +10,14 @@ export const searchSeriesPopulity = createAsyncThunk(
 export interface seriesPopulityState {
   AllDay: Serie[],
   topRated: Serie[],
+  populity: Serie[],
   nowPlaying: Serie[]
 }
 
 const initialState: seriesPopulityState = {
   AllDay: [],
   topRated: [],
+  populity: [],
   nowPlaying: []
 }
 
@@ -31,6 +33,8 @@ export const seriesPopulitySlicer = createSlice({
       searchSeriesPopulity.fulfilled,
       (state, { payload }) => {
         state.AllDay = payload?.allDay
+        state.nowPlaying = payload?.nowPlaying
+        state.topRated = payload?.topRated
       }
     )
   }

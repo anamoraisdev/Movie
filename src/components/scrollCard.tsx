@@ -6,7 +6,7 @@ import Card from "./card"
 
 const ScrollCard = ({ itens, title }: PropsMovies) => {
 
-    const refCarossel: React.MutableRefObject<null> = useRef(null)
+    const refCarossel= useRef(null)
 
     const previusImage = () => {
         refCarossel.current.scrollLeft -= 400
@@ -16,17 +16,19 @@ const ScrollCard = ({ itens, title }: PropsMovies) => {
         refCarossel.current.scrollLeft += 400
     }
 
+    useEffect(() => {
+        let move = 400
+        setTimeout(() => {
+            if (move >= 2100) {
+                refCarossel.current.scrollLeft -= move
+                move = 400
+            } else {
+                refCarossel.current.scrollLeft += move
+                move = 300
+            }
 
-
-    setTimeout(() => {
-        if (refCarossel.current.scrollLeft >= 2100) {
-            refCarossel.current.scrollLeft -= 400
-        } else {
-            refCarossel.current.scrollLeft += 400
-        }
-
-    }, 1000);
-
+        }, 1000);
+    }, [])
 
 
     return (

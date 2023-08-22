@@ -83,13 +83,24 @@ const apiService = {
         }
     },
 
-    seriesPopulity:async () => {
-       
+    seriesPopulity: async () => {
+
         try {
             const response: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/tv/popular`, optionsRequest)
-            const data = response.data.results
+            const allDay = response.data.results
+           
+            const responseNowPlaying: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/tv/airing_today`, optionsRequest)
+            const nowPlaying = responseNowPlaying.data.results
+
+            const responseTopRated: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/tv/top_rated`, optionsRequest)
+            const topRated = responseTopRated.data.results
+
             return {
-                allDay: data
+                allDay: allDay,
+    
+                nowPlaying: nowPlaying,
+                topRated: topRated
+
             }
 
         } catch (error) {

@@ -14,6 +14,7 @@ const Carrosel = ({ itens, title }: PropsMovies) => {
     const nextImage = () => {
         refCarossel.current.scrollLeft += 400
     }
+
     useEffect(() => {
         let move = 400
         setTimeout(() => {
