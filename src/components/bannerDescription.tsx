@@ -1,17 +1,17 @@
-import axios, { AxiosResponse } from "axios"
+import axios from "axios"
 import { useEffect, useState } from "react"
-import { optionsRequest } from "../app/service"
-import { Movie, PropsMovie } from "../interfaces/movie"
+import { ResponseMovieDetails,optionsRequest } from "../app/service"
+import {MoviesDetails, PropsMovie } from "../interfaces/movie"
 
 const DescriptionBanner = ({item}: PropsMovie) => {
-    const [movie, setMovie] = useState<Movie>()
+    const [movie, setMovie] = useState<MoviesDetails>()
     const description: string = item?.overview.substring(0, 100)
 
     const getDetailsMovie = async () => {
         if (item.id !== null) {
             try {
-                const response = await axios.get(`https://api.themoviedb.org/3/movie/${item?.id}`, optionsRequest)
-                const data = response?.data
+                const response: ResponseMovieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${item?.id}`, optionsRequest)
+                const data = response.data
                 setMovie(data)
             } catch (error) {
                 console.log(error)
@@ -25,13 +25,14 @@ const DescriptionBanner = ({item}: PropsMovie) => {
 
     }, [])
 
+   
     return (
 
         <div className="flex flex-col w-[50%]">
             <h1 className="font-bold">{item?.title || item?.original_title}</h1>
             <div className="flex gap-2">
                 <p>{item?.release_date} | </p>
-                <p>{item?.media_type} | </p>
+              
                 <p>{movie?.runtime} min</p>
             </div>
 

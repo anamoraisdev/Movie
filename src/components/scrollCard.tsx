@@ -6,7 +6,7 @@ import Card from "./card"
 
 const ScrollCard = ({ itens, title }: PropsMovies) => {
 
-    const refCarossel= useRef(null)
+    const refCarossel = useRef(null)
 
     const previusImage = () => {
         refCarossel.current.scrollLeft -= 400
@@ -32,15 +32,17 @@ const ScrollCard = ({ itens, title }: PropsMovies) => {
 
 
     return (
-        <main className="relative flex flex-col gap-3">
 
+        <main className="relative flex flex-col gap-3">
             <h1 className="font-bold">{title}</h1>
-            <button className="absolute top-[13%] left-0 h-[77%] w-20 bg-gradient-to-r from-black " onClick={previusImage}>{"<"}</button>
-            <button className="absolute top-[13%] right-0 h-[77%]  w-20 bg-gradient-to-l from-black " onClick={nextImage}>{">"}</button>
-            <div className="flex scroll-smooth overflow-hidden gap-3 touch-auto py-5" ref={refCarossel}>
-                {itens.map((item) =>
-                    <Card key={item.id} item={item} />
-                )}
+            <div className="flex items-center">
+                <button className="h-[17rem] w-20 bg-gradient-to-r from-black " onClick={previusImage}>{"<"}</button>
+                <div className="flex scroll-smooth overflow-hidden gap-3 touch-auto py-5" ref={refCarossel}>
+                    {itens.map((item) =>
+                        <Card key={item.id} item={item} />
+                    )}
+                </div>
+                <button className="h-[17rem] w-20 bg-gradient-to-l from-black " onClick={nextImage}>{">"}</button>
             </div>
 
         </main>

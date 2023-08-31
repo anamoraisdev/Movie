@@ -10,11 +10,11 @@ export const searchMovies = createAsyncThunk(
 );
 
 export interface MoviesState{
-  movies: Movie[]
+  movies: Movie[] | null
 }
 
 const initialState: MoviesState = {
-  movies: [],
+  movies: null,
 }
 
 export const moviesSlicer = createSlice({

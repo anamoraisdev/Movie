@@ -1,4 +1,6 @@
 import axios from "axios";
+import { Details } from "../interfaces/serie";
+import { MoviesDetails } from "../interfaces/movie";
 
 export const optionsRequest = {
     method: 'GET',
@@ -21,8 +23,21 @@ export interface responseGenres {
     }
 }
 
+export interface PropsFilter {
+    name?: string,
+    id?: number,
+    type: string
+}
+
+export interface ResponseMovieDetails {
+    data: MoviesDetails
+}
+export interface ResponseDetails {
+    data: Details 
+}
+
 const apiService = {
-    //em destaque hoje
+
     populity: async () => {
         try {
             const responseAllDay: ResponseMovies = await axios.get("https://api.themoviedb.org/3/trending/all/day", optionsRequest)
@@ -61,25 +76,29 @@ const apiService = {
         }
     },
 
-    movies: async (genre_id: number) => {
-        if (genre_id) {
+    movies: async ({ name, id, type }: PropsFilter) => {
+        if (type === "filter") {
             try {
-                const response: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${genre_id}`, optionsRequest)
+                const response: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${id}`, optionsRequest)
                 const data = response.data.results
-                console.log("genreMovies:", data)
-                return data
-            } catch (error) {
-                console.log(error)
-            }
-        } else {
-            try {
-                const response: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/discover/movie`, optionsRequest)
-                const data = response.data.results
+
                 return data
 
             } catch (error) {
                 console.log(error)
             }
+        } else if (type === "search") {
+            try {
+                const response: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${name}&language=pt-BR`, optionsRequest)
+                const data = response.data.results
+
+                return data
+
+            } catch (error) {
+                console.log(error)
+            }
+        }else {
+            return null
         }
     },
 
@@ -88,7 +107,7 @@ const apiService = {
         try {
             const response: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/tv/popular`, optionsRequest)
             const allDay = response.data.results
-           
+
             const responseNowPlaying: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/tv/airing_today`, optionsRequest)
             const nowPlaying = responseNowPlaying.data.results
 
@@ -97,12 +116,22 @@ const apiService = {
 
             return {
                 allDay: allDay,
-    
+
                 nowPlaying: nowPlaying,
                 topRated: topRated
 
             }
 
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
+    person: async () => {
+        try {
+            const response: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/person/popular`, optionsRequest)
+            const data = response?.data?.results;
+            return data
         } catch (error) {
             console.log(error)
         }

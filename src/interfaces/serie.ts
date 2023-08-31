@@ -1,6 +1,6 @@
 export interface Serie {
     backdrop_path: string,
-    first_air_date : number,
+    first_air_date: number,
     genre_ids: object[]
     id: number,
     name: string,
@@ -9,7 +9,13 @@ export interface Serie {
     original_name: string,
     overview: string,
     popularity: number,
-    poster_path:string,
+    poster_path: string,
     vote_average: number,
     vote_count: number
+}
+
+
+export interface SerieDetails {
+    name: string,
+    original_name: string,
 }
