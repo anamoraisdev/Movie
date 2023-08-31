@@ -1,28 +1,28 @@
-import { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "../app/hooks"
-import Card from "../components/card.tsx"
-import { searchMovies } from "../redux/movies/renderMovies/slicer.ts"
-import { searchMoviesPopulity } from "../redux/movies/populity/slicer.ts"
-import { Movie } from "../interfaces/movie.ts"
+import { useAppSelector } from "../app/hooks"
+import ScrollCard from "../components/scrollCard.tsx"
+import Carrosel from "../components/carrosel.tsx"
+import { useParams } from "react-router-dom"
 
+import Item from "./Item.tsx"
 
 const Movies = () => {
-    const dispatch = useAppDispatch()
-    const movies: Movie[] = useAppSelector(state => state.movies.movies)
-
-    useEffect(() => {
-        dispatch(searchMoviesPopulity())
-        dispatch(searchMovies())
-    }, [dispatch])
+    const { id } = useParams()
+    const moviesPopulity = useAppSelector(state => state.moviesPopulity)
 
     return (
         <>
-            {movies.map((movie) =>
-                <Card key={movie.id} item={movie} />
-            )}
+            {id ?
+                <div>
+                    <Item/>
+                </div>
+                :
+                <div className="flex flex-col">
+                    <Carrosel itens={moviesPopulity.moviesAllDay} title="Populity all day" />
+                    <ScrollCard itens={moviesPopulity.topRated} title="Top rated" />
+                    <ScrollCard itens={moviesPopulity.nowPlaying} title="Now playing" />
+                </div>
+            }
         </>
-
-
     )
 }
 export default Movies

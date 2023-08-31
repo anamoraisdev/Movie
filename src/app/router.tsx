@@ -1,7 +1,11 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes} from "react-router-dom"
 import Movies from "../pages/movies"
-import MoviesPopulity from "../pages/moviesPopulity"
 import PageBase from "../pages/PageBase"
+import Series from "../pages/series"
+import Home from "../pages/Home"
+import Person from "../pages/person"
+
+
 
 function Router() {
 
@@ -9,8 +13,10 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route path='/'element={<PageBase/>}>
-          <Route path='/moviesPopulity' element={<MoviesPopulity/>}/>
-          <Route path='/movies' element={<Movies />}/>
+          <Route path='/home' element={<Home/>}/>
+          <Route path='movies/:id?' element={<Movies />}/>
+          <Route path="series/:id?" element={<Series/>}/>
+          <Route path="/person" element={<Person/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
