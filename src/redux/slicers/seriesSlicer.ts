@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import apiService from '../../app/service';
+import apiService from '../service';
 import { Serie } from '../../interfaces/serie';
 
 export const searchSeriesPopulity = createAsyncThunk(
@@ -24,10 +24,7 @@ const initialState: seriesPopulityState = {
 export const seriesPopulitySlicer = createSlice({
   name: 'seriesPopulity',
   initialState,
-  reducers: {
-
-  },
-
+  reducers: {},
   extraReducers: builder => {
     builder.addCase(
       searchSeriesPopulity.fulfilled,

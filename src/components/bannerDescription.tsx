@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { ResponseMovieDetails,optionsRequest } from "../app/service"
+import { ResponseMovieDetails,optionsRequest } from "../redux/service"
 import {MoviesDetails, PropsMovie } from "../interfaces/movie"
 
 const DescriptionBanner = ({item}: PropsMovie) => {

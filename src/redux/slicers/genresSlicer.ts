@@ -1,19 +1,13 @@
 import { createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import apiService from '../../app/service';
+import apiService from '../service';
 import { Genre } from '../../interfaces/genre';
 
+const initialState: Genre[] = []
 
 export const searchGenres = createAsyncThunk(
   'genres/search',
   apiService.genres
 );
-
-export interface stateGenre {
-  genres: Genre[]
-}
-const initialState = {
-  genres: []
-}
 
 export const genresSlicer = createSlice({
   name: 'genres',
@@ -23,8 +17,9 @@ export const genresSlicer = createSlice({
   extraReducers: builder => {
     builder.addCase(
       searchGenres.fulfilled,
-      (state, {payload}) => {
-        state.genres = payload
+      (state, action) => {
+        state = action.payload
+        return state
       }
     )
   }

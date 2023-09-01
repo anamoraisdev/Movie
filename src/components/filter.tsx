@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { searchGenres } from "../redux/genres/slicer"
-import { searchMovies } from "../redux/movies/renderMovies/slicer"
+import { useAppDispatch, useAppSelector } from "../redux/hooks"
+import { searchGenres } from "../redux/slicers/genresSlicer"
+import { searchMovies } from "../redux/slicers/searchMoviesSlicer"
 import { Genre } from "../interfaces/genre"
-import { PropsFilter } from "../app/service"
+import { PropsFilter } from "../redux/service"
 
 
 
@@ -11,7 +11,7 @@ const Filter = () => {
     const dispatch = useAppDispatch()
     const [genre, setGenre] = useState()
     const [name, setName] = useState<string>("")
-    const genres: Genre[] = useAppSelector(state => state.genres.genres)
+    const genres: Genre[] = useAppSelector(state => state.genres)
 
     const filterMovies = () => {
       const id = formatGenre();
@@ -37,10 +37,6 @@ const Filter = () => {
     }
 
     useEffect(() => {
-        dispatch(searchGenres())
-    }, [dispatch])
-
-    useEffect(() => {
         searchMoviesForName()
     },[name])
 
@@ -63,7 +59,7 @@ const Filter = () => {
             <div className="flex gap-2">
                 <input className="rounded-md px-4" placeholder="digite o nome" value={name} onChange={(event) => setName(event.target.value)}></input>
                 <select className="px-8 rounded text-gray-700" value={genre} onChange={(event) => setGenre(event.target.value)}>
-                    {genres.map((gender) =>
+                    {genres?.map((gender) =>
                         <option key={gender.id}>{gender.name}</option>
                     )}
                 </select>

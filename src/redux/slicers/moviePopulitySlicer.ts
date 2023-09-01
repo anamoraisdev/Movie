@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import apiService from '../../../app/service';
-import { Movie } from '../../../interfaces/movie';
+import apiService from '../service';
+import { Movie } from '../../interfaces/movie';
 
 
 

@@ -17,5 +17,13 @@ export interface Serie {
 
 export interface SerieDetails {
     name: string,
+    backdrop_path: string,
+    genres:object[],
+    homepage: string,
+    id: number,
     original_name: string,
+    overview: string,
+    popularity: number,
+    poster_path: string,
+    production_companies: object[]
 }

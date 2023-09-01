@@ -1,20 +1,20 @@
 import { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { searchMoviesPopulity } from "../redux/movies/populity/slicer"
-import { searchGenres } from "../redux/genres/slicer"
+import { useAppDispatch, useAppSelector } from "../redux/hooks"
+import { searchMoviesPopulity } from "../redux/slicers/moviePopulitySlicer"
+import { searchGenres } from "../redux/slicers/genresSlicer"
 import { Outlet } from "react-router-dom"
 import Menu from "../components/menu"
 import UpcomingList from "../components/upcomingList"
 import { Movie } from "../interfaces/movie"
-import { searchSeriesPopulity } from "../redux/series/slicer"
-import { searchPerson } from "../redux/person/slicer"
+import { searchSeriesPopulity } from "../redux/slicers/seriesSlicer"
+import { searchPerson } from "../redux/slicers/personSlicer"
 import Card from "../components/card"
 
 
 const PageBase = () => {
     const dispatch = useAppDispatch()
     const upcoming: Movie[] = useAppSelector(state => state.moviesPopulity.upcoming)
-    const movies: Movie[] | null = useAppSelector(state => state.movies.movies)
+    const movies: Movie[]| null = useAppSelector(state => state.movies.movies)
 
     useEffect(() => {
         dispatch(searchGenres())
