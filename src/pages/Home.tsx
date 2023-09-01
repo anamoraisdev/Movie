@@ -1,9 +1,9 @@
 
-import { useAppSelector } from "../app/hooks";
+import { useAppSelector } from "../redux/hooks";
 import Carrosel from "../components/carrosel";
 import ScrollCard from "../components/scrollCard";
-import { MoviesPopulityState, } from "../redux/movies/populity/slicer";
-import { seriesPopulityState } from "../redux/series/slicer";
+import { MoviesPopulityState, } from "../redux/slicers/moviePopulitySlicer";
+import { seriesPopulityState } from "../redux/slicers/seriesSlicer";
 
 const Home = () => {
   const moviesPopulity: MoviesPopulityState = useAppSelector(state => state.moviesPopulity)

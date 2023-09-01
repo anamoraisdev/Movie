@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import genresReducer from './redux/genres/slicer'
-import populityReducer from './redux/movies/populity/slicer'
-import moviesReducer from './redux/movies/renderMovies/slicer'
-import seriesPopulityReducer from "./redux/series/slicer"
-import personReducer from "./redux/person/slicer"
+import genresReducer from './redux/slicers/genresSlicer'
+import populityReducer from './redux/slicers/moviePopulitySlicer'
+import moviesReducer from './redux/slicers/searchMoviesSlicer'
+import seriesPopulityReducer from "./redux/slicers/seriesSlicer"
+import personReducer from "./redux/slicers/personSlicer"
+import favoritesReducer from "./redux/slicers/favorite"
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     moviesPopulity: populityReducer,
     movies: moviesReducer,
     seriesPopulity: seriesPopulityReducer,
-    person: personReducer
+    person: personReducer,
+    favorites: favoritesReducer
   }
 })
 

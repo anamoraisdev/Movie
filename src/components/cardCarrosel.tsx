@@ -7,6 +7,7 @@ import DescriptionBanner from "./bannerDescription"
 
 const CardCarrosel = ({ item }: PropsMovie) => {
     return (
+        <a href={item.release_date ? `movies/${`m${item.id}`}` : `series/${`s${item.id}`}`}>
         <div className="relative hover:scale-[102%]">
             <div className="w-[600px]">
                 <img className=" opacity-40 rounded-3xl w-full" src={`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`} />
@@ -17,6 +18,8 @@ const CardCarrosel = ({ item }: PropsMovie) => {
             </div>
 
         </div>
+
+        </a>
     )
 }
 

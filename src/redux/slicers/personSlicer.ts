@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import apiService from "../../app/service";
+import apiService from "../service";
 
 export const searchPerson = createAsyncThunk(
     'person/search',
