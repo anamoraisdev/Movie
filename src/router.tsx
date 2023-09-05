@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes} from "react-router-dom"
-import Movies from "../pages/movies"
-import PageBase from "../pages/PageBase"
-import Series from "../pages/series"
-import Home from "../pages/Home"
-import Person from "../pages/person"
-import Favorites from "../pages/Favorite"
+import Movies from "./pages/movies"
+import PageBase from "./pages/PageBase"
+import Series from "./pages/series"
+import Home from "./pages/Home"
+import Person from "./pages/person"
+import Favorites from "./pages/Favorite"
 
 
 

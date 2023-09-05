@@ -1,22 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { Movie } from '../../interfaces/movie'
 
-const initialState : Movie[] = []
+
 
 export const favoritesSlicer = createSlice({
     name: 'favorites',
-    initialState,
+    initialState: [],
     reducers: {
-        addListFavorite: (state, {payload}) => {
-            state.push(payload)
+        addListFavorite: (state, action) => {
+            state.push(action.payload)
             return state
+
         },
 
-        deleteFavorite: (state, action) => {
-            state.filter((item) => item?.id !== action.payload)
-            return state
-        }
-     
+        deleteFavorite: (state, {payload}) => {
+            const result = state.filter((item) => item.id !== payload)
+            return result
+        } 
     },
 
 })

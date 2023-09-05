@@ -2,7 +2,8 @@ import { useAppSelector } from "../redux/hooks";
 import CardPerson from "../components/cardPerson";
 
 const Person = () => {
-    const persons = useAppSelector(state => state.person.person)
+    const persons = useAppSelector(state => state.person)
+    
     return (
         <div>
             <h1 className="font-bold mb-8">Populity Person</h1>

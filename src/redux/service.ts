@@ -1,6 +1,8 @@
 import axios from "axios";
-import { Details } from "../interfaces/serie";
-import { MoviesDetails } from "../interfaces/movie";
+import { Details, Serie } from "../interfaces/serie";
+import { Movie, MoviesDetails } from "../interfaces/movie";
+import { Person } from "../interfaces/person";
+import { Genre } from "../interfaces/genre";
 
 export const optionsRequest = {
     method: 'GET',
@@ -13,22 +15,31 @@ export const optionsRequest = {
 export interface ResponseMovies {
     data: {
         page: number
-        results: object[]
+        results: Movie[]
     }
 }
-
-export interface responseGenres {
+export interface ResponseSeries {
     data: {
-        genres: object[]
+        page: number
+        results: Serie[]
     }
 }
-
+export interface ResponsePerson{
+    data: {
+        page: number
+        results: Person[]
+    }
+}
+export interface ResponseGenres {
+    data: {
+        genres: Genre[]
+    }
+}
 export interface PropsFilter {
     name?: string,
     id?: number,
     type: string
 }
-
 export interface ResponseMovieDetails {
     data: MoviesDetails
 }
@@ -36,9 +47,16 @@ export interface ResponseDetails {
     data: Details 
 }
 
+export interface ResponseSearch{
+    data: {
+        page: number
+        results: Movie[] | Serie[]
+    }
+}
+
 const apiService = {
 
-    populity: async () => {
+    moviesPopulity: async () => {
         try {
             const responseAllDay: ResponseMovies = await axios.get("https://api.themoviedb.org/3/trending/all/day", optionsRequest)
             const allDay = responseAllDay?.data?.results;
@@ -51,7 +69,7 @@ const apiService = {
 
             const responseUpcoming: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/movie/upcoming`, optionsRequest)
             const upcoming = responseUpcoming.data.results
-
+            
             const moviesPopulity = {
                 moviesAllDay: allDay,
                 upcoming: upcoming,
@@ -68,7 +86,7 @@ const apiService = {
 
     genres: async () => {
         try {
-            const response: responseGenres = await axios.get(`https://api.themoviedb.org/3/genre/movie/list`, optionsRequest)
+            const response: ResponseGenres = await axios.get(`https://api.themoviedb.org/3/genre/movie/list`, optionsRequest)
             const data = response?.data?.genres;
             return data
         } catch (error) {
@@ -79,9 +97,8 @@ const apiService = {
     movies: async ({ name, id, type }: PropsFilter) => {
         if (type === "filter") {
             try {
-                const response: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${id}`, optionsRequest)
+                const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${id}`, optionsRequest)
                 const data = response.data.results
-
                 return data
 
             } catch (error) {
@@ -89,9 +106,8 @@ const apiService = {
             }
         } else if (type === "search") {
             try {
-                const response: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${name}&language=pt-BR`, optionsRequest)
+                const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${name}&language=pt-BR`, optionsRequest)
                 const data = response.data.results
-
                 return data
 
             } catch (error) {
@@ -105,21 +121,19 @@ const apiService = {
     seriesPopulity: async () => {
 
         try {
-            const response: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/tv/popular`, optionsRequest)
+            const response: ResponseSeries = await axios.get(`https://api.themoviedb.org/3/tv/popular`, optionsRequest)
             const allDay = response.data.results
 
-            const responseNowPlaying: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/tv/airing_today`, optionsRequest)
+            const responseNowPlaying: ResponseSeries = await axios.get(`https://api.themoviedb.org/3/tv/airing_today`, optionsRequest)
             const nowPlaying = responseNowPlaying.data.results
 
-            const responseTopRated: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/tv/top_rated`, optionsRequest)
+            const responseTopRated: ResponseSeries = await axios.get(`https://api.themoviedb.org/3/tv/top_rated`, optionsRequest)
             const topRated = responseTopRated.data.results
 
             return {
                 allDay: allDay,
-
                 nowPlaying: nowPlaying,
                 topRated: topRated
-
             }
 
         } catch (error) {
@@ -129,7 +143,7 @@ const apiService = {
 
     person: async () => {
         try {
-            const response: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/person/popular`, optionsRequest)
+            const response: ResponsePerson = await axios.get(`https://api.themoviedb.org/3/person/popular`, optionsRequest)
             const data = response?.data?.results;
             return data
         } catch (error) {

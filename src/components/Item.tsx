@@ -75,40 +75,38 @@ const Item = () => {
         <>
             {item &&
 
-                <div className="flex gap-10 border border-red-500">
+                <div className="flex gap-10 mt-8">
+
+
                     <div className="flex flex-col gap-4 ">
                         <img className="rounded-2xl" src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} />
                         <div className="flex gap-3 justify-center flex-wrap">
-                                {item?.genres.map((gender) => <button className="border border-white rounded-lg p-2 hover:bg-white hover:text-slate-900">{gender.name}</button>)}
+                            {item?.genres.map((gender) => <button className="border border-white rounded-lg p-2 hover:bg-white hover:text-slate-900">{gender.name}</button>)}
                         </div>
                     </div>
+
+
                     <div className="w-[60%] flex flex-col gap-4">
-                        <div>
+                        <header>
                             <div className="flex justify-between items-center gap-6">
                                 <h1 className="font-bold text-2xl">{tag === "s" ? item?.name : item?.title}</h1>
                                 <p className="text-center rounded-2xl bg-slate-700 py-1 px-3 text-sm">{item.status}</p>
                             </div>
-                            <p className="text-gray-500">#{item?.tagline}</p>
-                        </div>
+                            {item.tagline !== "" &&
+                                <p className="text-gray-500">#{item?.tagline}</p>
+                            }
 
-                        <div className="flex flex-col gap-2">
-                            <div className="flex gap-2">
-                                <p>{item?.release_date} |</p>
-                                <p>{tag === "m" ? "movie" : "serie"} |</p>
-                                <p>{item?.runtime}m</p>
-                            </div>
-        
-                            <p>{item?.overview}</p>
-                        </div>
-                            <h3 className="text-medium font-bold">Statistic <span className="text-slate-500">#{item.title}</span></h3>
-                        <div>
-                            <p>buget: {item.budget}</p>
-                            <p>revenue: {item.revenue}</p>
-                            <p>vote average: {item.vote_average}</p>
-                            <p>vote count:  {item.vote_count}</p>
-                            <p>populity:  {item.popularity}</p>
-                          
-                        </div>
+                            {tag === "m" &&
+                                <div className="flex gap-2">
+                                    <p>{item?.release_date} |</p>
+                                    <p>{tag === "m" ? "Movie" : "Serie"} |</p>
+                                    <p>{item?.runtime}m</p>
+                                </div>
+                            }
+                        </header>
+
+                        <p>{item?.overview}</p>
+
                         <h3 className="font-bold text-medium">Production companies</h3>
                         <div className="flex justify-start flex-wrap gap-4" >
                             {item?.production_companies.map((i) =>
@@ -118,6 +116,28 @@ const Item = () => {
                                 </div>
                             )}
                         </div>
+                        <h3 className="text-medium font-bold">Statistic <span className="text-slate-500">#{item.title}</span></h3>
+                        
+                            <table className=" w-full">
+                                <thead className="text-center rounded-lg ">
+                                    <th className="bg-slate-800  rounded-lg hover:bg-slate-900">buget</th>
+                                    <th className="bg-slate-800  rounded-lg hover:bg-slate-900">revenue</th>
+                                    <th className="bg-slate-800  rounded-lg hover:bg-slate-900">vote average</th>
+                                    <th className="bg-slate-800  rounded-lg hover:bg-slate-900">vote count</th>
+                                    <th className="bg-slate-800  rounded-lg hover:bg-slate-900">populity</th>
+                                </thead>
+                                <tbody className="text-center rounded-lg">
+                                    <td className="bg-slate-600  rounded-lg ">{item.buget ? `${item.buget}` : "-"}</td>
+                                    <td className="bg-slate-600 rounded-lg ">{item.revenue}</td>
+                                    <td className="bg-slate-600  rounded-lg ">{item.vote_average}</td>
+                                    <td className="bg-slate-600 rounded-lg ">{item.vote_count}</td>
+                                    <td className="bg-slate-600  rounded-lg ">{item.popularity}</td>
+                                </tbody>
+
+
+                            </table>
+
+                      
                         <h1 className="font-bold text-medium">Elenco</h1>
                         <div className="flex overflow-x-scroll gap-3">
                             {credits && credits?.cast.map((credit, index) => {

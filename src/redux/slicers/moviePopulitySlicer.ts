@@ -6,14 +6,14 @@ import { Movie } from '../../interfaces/movie';
 
 export const searchMoviesPopulity = createAsyncThunk(
   'moviesPopulity/search',
-  apiService.populity
+  apiService.moviesPopulity
 );
 
 export interface MoviesPopulityState{
-  moviesAllDay: Movie[],
-  upcoming: Movie[],
-  topRated: Movie[],
-  nowPlaying: Movie[]
+  moviesAllDay: Movie[] | undefined,
+  upcoming: Movie[] | undefined,
+  topRated: Movie[] | undefined,
+  nowPlaying: Movie[] | undefined
 }
 
 const initialState: MoviesPopulityState = {
@@ -27,7 +27,6 @@ export const moviesPopulitySlicer = createSlice({
   name: 'moviesPopulity',
   initialState,
   reducers: {
-    
   },
 
   extraReducers: builder => {
