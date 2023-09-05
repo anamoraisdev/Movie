@@ -8,16 +8,14 @@ export const searchSeriesPopulity = createAsyncThunk(
 );
 
 export interface seriesPopulityState {
-  AllDay: Serie[],
-  topRated: Serie[],
-  populity: Serie[],
-  nowPlaying: Serie[]
+  AllDay: Serie[] | undefined,
+  topRated: Serie[] | undefined,
+  nowPlaying: Serie[] | undefined
 }
 
 const initialState: seriesPopulityState = {
   AllDay: [],
   topRated: [],
-  populity: [],
   nowPlaying: []
 }
 

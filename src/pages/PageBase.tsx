@@ -9,12 +9,13 @@ import { Movie } from "../interfaces/movie"
 import { searchSeriesPopulity } from "../redux/slicers/seriesSlicer"
 import { searchPerson } from "../redux/slicers/personSlicer"
 import Card from "../components/card"
+import { Serie } from "../interfaces/serie"
 
 
 const PageBase = () => {
     const dispatch = useAppDispatch()
     const upcoming: Movie[] = useAppSelector(state => state.moviesPopulity.upcoming)
-    const movies: Movie[]| null = useAppSelector(state => state.movies.movies)
+    const movies: Movie[]| Serie[] | null = useAppSelector(state => state.movies.movies)
 
     useEffect(() => {
         dispatch(searchGenres())

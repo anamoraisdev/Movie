@@ -11,7 +11,8 @@ export interface Serie {
     popularity: number,
     poster_path: string,
     vote_average: number,
-    vote_count: number
+    vote_count: number,
+    favorite: boolean,
 }
 
 

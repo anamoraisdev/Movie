@@ -14,12 +14,12 @@ const Card = ({ item }: PropsMovie) => {
     const [isFavorite, setIsFavorite] = useState<boolean>(false)
 
     const favoriteTitle = () => {
-        if (isFavorite) {
-            setIsFavorite(false)
-            dispatch(deleteFavorite(item.id))
-        } else {
+        if (!isFavorite) {
             setIsFavorite(true)
             dispatch(addListFavorite(item))
+        }else{
+            setIsFavorite(false)
+            dispatch(deleteFavorite(item.id))
         }
     }
 
@@ -34,15 +34,12 @@ const Card = ({ item }: PropsMovie) => {
                 </div>
             </a>
 
-                <button onClick={() => favoriteTitle()} className={`absolute top-0 right-2 text-xl ${isFavorite ? "text-red-500" : ""}`}>
-                   {isFavorite ? <BiSolidHeart />
+            <button onClick={() => favoriteTitle()} className={`absolute top-0 right-2 text-xl ${isFavorite ? "text-red-500" : ""}`}>
+                {isFavorite ? <BiSolidHeart />
                     :
                     <BiHeart />
-                    }
-                </button>
-              
-             
-           
+                }
+            </button>
         </div>
     )
 }
