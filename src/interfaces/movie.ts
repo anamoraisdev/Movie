@@ -1,28 +1,47 @@
-import { Serie } from "./serie"
+import { Genre } from "./genre"
+
 
 export interface Movie {
-    adult: boolean,
-    backdrop_path: string,
-    genre_ids: [],
+    adult: boolean | undefined, 
+    first_air_date: number| undefined,
+    backdrop: string,
+    genres: Genre[],
     id: number,
     media_type: string,
-    original_language: string,
-    original_title: string,
+    overview: string,
+    popularity: number,
+    poster: string,
+    release: string | undefined,
+    name: string,
+    original_name: string,
+    average: number,
+    count: number,
+    isMovie: boolean,
+    favorite: boolean
+}
+
+export interface MovieApi {
+    adult: boolean,
+    backdrop_path: string,
+    genre_ids: Genre[],
+    id: number,
+    media_type: string,
     overview: string,
     popularity: number,
     poster_path: string,
     release_date: string,
     title: string,
+    original_title: string,
     video: boolean,
     vote_average: number,
     vote_count: number,
-    favorite: boolean
 }
+
 
 export interface MoviesDetails{
     adult: boolean,
     budget: number,
-    genres: Genres[],
+    genres_ids: Genre[],
     homepage: string,
     id: number,
     original_language: string,
@@ -39,14 +58,10 @@ export interface MoviesDetails{
     video: boolean,
 }
 
-export interface Genres{
-    name: string,
-    id: number
-}
 export interface PropsMovie {
-    item: Movie| Serie
+    item: Movie
 }
 export interface PropsMovies{
-    itens: Movie[] | Serie[],
+    itens: Movie[],
     title: string
 }

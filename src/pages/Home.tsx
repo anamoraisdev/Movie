@@ -3,7 +3,7 @@ import { useAppSelector } from "../redux/hooks";
 import Carrosel from "../components/carrosel";
 import ScrollCard from "../components/scrollCard";
 import { MoviesPopulityState, } from "../redux/slicers/moviePopulitySlicer";
-import { seriesPopulityState } from "../redux/slicers/seriesSlicer";
+import { seriesPopulityState } from "../redux/slicers/seriesPopulitySlicer";
 
 const Home = () => {
   const moviesPopulity: MoviesPopulityState = useAppSelector(state => state.moviesPopulity)

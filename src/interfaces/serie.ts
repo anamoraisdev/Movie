@@ -1,7 +1,9 @@
-export interface Serie {
+import { Genre } from "./genre"
+
+export interface SerieApi {
     backdrop_path: string,
     first_air_date: number,
-    genre_ids: object[]
+    genre_ids: Genre[]
     id: number,
     name: string,
     origin_country: string,
@@ -12,7 +14,6 @@ export interface Serie {
     poster_path: string,
     vote_average: number,
     vote_count: number,
-    favorite: boolean,
 }
 
 

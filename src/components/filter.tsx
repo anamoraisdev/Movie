@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../redux/hooks"
-import { searchGenres } from "../redux/slicers/genresSlicer"
 import { searchMovies } from "../redux/slicers/searchMoviesSlicer"
 import { Genre } from "../interfaces/genre"
 import { PropsFilter } from "../redux/service"
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -12,6 +12,7 @@ const Filter = () => {
     const [genre, setGenre] = useState()
     const [name, setName] = useState<string>("")
     const genres: Genre[] = useAppSelector(state => state.genres)
+    const navigate = useNavigate()
 
     const filterMovies = () => {
       const id = formatGenre();
@@ -44,14 +45,14 @@ const Filter = () => {
     return (
         <div className="flex justify-between gap-2 text-gray-700 w-[70%]">
             <div className="flex gap-3 text-gray-100">
-                <a href="/home">
+                <a onClick={() => navigate("/home")}>
                     <button className="bg-gray-800 px-3 py-1 rounded-md">home</button>
                 </a>
-                <a href="/movies">
+                <a onClick={() => navigate("/movies")}>
                     <button className="bg-gray-800 px-3 py-1 rounded-md">movies</button>
 
                 </a>
-                <a href="/series">
+                <a onClick={() => navigate("/series")}>
                     <button className="bg-gray-800 px-3 py-1 rounded-md">series</button>
 
                 </a>

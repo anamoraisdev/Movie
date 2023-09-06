@@ -1,8 +1,9 @@
 import axios from "axios";
-import { Details, Serie } from "../interfaces/serie";
-import { Movie, MoviesDetails } from "../interfaces/movie";
+import {SerieApi } from "../interfaces/serie";
+import { Movie, MovieApi, MoviesDetails } from "../interfaces/movie";
 import { Person } from "../interfaces/person";
 import { Genre } from "../interfaces/genre";
+
 
 export const optionsRequest = {
     method: 'GET',
@@ -15,16 +16,16 @@ export const optionsRequest = {
 export interface ResponseMovies {
     data: {
         page: number
-        results: Movie[]
+        results: MovieApi[]
     }
 }
 export interface ResponseSeries {
     data: {
         page: number
-        results: Serie[]
+        results: SerieApi[]
     }
 }
-export interface ResponsePerson{
+export interface ResponsePerson {
     data: {
         page: number
         results: Person[]
@@ -44,10 +45,10 @@ export interface ResponseMovieDetails {
     data: MoviesDetails
 }
 export interface ResponseDetails {
-    data: Details 
+    data: MoviesDetails
 }
 
-export interface ResponseSearch{
+export interface ResponseSearch {
     data: {
         page: number
         results: Movie[] | Serie[]
@@ -69,20 +70,105 @@ const apiService = {
 
             const responseUpcoming: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/movie/upcoming`, optionsRequest)
             const upcoming = responseUpcoming.data.results
-            
-            const moviesPopulity = {
-                moviesAllDay: allDay,
-                upcoming: upcoming,
-                topRated: topRated,
-                nowPlaying: nowPlaying
+
+            const allMovies = allDay.concat(topRated).concat(nowPlaying).concat(upcoming)
+            const allMoviesFormat: Movie[] = []
+
+            allMovies.map((movie) => {
+                const movieFormat = {
+                    adult: movie.adult,
+                    first_air_date: undefined,
+                    backdrop: movie.backdrop_path,
+                    genres: movie.genre_ids,
+                    id: movie.id,
+                    media_type: "Movie",
+                    overview: movie.overview,
+                    popularity: movie.popularity,
+                    poster: movie.poster_path,
+                    release: movie.release_date,
+                    name: movie.title,
+                    original_name: movie.original_title,
+                    average: movie.vote_average,
+                    count: movie.vote_count,
+                    isMovie: true,
+                    favorite: false,
+                }
+                allMoviesFormat.push(movieFormat)
+            })
+
+            const allDayFormat = allMoviesFormat.slice(0, 20)
+            const topRatedFormat = allMoviesFormat.slice(20, 40)
+            const nowPlayingFormat = allMoviesFormat.slice(40, 60)
+            const upcomingFormat = allMoviesFormat.slice(60)
+
+            return {
+                moviesAllDay: allDayFormat,
+                upcoming: upcomingFormat,
+                topRated: topRatedFormat,
+                nowPlaying: nowPlayingFormat
             }
 
-            return moviesPopulity
 
         } catch (error) {
             console.log(error)
         }
     },
+
+    seriesPopulity: async () => {
+
+        try {
+            const response: ResponseSeries = await axios.get(`https://api.themoviedb.org/3/tv/popular`, optionsRequest)
+            const allDay = response.data.results
+
+            const responseNowPlaying: ResponseSeries = await axios.get(`https://api.themoviedb.org/3/tv/airing_today`, optionsRequest)
+            const nowPlaying = responseNowPlaying.data.results
+
+            const responseTopRated: ResponseSeries = await axios.get(`https://api.themoviedb.org/3/tv/top_rated`, optionsRequest)
+            const topRated = responseTopRated.data.results
+
+            const allSeries = allDay.concat(topRated).concat(nowPlaying)
+            const allSeriesFormat: Movie[] = []
+
+            allSeries.map((item) => {
+                const serieFormat = {
+                    adult: undefined,
+                    first_air_date: item.first_air_date,
+                    backdrop: item.backdrop_path,
+                    genres: item.genre_ids,
+                    id: item.id,
+                    media_type: "Serie",
+                    overview: item.overview,
+                    popularity: item.popularity,
+                    poster: item.poster_path,
+                    release: undefined,
+                    name: item.name,
+                    average: item.vote_average,
+                    count: item.vote_count,
+                    isMovie: false,
+                    favorite: false
+                }
+
+                allSeriesFormat.push(serieFormat)
+
+            })
+
+
+            const allDayFormat = allSeriesFormat.slice(0, 20)
+            const topRatedFormat = allSeriesFormat.slice(20, 40)
+            const nowPlayingFormat = allSeriesFormat.slice(40, 60)
+        
+
+            return {
+                allDay: allDayFormat,
+                nowPlaying: nowPlayingFormat,
+                topRated: topRatedFormat
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
 
     genres: async () => {
         try {
@@ -113,33 +199,11 @@ const apiService = {
             } catch (error) {
                 console.log(error)
             }
-        }else {
+        } else {
             return null
         }
     },
 
-    seriesPopulity: async () => {
-
-        try {
-            const response: ResponseSeries = await axios.get(`https://api.themoviedb.org/3/tv/popular`, optionsRequest)
-            const allDay = response.data.results
-
-            const responseNowPlaying: ResponseSeries = await axios.get(`https://api.themoviedb.org/3/tv/airing_today`, optionsRequest)
-            const nowPlaying = responseNowPlaying.data.results
-
-            const responseTopRated: ResponseSeries = await axios.get(`https://api.themoviedb.org/3/tv/top_rated`, optionsRequest)
-            const topRated = responseTopRated.data.results
-
-            return {
-                allDay: allDay,
-                nowPlaying: nowPlaying,
-                topRated: topRated
-            }
-
-        } catch (error) {
-            console.log(error)
-        }
-    },
 
     person: async () => {
         try {
