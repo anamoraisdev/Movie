@@ -6,10 +6,11 @@ import { Outlet } from "react-router-dom"
 import Menu from "../components/menu"
 import UpcomingList from "../components/upcomingList"
 import { Movie } from "../interfaces/movie"
-import { searchSeriesPopulity } from "../redux/slicers/seriesSlicer"
+import { searchSeriesPopulity } from "../redux/slicers/seriesPopulitySlicer"
 import { searchPerson } from "../redux/slicers/personSlicer"
 import Card from "../components/card"
 import { Serie } from "../interfaces/serie"
+import Navbar from "../components/navbar"
 
 
 const PageBase = () => {
@@ -26,6 +27,7 @@ const PageBase = () => {
 
     return (
         <main>
+            <Navbar/>
             <div className="flex justify-between py-[2rem]">
                 <Menu />
                 <div className="w-[70%] flex flex-col justify-start">

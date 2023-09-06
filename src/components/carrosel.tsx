@@ -36,7 +36,7 @@ const Carrosel = ({ itens, title }: PropsMovies) => {
                 <div className="flex items-center">
                     <button className="h-[22rem] w-[20rem] bg-gradient-to-r from-black " onClick={previusImage}>{"<"}</button>
                     <div className="flex scroll-smooth overflow-hidden gap-3 touch-auto py-5" ref={refCarossel}>
-                        {itens.map((item) =>
+                        {itens?.map((item) =>
                             <CardCarrosel key={item.id} item={item} />
                         )}
                     </div>

@@ -29,9 +29,9 @@ const DescriptionBanner = ({item}: PropsMovie) => {
     return (
 
         <div className="flex flex-col w-[50%]">
-            <h1 className="font-bold">{item?.title || item?.original_title}</h1>
+            <h1 className="font-bold">{item.name || item?.original_name}</h1>
             <div className="flex gap-2">
-                <p>{item?.release_date} | </p>
+                <p>{item?.release} | </p>
               
                 <p>{movie?.runtime} min</p>
             </div>
