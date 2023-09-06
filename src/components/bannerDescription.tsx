@@ -1,10 +1,10 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { ResponseMovieDetails,optionsRequest } from "../redux/service"
-import {MoviesDetails, PropsMovie } from "../interfaces/movie"
+import {optionsRequest } from "../redux/service"
+import { PropsMovieSerie } from "../interfaces/movieSerie"
 
-const DescriptionBanner = ({item}: PropsMovie) => {
-    const [movie, setMovie] = useState<MoviesDetails>()
+const DescriptionBanner = ({item}: PropsMovieSerie) => {
+    const [movie, setMovie] = useState<Details>()
     const description: string = item?.overview.substring(0, 100)
 
     const getDetailsMovie = async () => {

@@ -6,6 +6,7 @@ import Carrosel from "../components/carrosel";
 import ScrollCard from "../components/scrollCard";
 import Item from "../components/Item";
 
+
 const Series = () => {
     const { id } = useParams()
     const seriesPopulity = useAppSelector(state => state.seriesPopulity)

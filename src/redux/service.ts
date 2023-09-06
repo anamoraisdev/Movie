@@ -1,8 +1,6 @@
 import axios from "axios";
-import {DetailsApi, SerieApi } from "../interfaces/serie";
-import { Movie, MovieApi, MoviesDetails } from "../interfaces/movie";
-import { Person } from "../interfaces/person";
-import { Genre } from "../interfaces/genre";
+import {  MovieSerie,} from "../interfaces/movieSerie";
+import { PropsFilter, ResponseMovies, ResponsePerson, ResponseSearch, ResponseSeries } from "../interfaces/response";
 
 
 export const optionsRequest = {
@@ -10,41 +8,6 @@ export const optionsRequest = {
     headers: {
         accept: 'application/json',
         Authorization: import.meta.env.VITE_API_KEY
-    }
-}
-
-export interface ResponseMovies {
-    data: {
-        page: number
-        results: MovieApi[]
-    }
-}
-export interface ResponseSeries {
-    data: {
-        page: number
-        results: SerieApi[]
-    }
-}
-export interface ResponsePerson {
-    data: {
-        page: number
-        results: Person[]
-    }
-}
-export interface ResponseGenres {
-    data: {
-        genres: Genre[]
-    }
-}
-export interface PropsFilter {
-    name?: string,
-    id?: number,
-    type: string
-}
-export interface ResponseSearch {
-    data: {
-        page: number
-        results: Movie[]
     }
 }
 
@@ -65,7 +28,7 @@ const apiService = {
             const upcoming = responseUpcoming.data.results
 
             const allMovies = allDay.concat(topRated).concat(nowPlaying).concat(upcoming)
-            const allMoviesFormat: Movie[] = []
+            const allMoviesFormat: MovieSerie[] = []
 
             allMovies.map((movie) => {
                 const movieFormat = {
@@ -120,8 +83,8 @@ const apiService = {
             const topRated = responseTopRated.data.results
 
             const allSeries = allDay.concat(topRated).concat(nowPlaying)
-            const allSeriesFormat: Movie[] = []
-
+            const allSeriesFormat: MovieSerie[] = []
+        
             allSeries.map((item) => {
                 const serieFormat = {
                     adult: undefined,
@@ -129,6 +92,7 @@ const apiService = {
                     backdrop: item.backdrop_path,
                     genres: item.genre_ids,
                     id: item.id,
+                    original_name: item.original_name,
                     media_type: "Serie",
                     overview: item.overview,
                     popularity: item.popularity,
@@ -161,7 +125,6 @@ const apiService = {
             console.log(error)
         }
     },
-
 
     genres: async () => {
         try {
@@ -196,8 +159,7 @@ const apiService = {
             return null
         }
     },
-
-
+    
     person: async () => {
         try {
             const response: ResponsePerson = await axios.get(`https://api.themoviedb.org/3/person/popular`, optionsRequest)

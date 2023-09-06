@@ -56,6 +56,6 @@ export interface PropsMovieSerie {
     item: MovieSerie
 }
 export interface PropsMoviesSeries{
-    itens: MovieSerie[],
+    itens: MovieSerie[] | undefined,
     title: string
 }

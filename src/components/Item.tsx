@@ -22,7 +22,7 @@ const Item = () => {
     const id_format = Number(id_formatTag)
 
 
-
+    
     const searchTitle = async () => {
         if (tag === "m") {
             try {
@@ -51,7 +51,7 @@ const Item = () => {
                     last_air_date: undefined,
                     number_of_episodes: undefined,
                     number_of_seasons: undefined,
-                    last_episode_to_air:  undefined
+                    last_episode_to_air: undefined
                 }
                 setItem(itemFormat)
             } catch (error) {
@@ -62,7 +62,7 @@ const Item = () => {
             try {
                 const response: ResponseSerieDetails = await axios.get(`https://api.themoviedb.org/3/tv/${id_format}`, optionsRequest)
                 const item = response.data
-    
+
                 const itemFormat: Details = {
                     id: item.id,
                     name: item.name,
@@ -183,10 +183,10 @@ const Item = () => {
                                 <th className="bg-slate-800  rounded-lg hover:bg-slate-900">populity</th>
                             </thead>
                             <tbody className="text-center rounded-lg">
-                                <td className="bg-slate-600  rounded-lg ">{item.buget ? `${item.buget}` : "-"}</td>
+                                <td className="bg-slate-600  rounded-lg ">{item.budget ? `${item.budget}` : "-"}</td>
                                 <td className="bg-slate-600 rounded-lg ">{item.revenue}</td>
-                                <td className="bg-slate-600  rounded-lg ">{item.vote_average}</td>
-                                <td className="bg-slate-600 rounded-lg ">{item.vote_count}</td>
+                                <td className="bg-slate-600  rounded-lg ">{item.average}</td>
+                                <td className="bg-slate-600 rounded-lg ">{item.count}</td>
                                 <td className="bg-slate-600  rounded-lg ">{item.popularity}</td>
                             </tbody>
 

@@ -32,7 +32,6 @@ export interface SerieDetailsApi{
     genres:Genre[],
     overview: string,
     popularity: number,
-    backdrop_path: string,
     poster_path: string,
     production_companies: Company[]
     budget: number,
@@ -67,7 +66,6 @@ export interface MovieDetailsApi{
     revenue: number,
     vote_count: number,
     vote_average: number,
-    seasons: object[] | undefined
 }
 
 export interface Company{

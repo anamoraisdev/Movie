@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import apiService from '../service';
-import { Movie } from '../../interfaces/movie';
-import { Serie } from '../../interfaces/serie';
+import { MovieSerie } from '../../interfaces/movieSerie';
 
 
 
@@ -11,7 +10,7 @@ export const searchMovies = createAsyncThunk(
 );
 
 export interface MoviesState{
-  movies: Movie[] | Serie[] | null | undefined
+  movies: MovieSerie[] | null | undefined
 }
 
 const initialState: MoviesState = {

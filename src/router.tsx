@@ -8,6 +8,7 @@ import Favorites from "./pages/Favorite"
 
 
 
+
 function Router() {
 
   return (
@@ -15,8 +16,8 @@ function Router() {
       <Routes>
         <Route path='/'element={<PageBase/>}>
           <Route path='/home' element={<Home/>}/>
-          <Route path='movies/:id?' element={<Movies />}/>
-          <Route path="series/:id?" element={<Series/>}/>
+          <Route path='/movies/:id?' element={<Movies />}/>
+          <Route path="/series/:id?" element={<Series/>}/>
           <Route path="/person" element={<Person/>}/>
           <Route path="/favorites" element={<Favorites/>}/>
         </Route>

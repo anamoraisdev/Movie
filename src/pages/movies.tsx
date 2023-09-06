@@ -2,8 +2,9 @@ import { useAppSelector } from "../redux/hooks.ts"
 import ScrollCard from "../components/scrollCard.tsx"
 import Carrosel from "../components/carrosel.tsx"
 import { useParams } from "react-router-dom"
-
 import Item from "../components/Item.tsx"
+
+
 
 const Movies = () => {
     const { id } = useParams()

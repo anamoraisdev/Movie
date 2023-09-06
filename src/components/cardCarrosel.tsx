@@ -1,13 +1,13 @@
-
-import { PropsMovie } from "../interfaces/movie"
-
+import { useNavigate } from "react-router-dom";
+import { PropsMovieSerie } from "../interfaces/movieSerie";
 import DescriptionBanner from "./bannerDescription"
 
 
 
-const CardCarrosel = ({ item }: PropsMovie) => {
+const CardCarrosel = ({ item }: PropsMovieSerie) => {
+    const navigate = useNavigate()
     return (
-        <a href={item.release ? `movies/${`m${item.id}`}` : `series/${`s${item.id}`}`}>
+        <a onClick={() => navigate(`${ item.isMovie? `details/${`m${item.id}`}` : `details/${`s${item.id}` }` } `)}>
         <div className="relative hover:scale-[102%]">
             <div className="w-[600px]">
                 <img className=" opacity-40 rounded-3xl w-full" src={`https://image.tmdb.org/t/p/w500/${item.backdrop}`} />

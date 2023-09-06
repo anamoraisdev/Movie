@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import apiService from '../service';
-import { Serie } from '../../interfaces/serie';
+import { MovieSerie } from '../../interfaces/movieSerie';
 
 export const searchSeriesPopulity = createAsyncThunk(
   'seriesPopulity/search',
@@ -8,9 +8,9 @@ export const searchSeriesPopulity = createAsyncThunk(
 );
 
 export interface seriesPopulityState {
-  AllDay: Serie[] | undefined,
-  topRated: Serie[] | undefined,
-  nowPlaying: Serie[] | undefined
+  AllDay: MovieSerie[] | undefined,
+  topRated: MovieSerie[] | undefined,
+  nowPlaying: MovieSerie[] | undefined
 }
 
 const initialState: seriesPopulityState = {
@@ -22,7 +22,11 @@ const initialState: seriesPopulityState = {
 export const seriesPopulitySlicer = createSlice({
   name: 'seriesPopulity',
   initialState,
-  reducers: {},
+  reducers: {
+    addFavorite: (state, action) => {
+      
+    }
+  },
   extraReducers: builder => {
     builder.addCase(
       searchSeriesPopulity.fulfilled,
@@ -36,6 +40,6 @@ export const seriesPopulitySlicer = createSlice({
 })
 
 
-export const { } = seriesPopulitySlicer.actions
+export const { addFavorite} = seriesPopulitySlicer.actions
 
 export default seriesPopulitySlicer.reducer
