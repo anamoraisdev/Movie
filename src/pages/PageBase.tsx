@@ -5,18 +5,16 @@ import { searchGenres } from "../redux/slicers/genresSlicer"
 import { Outlet } from "react-router-dom"
 import Menu from "../components/menu"
 import UpcomingList from "../components/upcomingList"
-import { Movie } from "../interfaces/movie"
 import { searchSeriesPopulity } from "../redux/slicers/seriesPopulitySlicer"
 import { searchPerson } from "../redux/slicers/personSlicer"
 import Card from "../components/card"
-import { Serie } from "../interfaces/serie"
 import Navbar from "../components/navbar"
 
 
 const PageBase = () => {
     const dispatch = useAppDispatch()
-    const upcoming: Movie[] = useAppSelector(state => state.moviesPopulity.upcoming)
-    const movies: Movie[]| Serie[] | null = useAppSelector(state => state.movies.movies)
+    const upcoming = useAppSelector(state => state.moviesPopulity.upcoming)
+    const movies = useAppSelector(state => state.movies.movies)
 
     useEffect(() => {
         dispatch(searchGenres())

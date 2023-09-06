@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react"
-import { PropsMovies } from "../interfaces/movie"
 import CardCarrosel from "./cardCarrosel"
+import { PropsMoviesSeries } from "../interfaces/movieSerie"
 
 
-const Carrosel = ({ itens, title }: PropsMovies) => {
+const Carrosel = ({ itens, title }: PropsMoviesSeries) => {
 
     const refCarossel = useRef(null)
 

@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { MovieSerie } from '../../interfaces/movieSerie'
 
 
+const initialState: MovieSerie [] = []
 
 export const favoritesSlicer = createSlice({
     name: 'favorites',
-    initialState: [],
+    initialState,
     reducers: {
-        addListFavorite: (state, action) => {
+        addListFavorite: (state, action: {payload: MovieSerie}) => {
             state.push(action.payload)
             return state
 

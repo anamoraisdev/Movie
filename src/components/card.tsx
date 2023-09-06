@@ -1,32 +1,43 @@
 import { BiHeart, BiSolidHeart } from "react-icons/bi"
-import { Movie } from "../interfaces/movie"
-import { useState } from "react"
-import { useAppDispatch } from "../redux/hooks"
+import { useEffect, useState } from "react"
+import { useAppDispatch, useAppSelector } from "../redux/hooks"
 import { addListFavorite, deleteFavorite } from "../redux/slicers/favorite"
+import {PropsMovieSerie } from "../interfaces/movieSerie"
 
-export interface PropsMovie {
-    item: Movie 
-}
-
-const Card = ({ item }: PropsMovie) => {
+const Card = ({ item }: PropsMovieSerie) => {
     const dispatch = useAppDispatch()
+  
     const [isFavorite, setIsFavorite] = useState<boolean>(false)
+    const favorites = useAppSelector(state => state.favorites)
+
+
+    const checkFavorite = () => {
+        favorites.map((fav) => {
+            if(fav.id === item.id){
+               setIsFavorite(true)
+            }
+        })
+    }
 
     const favoriteTitle = () => {
         if (!isFavorite) {
             setIsFavorite(true)
             dispatch(addListFavorite(item))
-            item.favorite = true
+            
         }else{
             setIsFavorite(false)
             dispatch(deleteFavorite(item.id))
-            item.favorite = false
+            
         }
     }
 
+    useEffect(() => {
+        checkFavorite()
+    }, [item])
+    
     return (
         <div className="relative">
-            <a href={item.release ? `movies/${`m${item.id}`}` : `series/${`s${item.id}`}`}>
+            <a href={`${ item.isMovie? `movies/${`m${item.id}`}` : `series/${`s${item.id}` }` } `}>
                 <div className="min-w-[10rem] max-w-[10rem] max-h-[15rem] min-h-[15rem] flex flex-col items-center justify-center hover:scale-[105%]">
                     <img className="rounded-2xl" alt={`poster do filme ${item?.name}`} src={`https://image.tmdb.org/t/p/w500/${item.poster}`} />
                     <div className="min-w-[10rem] max-w-[10rem] flex">
@@ -35,7 +46,7 @@ const Card = ({ item }: PropsMovie) => {
                 </div>
             </a>
 
-            <button onClick={() => favoriteTitle()} className={`absolute top-0 right-2 text-xl ${isFavorite ? "text-red-500" : ""}`}>
+            <button onClick={() => favoriteTitle()} className={`absolute top-0 right-2 text-xl ${isFavorite? "text-red-500" : ""}`}>
                 {isFavorite ? <BiSolidHeart />
                     :
                     <BiHeart />
