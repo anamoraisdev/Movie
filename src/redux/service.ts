@@ -1,5 +1,5 @@
 import axios from "axios";
-import {SerieApi } from "../interfaces/serie";
+import {DetailsApi, SerieApi } from "../interfaces/serie";
 import { Movie, MovieApi, MoviesDetails } from "../interfaces/movie";
 import { Person } from "../interfaces/person";
 import { Genre } from "../interfaces/genre";
@@ -41,17 +41,10 @@ export interface PropsFilter {
     id?: number,
     type: string
 }
-export interface ResponseMovieDetails {
-    data: MoviesDetails
-}
-export interface ResponseDetails {
-    data: MoviesDetails
-}
-
 export interface ResponseSearch {
     data: {
         page: number
-        results: Movie[] | Serie[]
+        results: Movie[]
     }
 }
 
