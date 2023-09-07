@@ -7,7 +7,7 @@ import DescriptionBanner from "./bannerDescription"
 const CardCarrosel = ({ item }: PropsMovieSerie) => {
     const navigate = useNavigate()
     return (
-        <a onClick={() => navigate(`${ item.isMovie? `details/${`m${item.id}`}` : `details/${`s${item.id}` }` } `)}>
+        <a onClick={() => navigate(`${ item.isMovie? `movies/${`m${item.id}`}` : `series/${`s${item.id}` }` } `)}>
         <div className="relative hover:scale-[102%]">
             <div className="w-[600px]">
                 <img className=" opacity-40 rounded-3xl w-full" src={`https://image.tmdb.org/t/p/w500/${item.backdrop}`} />

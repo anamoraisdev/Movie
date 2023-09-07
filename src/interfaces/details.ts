@@ -14,7 +14,7 @@ export interface Details{
     average: number,
     count: number,
     tagline: string,
-    status: boolean,
+    status: string,
     revenue: number| undefined
     runtime: string | undefined
     release: string | undefined
@@ -38,7 +38,7 @@ export interface SerieDetailsApi{
     homepage: string,
     vote_average: number,
     vote_count: number,
-    status: boolean,
+    status: string,
     tagline: string,
     seasons: object[],
     last_air_date: number,
@@ -60,7 +60,7 @@ export interface MovieDetailsApi{
     original_title: string,
     production_companies: Company[],
     release_date: string,
-    status: boolean,
+    status: string,
     tagline: string,
     runtime: string,
     revenue: number,
