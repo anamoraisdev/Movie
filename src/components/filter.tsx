@@ -2,31 +2,40 @@ import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../redux/hooks"
 import { searchMovies } from "../redux/slicers/searchMoviesSlicer"
 import { Genre } from "../interfaces/genre"
-import { PropsFilter } from "../redux/service"
 import { useNavigate } from "react-router-dom"
+import { PropsFilter } from "../interfaces/response"
 
 
 
 const Filter = () => {
     const dispatch = useAppDispatch()
-    const [genre, setGenre] = useState()
+    const [genre, setGenre] = useState<string>()
     const [name, setName] = useState<string>("")
+    const [isFiltering, setIsFiltering] = useState<boolean>(false)
     const genres: Genre[] = useAppSelector(state => state.genres)
     const navigate = useNavigate()
 
     const filterMovies = () => {
-      const id = formatGenre();
-      const info: PropsFilter = {
-        id: id,
-        type: "filter"
-      }
-      dispatch(searchMovies(info))
+        const id = formatGenre();
+        if (isFiltering) {
+            setIsFiltering(false)
+
+            const infoRefresh: PropsFilter = {id: id, type: "filter", isFiltering: false }
+            console.log("refresh:", isFiltering)
+            dispatch(searchMovies(infoRefresh))
+        } else {
+            setIsFiltering(true)
+            const info: PropsFilter = { id: id, type: "filter", isFiltering: true}
+            console.log("filter:", isFiltering)
+            dispatch(searchMovies(info))
+        }
     }
 
     const searchMoviesForName = () => {
         const info: PropsFilter = {
             name: name,
-            type: "search"
+            type: "search",
+            isFiltering: undefined
         }
         dispatch(searchMovies(info))
     }
@@ -39,9 +48,9 @@ const Filter = () => {
 
     useEffect(() => {
         searchMoviesForName()
-    },[name])
+    }, [name])
 
- 
+
     return (
         <div className="flex justify-between gap-2 text-gray-700 w-[70%]">
             <div className="flex gap-3 text-gray-100">
@@ -64,7 +73,7 @@ const Filter = () => {
                         <option key={gender.id}>{gender.name}</option>
                     )}
                 </select>
-                <button className="bg-slate-700 hover:bg-slate-500 text-gray-100 px-4 rounded-lg" onClick={() => filterMovies()}>Filter</button>
+                <button className="bg-slate-700 hover:bg-slate-500 text-gray-100 px-4 rounded-lg" onClick={() => filterMovies()}>{isFiltering ? "refresh" : "filter"}</button>
             </div>
         </div>
     )

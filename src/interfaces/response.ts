@@ -29,10 +29,11 @@ export interface PropsFilter {
     name?: string,
     id?: number,
     type: string
+    isFiltering: boolean | undefined
 }
 export interface ResponseSearch {
     data: {
         page: number
-        results: MovieSerie[]
+        results: MovieApi[]
     }
 }

@@ -23,6 +23,7 @@ const Movies = () => {
                     <ScrollCard itens={moviesPopulity.nowPlaying} title="Now playing" />
                 </div>
             }
+            
         </>
     )
 }

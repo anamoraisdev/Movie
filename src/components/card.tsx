@@ -3,9 +3,11 @@ import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../redux/hooks"
 import { addListFavorite, deleteFavorite } from "../redux/slicers/favorite"
 import {PropsMovieSerie } from "../interfaces/movieSerie"
+import { useNavigate } from "react-router-dom"
 
 const Card = ({ item }: PropsMovieSerie) => {
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
   
     const [isFavorite, setIsFavorite] = useState<boolean>(false)
     const favorites = useAppSelector(state => state.favorites)
@@ -37,7 +39,7 @@ const Card = ({ item }: PropsMovieSerie) => {
     
     return (
         <div className="relative">
-            <a href={`${ item.isMovie? `movies/${`m${item.id}`}` : `series/${`s${item.id}` }` } `}>
+            <a onClick={() => navigate(`${ item.isMovie? `/movies/${`m${item.id}`}` : `/series/${`s${item.id}` }` } `)}>
                 <div className="min-w-[10rem] max-w-[10rem] max-h-[15rem] min-h-[15rem] flex flex-col items-center justify-center hover:scale-[105%]">
                     <img className="rounded-2xl" alt={`poster do filme ${item?.name}`} src={`https://image.tmdb.org/t/p/w500/${item.poster}`} />
                     <div className="min-w-[10rem] max-w-[10rem] flex">

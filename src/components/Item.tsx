@@ -4,7 +4,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Details, MovieDetailsApi, SerieDetailsApi } from "../interfaces/details"
 
-export interface ResponseMoviesDetails {
+export interface ResponseMovieDetails {
     data: MovieDetailsApi
 }
 
@@ -26,7 +26,7 @@ const Item = () => {
     const searchTitle = async () => {
         if (tag === "m") {
             try {
-                const response: ResponseMoviesDetails = await axios.get(`https://api.themoviedb.org/3/movie/${id_format}`, optionsRequest)
+                const response: ResponseMovieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${id_format}`, optionsRequest)
                 const item = response.data
 
                 const itemFormat: Details = {
