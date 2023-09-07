@@ -1,6 +1,7 @@
 import axios from "axios";
-import {  MovieSerie,} from "../interfaces/movieSerie";
-import { PropsFilter, ResponseMovies, ResponsePerson, ResponseSearch, ResponseSeries } from "../interfaces/response";
+import { MovieSerie, } from "../interfaces/movieSerie";
+import { PropsFilter, ResponseGenres, ResponseMovies, ResponsePerson, ResponseSearch, ResponseSeries } from "../interfaces/response";
+import { Search } from "./slicers/searchMoviesSlicer";
 
 
 export const optionsRequest = {
@@ -10,6 +11,7 @@ export const optionsRequest = {
         Authorization: import.meta.env.VITE_API_KEY
     }
 }
+
 
 const apiService = {
 
@@ -84,7 +86,7 @@ const apiService = {
 
             const allSeries = allDay.concat(topRated).concat(nowPlaying)
             const allSeriesFormat: MovieSerie[] = []
-        
+
             allSeries.map((item) => {
                 const serieFormat = {
                     adult: undefined,
@@ -113,7 +115,7 @@ const apiService = {
             const allDayFormat = allSeriesFormat.slice(0, 20)
             const topRatedFormat = allSeriesFormat.slice(20, 40)
             const nowPlayingFormat = allSeriesFormat.slice(40, 60)
-        
+
 
             return {
                 allDay: allDayFormat,
@@ -136,21 +138,41 @@ const apiService = {
         }
     },
 
-    movies: async ({ name, id, type }: PropsFilter) => {
-        if (type === "filter") {
+    movies: async ({ name, id, type, isFiltering }: PropsFilter) => {
+        if (type === "filter" && id !== undefined && isFiltering) {
             try {
                 const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${id}`, optionsRequest)
                 const data = response.data.results
-                return data
+                const result: Search[] = []
+                data.map((item) => {
+                    const dataFormat = {
+                        id: item.id,
+                        name: item.title,
+                        poster: item.poster_path,
+                    }
+                    result.push(dataFormat)
+                })
+                return result
 
             } catch (error) {
                 console.log(error)
             }
-        } else if (type === "search") {
+
+
+        } else if (name && type === "search") {
             try {
                 const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${name}&language=pt-BR`, optionsRequest)
                 const data = response.data.results
-                return data
+                const result: Search[] = []
+                data.map((item) => {
+                    const dataFormat = {
+                        id: item.id,
+                        name: item.title,
+                        poster: item.poster_path,
+                    }
+                    result.push(dataFormat)
+                })
+                return result
 
             } catch (error) {
                 console.log(error)
@@ -159,7 +181,7 @@ const apiService = {
             return null
         }
     },
-    
+
     person: async () => {
         try {
             const response: ResponsePerson = await axios.get(`https://api.themoviedb.org/3/person/popular`, optionsRequest)

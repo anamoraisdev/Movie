@@ -25,20 +25,25 @@ const PageBase = () => {
 
     return (
         <main>
-            <Navbar/>
+            <Navbar />
             <div className="flex justify-between py-[2rem]">
                 <Menu />
                 <div className="w-[70%] flex flex-col justify-start">
-                    {movies?.length == 0 ?
-                        <Outlet />
-                        :
-                        <div className="flex flex-wrap w-full">
+                    {movies !== null ?
+                        <div className="flex flex-wrap gap-4 w-full">
                             {movies?.map((movie) => (
-                                <Card key={movie.id} item={movie} />
-                            ))}
+                           
+
+                                    <Card key={movie?.id} item={movie} />
+                               
+
+                            )
+                            )}
                         </div>
+                        :
+                        <Outlet />
                     }
-                
+
                 </div>
                 <UpcomingList itens={upcoming} title={"upcoming Movies"} />
             </div>

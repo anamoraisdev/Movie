@@ -1,3 +1,4 @@
+import { Search } from "../redux/slicers/searchMoviesSlicer";
 import { Genre } from "./genre";
 
 export interface MovieSerie {
