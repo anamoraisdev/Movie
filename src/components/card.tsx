@@ -14,7 +14,7 @@ const Card = ({ item }: PropsMovieSerie) => {
 
 
     const checkFavorite = () => {
-        favorites.map((fav) => {
+        favorites.all.map((fav) => {
             if(fav.id === item.id){
                setIsFavorite(true)
             }
