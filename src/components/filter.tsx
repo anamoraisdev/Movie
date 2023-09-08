@@ -19,9 +19,10 @@ const Filter = () => {
         const id = formatGenre();
         if (isFiltering) {
             setIsFiltering(false)
-
             const infoRefresh: PropsFilter = {id: id, type: "filter", isFiltering: false }
+
             console.log("refresh:", isFiltering)
+
             dispatch(searchMovies(infoRefresh))
         } else {
             setIsFiltering(true)
@@ -49,6 +50,7 @@ const Filter = () => {
     useEffect(() => {
         searchMoviesForName()
     }, [name])
+
 
 
     return (

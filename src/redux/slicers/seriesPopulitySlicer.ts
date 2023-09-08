@@ -23,9 +23,7 @@ export const seriesPopulitySlicer = createSlice({
   name: 'seriesPopulity',
   initialState,
   reducers: {
-    addFavorite: (state, action) => {
-      
-    }
+  
   },
   extraReducers: builder => {
     builder.addCase(

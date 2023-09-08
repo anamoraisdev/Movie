@@ -2,27 +2,61 @@ import { createSlice } from '@reduxjs/toolkit'
 import { MovieSerie } from '../../interfaces/movieSerie'
 
 
-const initialState: MovieSerie [] = []
+
+
+export interface FavoritesState {
+  all: MovieSerie[]
+  filteredSeries: MovieSerie[]
+  filteredMovies: MovieSerie[]
+ 
+}
+
+const initialState: FavoritesState = {
+  all: [],
+  filteredSeries: [],
+  filteredMovies: [],
+
+}
+  
 
 export const favoritesSlicer = createSlice({
     name: 'favorites',
     initialState,
     reducers: {
         addListFavorite: (state, action: {payload: MovieSerie}) => {
-            state.push(action.payload)
+            state.all.push(action.payload)
             return state
-
         },
 
         deleteFavorite: (state, {payload}) => {
-            const result = state.filter((item) => item.id !== payload)
-            return result
-        } 
+            const result = state.all.filter((item) => item.id !== payload)
+            state.all = result
+            return state
+        },
+
+        filterFavoriteForGenre: (state, action: {payload: string | null}) => {
+            if(action.payload === "movie"){
+                const array = state.all
+                const result = array.filter((itemState) => itemState.isMovie)
+                console.log("if movie", result)
+                state.filteredMovies = result
+                return state
+            }else if(action.payload === "serie"){
+                const array = state.all
+                const result =  array.filter((itemState) => !itemState.isMovie)
+                console.log("if serie", result)
+                state.filteredSeries = result
+                return state
+            }else{
+                console.log("if all", state)
+                return state
+            }
+        }
     },
 
 })
 
 
-export const { addListFavorite, deleteFavorite } = favoritesSlicer.actions
+export const { addListFavorite, deleteFavorite, filterFavoriteForGenre } = favoritesSlicer.actions
 
 export default favoritesSlicer.reducer

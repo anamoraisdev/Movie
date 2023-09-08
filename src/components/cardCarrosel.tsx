@@ -16,7 +16,7 @@ const CardCarrosel = ({ item }: PropsMovieSerie) => {
     const favorites = useAppSelector(state => state.favorites)
 
     const checkFavorite = () => {
-        favorites.map((fav) => {
+        favorites.all.map((fav) => {
             if(fav.id === item.id){
                setIsFavorite(true)
             }
