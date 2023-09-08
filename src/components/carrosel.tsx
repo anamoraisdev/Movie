@@ -4,30 +4,31 @@ import { PropsMoviesSeries } from "../interfaces/movieSerie"
 
 
 const Carrosel = ({ itens, title }: PropsMoviesSeries) => {
-
-    const refCarossel = useRef(null)
+    const refCarossel = useRef<HTMLDivElement>(null);
+    const move = 800
 
     const previusImage = () => {
-        refCarossel.current.scrollLeft -= 500
+        if(refCarossel?.current){
+           refCarossel.current.scrollLeft -= move
+        }
+        
     }
 
     const nextImage = () => {
-        refCarossel.current.scrollLeft += 500
+        if(refCarossel.current){
+            refCarossel.current.scrollLeft += move
+        }
+        
     }
 
+  
     useEffect(() => {
-        let move = 500
-        setTimeout(() => {
-            if (move >= 1200) {
-                refCarossel.current.scrollLeft -= move
-                move = 400
-            } else {
-                refCarossel.current.scrollLeft += move
-                move = 300
-            }
-
-        }, 1000);
-    }, [])
+       setTimeout(() => {
+        if(refCarossel.current){
+            refCarossel.current.scrollLeft += move    
+        }
+       }, 3000);
+    },[])
 
     return (
         <>
@@ -40,7 +41,7 @@ const Carrosel = ({ itens, title }: PropsMoviesSeries) => {
                             <CardCarrosel key={item.id} item={item} />
                         )}
                     </div>
-                     <button className="h-[22rem] w-[20rem] bg-gradient-to-l from-black  " onClick={nextImage}>{">"}</button>
+                    <button className="h-[22rem] w-[20rem] bg-gradient-to-l from-black  " onClick={nextImage}>{">"}</button>
                 </div>
             </main>
         </>

@@ -71,4 +71,5 @@ export interface MovieDetailsApi{
 export interface Company{
     name: string,
     origin_country: string, 
+    id: number
 }

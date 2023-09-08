@@ -1,7 +1,7 @@
 import axios from "axios";
 import { MovieSerie, } from "../interfaces/movieSerie";
 import { PropsFilter, ResponseGenres, ResponseMovies, ResponsePerson, ResponseSearch, ResponseSeries } from "../interfaces/response";
-import { Search } from "./slicers/searchMoviesSlicer";
+
 
 
 export const optionsRequest = {
@@ -19,7 +19,7 @@ const apiService = {
         try {
             const responseAllDay: ResponseMovies = await axios.get("https://api.themoviedb.org/3/trending/all/day", optionsRequest)
             const allDay = responseAllDay?.data?.results;
-
+          
             const responseTopRated: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/movie/top_rated `, optionsRequest)
             const topRated = responseTopRated.data.results
 
@@ -33,18 +33,30 @@ const apiService = {
             const allMoviesFormat: MovieSerie[] = []
 
             allMovies.map((movie) => {
+
+                let nameOrTitle: string
+                let releaseOrFirst : string
+
+                if(movie.title === undefined && movie.release_date === undefined){
+                    nameOrTitle = movie.name
+                    releaseOrFirst = movie.first_air_date
+                }else{
+                    nameOrTitle = movie.title
+                    releaseOrFirst = movie.release_date
+                }
+
                 const movieFormat = {
                     adult: movie.adult,
                     first_air_date: undefined,
                     backdrop: movie.backdrop_path,
                     genres: movie.genre_ids,
                     id: movie.id,
-                    media_type: "Movie",
+                    media_type: movie.media_type,
                     overview: movie.overview,
                     popularity: movie.popularity,
                     poster: movie.poster_path,
-                    release: movie.release_date,
-                    name: movie.title,
+                    release: releaseOrFirst,
+                    name: nameOrTitle,
                     original_name: movie.original_title,
                     average: movie.vote_average,
                     count: movie.vote_count,
@@ -143,7 +155,6 @@ const apiService = {
             try {
                 const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${id}`, optionsRequest)
                 const data = response.data.results
-                console.log("filter:" , data)
                 const result: MovieSerie[] = []
                 data.map((movie) => {
                     const dataFormat = {
