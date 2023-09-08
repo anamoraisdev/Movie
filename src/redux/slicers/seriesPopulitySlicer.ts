@@ -38,6 +38,6 @@ export const seriesPopulitySlicer = createSlice({
 })
 
 
-export const { addFavorite} = seriesPopulitySlicer.actions
+export const {} = seriesPopulitySlicer.actions
 
 export default seriesPopulitySlicer.reducer

@@ -1,13 +1,10 @@
 import { useParams } from "react-router-dom"
-import { optionsRequest } from "../redux/service"
-import axios from "axios"
 import { useEffect, useState } from "react"
 import { Details} from "../interfaces/details"
-import { Credit, ResponseCredits, ResponseMovieDetails, ResponseSerieDetails } from "../interfaces/response"
-
+import { Credit} from "../interfaces/response"
+import service from "../service"
 
 const Item = () => {
-
     const { id } = useParams()
     const tag = id?.substring(0, 1)
     const [item, setItem] = useState<Details>()
@@ -16,105 +13,12 @@ const Item = () => {
     const id_format = Number(id_formatTag)
 
 
-    
-    const searchTitle = async () => {
-        if (tag === "m") {
-            try {
-                const response: ResponseMovieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${id_format}`, optionsRequest)
-                const item = response.data
-
-                const itemFormat: Details = {
-                    id: item.id,
-                    name: item.title,
-                    original_name: item.original_title,
-                    genres: item.genres,
-                    overview: item.overview,
-                    popularity: item.popularity,
-                    poster: item.poster_path,
-                    production_companies: item.production_companies,
-                    budget: item.budget,
-                    homepage: item.homepage,
-                    revenue: item.revenue,
-                    average: item.vote_average,
-                    count: item.vote_count,
-                    runtime: item.runtime,
-                    release: item.release_date,
-                    status: item.status,
-                    tagline: item.tagline,
-                    seasons: undefined,
-                    last_air_date: undefined,
-                    number_of_episodes: undefined,
-                    number_of_seasons: undefined,
-                    last_episode_to_air: undefined
-                }
-                setItem(itemFormat)
-            } catch (error) {
-                console.log(error)
-            }
-
-        } else if (tag === "s") {
-            try {
-                const response: ResponseSerieDetails = await axios.get(`https://api.themoviedb.org/3/tv/${id_format}`, optionsRequest)
-                const item = response.data
-
-                const itemFormat: Details = {
-                    id: item.id,
-                    name: item.name,
-                    original_name: item.original_name,
-                    genres: item.genres,
-                    overview: item.overview,
-                    popularity: item.popularity,
-                    poster: item.poster_path,
-                    production_companies: item.production_companies,
-                    budget: item.budget,
-                    homepage: item.homepage,
-                    revenue: undefined,
-                    average: item.vote_average,
-                    count: item.vote_count,
-                    runtime: undefined,
-                    release: undefined,
-                    status: item.status,
-                    tagline: item.tagline,
-                    seasons: item.seasons,
-                    last_air_date: item.last_air_date,
-                    number_of_episodes: item.number_of_episodes,
-                    number_of_seasons: item.number_of_seasons,
-                    last_episode_to_air: item.last_episode_to_air,
-                }
-
-                setItem(itemFormat)
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-    }
-
-    const getCredits = async () => {
-        if (tag === "m") {
-            try {
-                const response: ResponseCredits = await axios.get(`https://api.themoviedb.org/3/movie/${id_format}/credits`, optionsRequest)
-                const data = response.data.cast
-                setCredits(data)
-            } catch (error) {
-                console.log(error)
-            }
-
-        } else if (tag === "s") {
-            try {
-                const response: ResponseCredits = await axios.get(`https://api.themoviedb.org/3/tv/${id_format}/credits`, optionsRequest)
-                const data = response.data.cast
-                setCredits(data)
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-    }
 
     useEffect(() => {
-        searchTitle()
-        getCredits()
+        if(tag && id_format){
+            service.searchDetails(tag, id_format, setItem)
+            service.getCredits(tag, id_format, setCredits)
+        }
     }, [id])
 
 

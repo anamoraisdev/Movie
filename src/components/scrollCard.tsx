@@ -1,34 +1,37 @@
 
-import { useEffect, useRef } from "react"
+import  {  useEffect, useRef, useState } from "react"
 import Card from "./card"
 import { PropsMoviesSeries } from "../interfaces/movieSerie"
 
 
 const ScrollCard = ({ itens, title }: PropsMoviesSeries) => {
 
-    const refCarossel = useRef(null)
+    const refCarossel = useRef<HTMLDivElement>(null);
+    const move = 600
 
     const previusImage = () => {
-        refCarossel.current.scrollLeft -= 400
+        if(refCarossel?.current){
+           refCarossel.current.scrollLeft -= move
+        }
+        
     }
 
     const nextImage = () => {
-        refCarossel.current.scrollLeft += 400
+        if(refCarossel.current){
+            refCarossel.current.scrollLeft += move
+        }
+        
     }
 
+  
     useEffect(() => {
-        let move = 400
-        setTimeout(() => {
-            if (move >= 2100) {
-                refCarossel.current.scrollLeft -= move
-                move = 400
-            } else {
-                refCarossel.current.scrollLeft += move
-                move = 300
-            }
-
-        }, 1000);
-    }, [])
+       setTimeout(() => {
+        if(refCarossel.current){
+            refCarossel.current.scrollLeft += move    
+        }
+       }, 3000);
+    },[])
+   
 
 
     return (
