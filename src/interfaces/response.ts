@@ -54,5 +54,6 @@ export interface ResponseCredits{
 export interface Credit{
     profile_path: string
     name: string
-    character: string
+    character: string,
+    id: number
 }

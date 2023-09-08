@@ -9,14 +9,14 @@ const DescriptionBanner = ({ item }: PropsMovieSerie) => {
     const tagMovie = "m"
     const tagSerie = "s"
 
-   
+    
     useEffect(() => {
         if(item.isMovie){
             service.searchDetails(tagMovie, item.id, setInfo)
         }else{
             service.searchDetails(tagSerie, item.id, setInfo)
         }
-
+     
     }, [item])
 
 
@@ -24,7 +24,7 @@ const DescriptionBanner = ({ item }: PropsMovieSerie) => {
 
         <div className="flex flex-col w-[50%]">
             <div className="flex justify-between">
-                <h1 className="font-bold">{item.name || item?.original_name}</h1>
+                <h1 className="font-bold">{item.name}</h1>
               
                 <p>{info?.status}</p>
               
@@ -32,7 +32,7 @@ const DescriptionBanner = ({ item }: PropsMovieSerie) => {
             </div>
             {item.isMovie ?
                 <div className="flex gap-2">
-                    <p>{info?.release} | </p>
+                    <p>{item?.release} | </p>
                     <p>{info?.runtime} min</p>
                 </div>
                 :

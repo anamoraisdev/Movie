@@ -1,4 +1,4 @@
-import { Search } from "../redux/slicers/searchMoviesSlicer";
+
 import { Genre } from "./genre";
 
 export interface MovieSerie {
@@ -47,7 +47,10 @@ export interface MovieApi {
     poster_path: string,
     release_date: string,
     title: string,
+    name: string,
+    original_name: string,
     original_title: string,
+    first_air_date: string,
     video: boolean,
     vote_average: number,
     vote_count: number,

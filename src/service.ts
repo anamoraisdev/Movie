@@ -10,7 +10,6 @@ const service = {
             try {
                 const response: ResponseMovieDetails = await axios.get(`https://api.themoviedb.org/3/movie/${id_format}`, optionsRequest)
                 const item = response.data
-                console.log("item:", item)
 
                 const itemFormat: Details = {
                     id: item.id,
