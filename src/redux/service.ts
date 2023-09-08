@@ -1,7 +1,7 @@
 import axios from "axios";
 import { MovieSerie, } from "../interfaces/movieSerie";
 import { PropsFilter, ResponseGenres, ResponseMovies, ResponsePerson, ResponseSearch, ResponseSeries } from "../interfaces/response";
-import { Search } from "./slicers/searchMoviesSlicer";
+
 
 
 export const optionsRequest = {

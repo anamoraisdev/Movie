@@ -2,22 +2,16 @@ import { useParams } from "react-router-dom"
 import { optionsRequest } from "../redux/service"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Details, MovieDetailsApi, SerieDetailsApi } from "../interfaces/details"
+import { Details} from "../interfaces/details"
+import { Credit, ResponseCredits, ResponseMovieDetails, ResponseSerieDetails } from "../interfaces/response"
 
-export interface ResponseMovieDetails {
-    data: MovieDetailsApi
-}
-
-export interface ResponseSerieDetails {
-    data: SerieDetailsApi
-}
 
 const Item = () => {
 
     const { id } = useParams()
     const tag = id?.substring(0, 1)
     const [item, setItem] = useState<Details>()
-    const [credits, setCredits] = useState()
+    const [credits, setCredits] = useState<Credit[]>()
     const id_formatTag = id?.slice(1)
     const id_format = Number(id_formatTag)
 
@@ -99,9 +93,8 @@ const Item = () => {
     const getCredits = async () => {
         if (tag === "m") {
             try {
-                const response: ResponseDetails = await axios.get(`https://api.themoviedb.org/3/movie/${id_format}/credits`, optionsRequest)
-                const data = response.data
-                console.log(data)
+                const response: ResponseCredits = await axios.get(`https://api.themoviedb.org/3/movie/${id_format}/credits`, optionsRequest)
+                const data = response.data.cast
                 setCredits(data)
             } catch (error) {
                 console.log(error)
@@ -109,10 +102,9 @@ const Item = () => {
 
         } else if (tag === "s") {
             try {
-                const response: ResponseDetails = await axios.get(`https://api.themoviedb.org/3/tv/${id_format}/credits`, optionsRequest)
-                const data = response.data
+                const response: ResponseCredits = await axios.get(`https://api.themoviedb.org/3/tv/${id_format}/credits`, optionsRequest)
+                const data = response.data.cast
                 setCredits(data)
-                console.log("serie:", data)
 
             } catch (error) {
                 console.log(error)
@@ -196,7 +188,7 @@ const Item = () => {
 
                         <h1 className="font-bold text-medium">Elenco</h1>
                         <div className="flex overflow-x-scroll gap-3">
-                            {credits && credits?.cast.map((credit, index) => {
+                            {credits && credits?.map((credit, index) => {
                                 const isRender = index <= 10
                                 if (isRender)
                                     return (
