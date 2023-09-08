@@ -5,11 +5,13 @@ const Favorites = () => {
     const favorites = useAppSelector(state => state.favorites)
     
     return(
-        <div className="flex flex-col">
-            <h1>Favorites</h1>
-            <div className="flex flex-wrap">
-
-              {favorites && favorites.map((favorite) => <Card item={favorite}/>)}
+        <div className="m-0 flex flex-col gap-8">
+            <h1 className="font-bold text-medium">Favorites</h1>
+            <div className="flex flex-wrap gap-4">
+              {favorites && favorites.map((favorite) => <div className="mt-6">
+                  <Card item={favorite}/>
+                </div>
+              )}
             </div>
         </div>
     )

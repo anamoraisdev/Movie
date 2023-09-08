@@ -143,12 +143,26 @@ const apiService = {
             try {
                 const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${id}`, optionsRequest)
                 const data = response.data.results
-                const result: Search[] = []
-                data.map((item) => {
+                console.log("filter:" , data)
+                const result: MovieSerie[] = []
+                data.map((movie) => {
                     const dataFormat = {
-                        id: item.id,
-                        name: item.title,
-                        poster: item.poster_path,
+                        adult: movie.adult,
+                        first_air_date: undefined,
+                        backdrop: movie.backdrop_path,
+                        genres: movie.genre_ids,
+                        id: movie.id,
+                        media_type: "Movie",
+                        overview: movie.overview,
+                        popularity: movie.popularity,
+                        poster: movie.poster_path,
+                        release: movie.release_date,
+                        name: movie.title,
+                        original_name: movie.original_title,
+                        average: movie.vote_average,
+                        count: movie.vote_count,
+                        isMovie: true,
+                        favorite: false,
                     }
                     result.push(dataFormat)
                 })
@@ -163,12 +177,25 @@ const apiService = {
             try {
                 const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${name}&language=pt-BR`, optionsRequest)
                 const data = response.data.results
-                const result: Search[] = []
-                data.map((item) => {
+                const result: MovieSerie[] = []
+                data.map((movie) => {
                     const dataFormat = {
-                        id: item.id,
-                        name: item.title,
-                        poster: item.poster_path,
+                        adult: movie.adult,
+                        first_air_date: undefined,
+                        backdrop: movie.backdrop_path,
+                        genres: movie.genre_ids,
+                        id: movie.id,
+                        media_type: "Movie",
+                        overview: movie.overview,
+                        popularity: movie.popularity,
+                        poster: movie.poster_path,
+                        release: movie.release_date,
+                        name: movie.title,
+                        original_name: movie.original_title,
+                        average: movie.vote_average,
+                        count: movie.vote_count,
+                        isMovie: true,
+                        favorite: false,
                     }
                     result.push(dataFormat)
                 })
