@@ -10,9 +10,9 @@ export interface Person {
 }
 
 export interface known_for{
-    original_title: string
+    original_title: string,
+    id: number
 }
-
 export interface PropsPerson{
     person: Person
 }
