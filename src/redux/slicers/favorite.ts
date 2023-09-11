@@ -51,12 +51,12 @@ export const favoritesSlicer = createSlice({
                 console.log("if all", state)
                 return state
             }
-        }
+        },
     },
 
 })
 
 
-export const { addListFavorite, deleteFavorite, filterFavoriteForGenre } = favoritesSlicer.actions
+export const { addListFavorite, deleteFavorite, filterFavoriteForGenre} = favoritesSlicer.actions
 
 export default favoritesSlicer.reducer

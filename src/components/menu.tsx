@@ -6,8 +6,8 @@ const Menu = () => {
     const navigate = useNavigate()
     
     return(
-        <div className="mx-10 flex flex-col items-start gap-4">
-
+        <div className="mx-10 flex flex-col items-start gap-4 ">
+           
             <ul className="flex flex-col gap-5">
                 <a onClick={() => navigate("/person")}>
                     <li className="flex gap-2 items-center hover:scale-[105%]"><FiUsers />person</li>
@@ -20,7 +20,10 @@ const Menu = () => {
 
             <ul className="flex flex-col gap-5">
                 <li className="flex gap-2 items-center hover:scale-[105%]"><BiCloud className=""/>Help</li>
+                <a onClick={() => navigate("/")}>
                 <li className="flex gap-2 items-center hover:scale-[105%]"><BiLogOut/>exit</li>
+
+                </a>
             </ul>
         </div>
     )

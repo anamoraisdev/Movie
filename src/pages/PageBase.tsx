@@ -9,6 +9,7 @@ import { searchSeriesPopulity } from "../redux/slicers/seriesPopulitySlicer"
 import { searchPerson } from "../redux/slicers/personSlicer"
 import Card from "../components/card"
 import Navbar from "../components/navbar"
+import Footer from "../components/footer"
 
 
 const PageBase = () => {
@@ -36,6 +37,10 @@ const PageBase = () => {
                 </div>
                 <UpcomingList itens={upcoming} title={"upcoming Movies"} />
             </div>
+            <Footer/>
+
+
+     
         </main>
     )
 }

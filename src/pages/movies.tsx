@@ -4,6 +4,7 @@ import Carrosel from "../components/carrosel.tsx"
 import { useParams } from "react-router-dom"
 import Item from "../components/Item.tsx"
 import Card from "../components/card.tsx"
+import Navbar from "../components/navbar.tsx"
 
 
 
@@ -14,6 +15,7 @@ const Movies = () => {
 
     return (
         <>
+     
             {id ?
                 <div>
                     <Item />

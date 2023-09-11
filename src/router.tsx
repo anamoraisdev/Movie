@@ -9,11 +9,13 @@ import Favorites from "./pages/Favorite"
 
 
 
+
 function Router() {
 
   return (
     <BrowserRouter>
       <Routes>
+  
         <Route path='/'element={<PageBase/>}>
           <Route path='/home' element={<Home/>}/>
           <Route path='/movies/:id?' element={<Movies />}/>

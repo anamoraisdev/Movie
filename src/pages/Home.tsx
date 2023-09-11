@@ -5,6 +5,7 @@ import ScrollCard from "../components/scrollCard";
 import { MoviesPopulityState, } from "../redux/slicers/moviePopulitySlicer";
 import { seriesPopulityState } from "../redux/slicers/seriesPopulitySlicer";
 import Card from "../components/card";
+import Navbar from "../components/navbar";
 
 const Home = () => {
   const moviesPopulity: MoviesPopulityState = useAppSelector(state => state.moviesPopulity)
@@ -13,6 +14,7 @@ const Home = () => {
 
   return (
     <>
+
       <div className="w-[100%]">
         {movies !== null ?
           <div className="flex flex-wrap gap-4 w-full">
