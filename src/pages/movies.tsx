@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom"
 import Item from "../components/Item.tsx"
 import Card from "../components/card.tsx"
 import Navbar from "../components/navbar.tsx"
+import SearchResultView from "../components/searchResult.tsx"
 
 
 
@@ -15,24 +16,13 @@ const Movies = () => {
 
     return (
         <>
-     
-            {id ?
-                <div>
-                    <Item />
-                </div>
-                :
-                <div className="flex flex-wrap gap-4 w-full">
-                    {movies?.map((movie) => (
 
-                        <div className="mt-6" key={movie.id}>
-                            <Card key={movie?.id} item={movie} />
-
-                        </div>
-                    )
-                    )}
-                </div>
-
-
+            {id ? 
+            <div>
+                <Item />
+            </div>
+            
+            : <SearchResultView />
             }
 
 

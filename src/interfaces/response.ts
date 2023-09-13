@@ -31,6 +31,9 @@ export interface PropsFilter {
     id?: number,
     type: string
     isFiltering: boolean | undefined
+    pageCorrect?: number
+    isMovieOrSerie: string
+    
 }
 export interface ResponseSearch {
     data: {
