@@ -13,13 +13,15 @@ export const optionsRequest = {
 }
 
 
+
+
 const apiService = {
 
     moviesPopulity: async () => {
         try {
             const responseAllDay: ResponseMovies = await axios.get("https://api.themoviedb.org/3/trending/all/day", optionsRequest)
             const allDay = responseAllDay?.data?.results;
-          
+
             const responseTopRated: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/movie/top_rated `, optionsRequest)
             const topRated = responseTopRated.data.results
 
@@ -35,12 +37,12 @@ const apiService = {
             allMovies.map((movie) => {
 
                 let nameOrTitle: string
-                let releaseOrFirst : string
+                let releaseOrFirst: string
 
-                if(movie.title === undefined && movie.release_date === undefined){
+                if (movie.title === undefined && movie.release_date === undefined) {
                     nameOrTitle = movie.name
                     releaseOrFirst = movie.first_air_date
-                }else{
+                } else {
                     nameOrTitle = movie.title
                     releaseOrFirst = movie.release_date
                 }
@@ -151,7 +153,9 @@ const apiService = {
     },
 
     movies: async ({ name, id, type, isFiltering }: PropsFilter) => {
+
         if (type === "filter" && id !== undefined && isFiltering) {
+
             try {
                 const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${id}`, optionsRequest)
                 const data = response.data.results
@@ -177,12 +181,15 @@ const apiService = {
                     }
                     result.push(dataFormat)
                 })
-                return result
+                const payload = {
+                    movies: result,
+                    pageAtual: response.data.page
+                }
+                return payload
 
             } catch (error) {
                 console.log(error)
             }
-
 
         } else if (name && type === "search") {
             try {
@@ -210,14 +217,24 @@ const apiService = {
                     }
                     result.push(dataFormat)
                 })
-                return result
+                const payload = {
+                    movies: result,
+                    pageAtual: response.data.page
+                }
+                return payload
 
             } catch (error) {
                 console.log(error)
             }
         } else {
-            return null
+            const payload = {
+                movies: null,
+                pageAtual: 1
+            }
+            return payload
         }
+
+
     },
 
     person: async () => {

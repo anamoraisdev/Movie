@@ -14,11 +14,13 @@ export const searchMovies = createAsyncThunk(
 
 
 export interface MoviesState{
-  movies: MovieSerie[] | null 
+  movies: MovieSerie[] | null | undefined
+  pageAtual: number | undefined
 }
 
 const initialState: MoviesState = {
   movies: null,
+  pageAtual: 1
 }
 
 export const moviesSlicer = createSlice({
@@ -30,8 +32,9 @@ export const moviesSlicer = createSlice({
   extraReducers: builder => {
     builder.addCase(
       searchMovies.fulfilled,
-      (state, { payload }) => {
-        state.movies = payload
+      (state, {payload}) => {
+        state.movies = payload?.movies
+        state.pageAtual = payload?.pageAtual
       }
     )
   }
