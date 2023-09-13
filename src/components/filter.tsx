@@ -10,20 +10,22 @@ import { PropsFilter } from "../interfaces/response"
 const Filter = () => {
     const dispatch = useAppDispatch()
     const [genre, setGenre] = useState<string>()
+    const [type, setType] = useState<string>("")
     const [name, setName] = useState<string>("")
     const [isFiltering, setIsFiltering] = useState<boolean>(false)
     const genres: Genre[] = useAppSelector(state => state.genres)
     const navigate = useNavigate()
 
+
     const filterMovies = () => {
         const id = formatGenre();
         if (isFiltering) {
             setIsFiltering(false)
-            const infoRefresh: PropsFilter = {id: id, type: "filter", isFiltering: false }
+            const infoRefresh: PropsFilter = { id: id, type: "filter", isFiltering: false, pageCorrect: 1, isMovieOrSerie: type }
             dispatch(searchMovies(infoRefresh))
         } else {
             setIsFiltering(true)
-            const info: PropsFilter = { id: id, type: "filter", isFiltering: true}
+            const info: PropsFilter = { id: id, type: "filter", isFiltering: true, pageCorrect: 1, isMovieOrSerie: type}
             console.log("filter:", isFiltering)
             dispatch(searchMovies(info))
         }
@@ -33,7 +35,8 @@ const Filter = () => {
         const info: PropsFilter = {
             name: name,
             type: "search",
-            isFiltering: undefined
+            isFiltering: undefined,
+            isMovieOrSerie: type,
         }
         dispatch(searchMovies(info))
     }
@@ -66,13 +69,20 @@ const Filter = () => {
                 </a>
             </div>
             <div className="flex gap-2">
+            <select className="px-8 rounded text-gray-700" value={type} onChange={(event) => setType(event.target.value)}>
+                   
+                        <option > movie</option>
+                        <option>serie</option>
+                
+                </select>
+
                 <input className="rounded-md px-4" placeholder="digite o nome" value={name} onChange={(event) => setName(event.target.value)}></input>
                 <select className="px-8 rounded text-gray-700" value={genre} onChange={(event) => setGenre(event.target.value)}>
                     {genres?.map((gender) =>
                         <option key={gender.id}>{gender.name}</option>
                     )}
                 </select>
-                <button className="bg-slate-700 hover:bg-slate-500 text-gray-100 px-4 rounded-lg" onClick={() => filterMovies()}>{isFiltering ? "refresh" : "filter"}</button>
+                <button className={`hover:bg-gray-700 text-gray-100 px-4 rounded-lg  ${isFiltering ? "bg-gray-700" : "bg-gray-800"}`} onClick={() => filterMovies()}>{isFiltering ? "refresh" : "filter"}</button>
             </div>
         </div>
     )

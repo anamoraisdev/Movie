@@ -152,90 +152,219 @@ const apiService = {
         }
     },
 
-    movies: async ({ name, id, type, isFiltering }: PropsFilter) => {
-
-        if (type === "filter" && id !== undefined && isFiltering) {
-
-            try {
-                const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${id}`, optionsRequest)
-                const data = response.data.results
-                const result: MovieSerie[] = []
-                data.map((movie) => {
-                    const dataFormat = {
-                        adult: movie.adult,
-                        first_air_date: undefined,
-                        backdrop: movie.backdrop_path,
-                        genres: movie.genre_ids,
-                        id: movie.id,
-                        media_type: "Movie",
-                        overview: movie.overview,
-                        popularity: movie.popularity,
-                        poster: movie.poster_path,
-                        release: movie.release_date,
-                        name: movie.title,
-                        original_name: movie.original_title,
-                        average: movie.vote_average,
-                        count: movie.vote_count,
-                        isMovie: true,
-                        favorite: false,
-                    }
-                    result.push(dataFormat)
-                })
-                const payload = {
-                    movies: result,
-                    pageAtual: response.data.page
-                }
-                return payload
-
-            } catch (error) {
-                console.log(error)
+    movies: async ({ name, id, type, isFiltering, pageCorrect, isMovieOrSerie }: PropsFilter) => {
+        console.log("isMovie", isMovieOrSerie)
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: import.meta.env.VITE_API_KEY
+            },
+            params: {
+                page: pageCorrect
             }
 
-        } else if (name && type === "search") {
-            try {
-                const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${name}&language=pt-BR`, optionsRequest)
-                const data = response.data.results
-                const result: MovieSerie[] = []
-                data.map((movie) => {
-                    const dataFormat = {
-                        adult: movie.adult,
-                        first_air_date: undefined,
-                        backdrop: movie.backdrop_path,
-                        genres: movie.genre_ids,
-                        id: movie.id,
-                        media_type: "Movie",
-                        overview: movie.overview,
-                        popularity: movie.popularity,
-                        poster: movie.poster_path,
-                        release: movie.release_date,
-                        name: movie.title,
-                        original_name: movie.original_title,
-                        average: movie.vote_average,
-                        count: movie.vote_count,
-                        isMovie: true,
-                        favorite: false,
-                    }
-                    result.push(dataFormat)
-                })
-                const payload = {
-                    movies: result,
-                    pageAtual: response.data.page
-                }
-                return payload
-
-            } catch (error) {
-                console.log(error)
-            }
-        } else {
-            const payload = {
-                movies: null,
-                pageAtual: 1
-            }
-            return payload
         }
+        if (isMovieOrSerie === "movie") {
+            if (type === "filter" && id !== undefined && isFiltering) {
+                try {
+                    const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${id}`, options)
+                    const data = response.data.results
+                    const result: MovieSerie[] = []
 
+                    data.map((movie) => {
+                        const dataFormat = {
+                            adult: movie.adult,
+                            first_air_date: undefined,
+                            backdrop: movie.backdrop_path,
+                            genres: movie.genre_ids,
+                            id: movie.id,
+                            media_type: "Movie",
+                            overview: movie.overview,
+                            popularity: movie.popularity,
+                            poster: movie.poster_path,
+                            release: movie.release_date,
+                            name: movie.title,
+                            original_name: movie.original_title,
+                            average: movie.vote_average,
+                            count: movie.vote_count,
+                            isMovie: true,
+                            favorite: false,
+                        }
+                        result.push(dataFormat)
+                    })
 
+                    console.log("result", response.data)
+                    const payload = {
+                        movies: result,
+                        pageAtual: response.data.page,
+                        type: type,
+                        isFiltering: isFiltering,
+                        id: id,
+                        name: "",
+                        isMovieOrSerie: isMovieOrSerie,
+                    }
+                    return payload
+
+                } catch (error) {
+                    console.log(error)
+                }
+
+            } else if (name && type === "search") {
+                try {
+                    const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${name}&language=pt-BR`, options)
+                    const data = response.data.results
+                    const result: MovieSerie[] = []
+                    data.map((movie) => {
+                        const dataFormat = {
+                            adult: movie.adult,
+                            first_air_date: undefined,
+                            backdrop: movie.backdrop_path,
+                            genres: movie.genre_ids,
+                            id: movie.id,
+                            media_type: "Movie",
+                            overview: movie.overview,
+                            popularity: movie.popularity,
+                            poster: movie.poster_path,
+                            release: movie.release_date,
+                            name: movie.title,
+                            original_name: movie.original_title,
+                            average: movie.vote_average,
+                            count: movie.vote_count,
+                            isMovie: true,
+                            favorite: false,
+                        }
+                        result.push(dataFormat)
+                    })
+                    const payload = {
+                        movies: result,
+                        pageAtual: response.data.page,
+                        name: name,
+                        type: type,
+                        id: null,
+                        isFiltering: false,
+                        isMovieOrSerie: isMovieOrSerie
+                    }
+                    return payload
+
+                } catch (error) {
+                    console.log(error)
+                }
+            } else {
+                const payload = {
+                    movies: null,
+                    pageAtual: 1,
+                    name: null,
+                    type: null,
+                    id: null,
+                    isFiltering: false,
+                    isMovieOrSerie: ""
+
+                }
+                return payload
+            }
+
+        } else {
+            if (type === "filter" && id !== undefined && isFiltering) {
+                try {
+                    const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/discover/tv?with_genres=${id}`, options)
+                    const data = response.data.results
+                    const result: MovieSerie[] = []
+
+                    data.map((movie) => {
+                        const dataFormat = {
+                            adult: movie.adult,
+                            first_air_date: undefined,
+                            backdrop: movie.backdrop_path,
+                            genres: movie.genre_ids,
+                            id: movie.id,
+                            media_type: "Movie",
+                            overview: movie.overview,
+                            popularity: movie.popularity,
+                            poster: movie.poster_path,
+                            release: movie.release_date,
+                            name: movie.title,
+                            original_name: movie.original_title,
+                            average: movie.vote_average,
+                            count: movie.vote_count,
+                            isMovie: true,
+                            favorite: false,
+                        }
+                        result.push(dataFormat)
+                    })
+
+                    console.log("result", response.data)
+                    const payload = {
+                        movies: result,
+                        pageAtual: response.data.page,
+                        type: type,
+                        isFiltering: isFiltering,
+                        id: id,
+                        name: "",
+                        isMovieOrSerie: isMovieOrSerie
+                    }
+                    return payload
+
+                } catch (error) {
+                    console.log(error)
+                }
+
+            } else if (name && type === "search") {
+                try {
+                    const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/search/tv?query=${name}&language=pt-BR`, options)
+                    const data = response.data.results
+                    const result: MovieSerie[] = []
+                    data.map((movie) => {
+                        const dataFormat = {
+                            adult: movie.adult,
+                            first_air_date: undefined,
+                            backdrop: movie.backdrop_path,
+                            genres: movie.genre_ids,
+                            id: movie.id,
+                            media_type: "Movie",
+                            overview: movie.overview,
+                            popularity: movie.popularity,
+                            poster: movie.poster_path,
+                            release: movie.release_date,
+                            name: movie.title,
+                            original_name: movie.original_title,
+                            average: movie.vote_average,
+                            count: movie.vote_count,
+                            isMovie: true,
+                            favorite: false,
+                        }
+                        result.push(dataFormat)
+                    })
+                    const payload = {
+                        movies: result,
+                        pageAtual: response.data.page,
+                        name: name,
+                        type: type,
+                        id: null,
+                        isFiltering: false,
+                        isMovieOrSerie: isMovieOrSerie
+                    }
+                    return payload
+
+                } catch (error) {
+                    console.log(error)
+                }
+            } else {
+                const payload = {
+                    movies: null,
+                    pageAtual: 1,
+                    name: null,
+                    type: null,
+                    id: null,
+                    isFiltering: false,
+                    isMovieOrSerie: ""
+
+                }
+                return payload
+            }
+        }
     },
+
 
     person: async () => {
         try {
