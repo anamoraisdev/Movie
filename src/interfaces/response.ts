@@ -31,6 +31,7 @@ export interface PropsFilter {
     id?: number,
     type: string
     isFiltering: boolean | undefined
+    
 }
 export interface ResponseSearch {
     data: {

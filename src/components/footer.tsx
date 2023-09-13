@@ -1,18 +1,15 @@
-import { BiCopy, BiCopyright, BiLink, BiLogoGmail, BiLogoInstagram, BiLogoTiktok, BiLogoTwitter, BiLogoWhatsapp, BiLogoYoutube, BiPhone } from "react-icons/bi";
+import { BiCopyright, BiLink, BiLogoGmail, BiLogoInstagram, BiLogoTiktok, BiLogoTwitter, BiLogoWhatsapp, BiLogoYoutube, BiPhone } from "react-icons/bi";
 
 const Footer = () => {
     return (
-        <div className="bg-slate-800 px-20 pt-20 pb-4 flex flex-col gap-2">
+        <div className="bg-gray-800 px-20 pt-20 pb-4 flex flex-col gap-2">
 
-            <div className="flex gap-72 text-gray-400">
+            <div className="flex gap-36 text-gray-400 justify-center">
                 <div className="w-[30%] flex flex-col gap-4">
                     <h1 className="font-bold text-gray-300 text-medium">LOGO</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam necessitatibus magni dignissimos doloremque exercitationem! Asperiores dolorem fugit incidunt iste voluptate iusto non, consequuntur obcaecati nesciunt distinctio aperiam? Ullam, aliquid incidunt.Lorem ipsum dolor sit amet consectetur, adipisicing elit. oMaxime cum blanditiis quod, ab molestias soluta deleniti, laboriosam esse culpa eaque quo praesentium sunt accusamus ad. Esse reprehenderit consequatur molestias soluta. Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur obcaecati nesciunt distinctio aperiam? Ullam, aliquid incidunt.Lorem ipsum dolor sit amet consectetur, adipisicing elit. oMaxime cum blanditiis quod, ab molestias soluta deleniti, laboriosam esse culpa eaque quo praesentium sunt accusamus ad. Esse reprehenderit consequatur molestias soluta. Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
 
                 </div>
-
-
-
                 <div className="flex flex-col gap-4">
                     <h1 className="font-bold text-gray-300">Important Links</h1>
                     <div className="flex flex-col gap-2">
@@ -84,13 +81,13 @@ const Footer = () => {
             </div>
 
 
-                <hr className="mt-10 opacity-30"></hr>
-       
-                <div className="flex text-gray-400 justify-center text-sm items-center mt-2" >
-                    <BiCopyright />
-                    <p>2023 Ana Morais, inc</p>
-                </div>
-          
+            <hr className="mt-10 opacity-30"></hr>
+
+            <div className="flex text-gray-400 justify-center text-sm items-center mt-2" >
+                <BiCopyright />
+                <p>2023 Ana Morais, inc</p>
+            </div>
+
         </div>
     )
 }
