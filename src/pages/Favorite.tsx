@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import Card from "../components/card"
 import { useAppDispatch, useAppSelector } from "../redux/hooks"
 import favorite, { filterFavoriteForGenre } from "../redux/slicers/favorite"
+import AvisoFavorito from "../components/avisoFavorito"
 
 const Favorites = () => {
   const favorites = useAppSelector(state => state.favorites)
@@ -37,15 +38,11 @@ const Favorites = () => {
       </div>
 
       {typeSelect === "movie" && favorites.filteredMovies.length <= 0 &&
-        <div className="flex justify-center items-center">
-          <h1 className="text-medium font-bold">Ops! Voce nao tem nenhum titulo favoritado. </h1>
-        </div>
+       <AvisoFavorito />
       }
 
       {typeSelect === "serie" && favorites.filteredSeries.length <= 0 &&
-        <div className="flex justify-center items-center">
-          <h1 className="text-medium font-bold">Ops! Voce nao tem nenhum titulo favoritado. </h1>
-        </div>
+        <AvisoFavorito/>
       }
       {
         favorites.all.length > 0 ?
@@ -76,9 +73,7 @@ const Favorites = () => {
           </div>
           :
 
-          <div className="flex justify-center items-center">
-            <h1 className="text-medium font-bold">Ops! Voce nao tem nenhum titulo favoritado. </h1>
-          </div>
+          <AvisoFavorito/>
       }
     </div>
   )

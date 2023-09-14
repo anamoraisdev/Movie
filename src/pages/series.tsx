@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useAppSelector } from "../redux/hooks";
 import Carrosel from "../components/carrosel";
 import ScrollCard from "../components/scrollCard";
-import Item from "../components/Item";
+import Item from "./Item";
 import SearchResultView from "../components/searchResult";
 
 
