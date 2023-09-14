@@ -4,17 +4,17 @@
 }
 
 ::-webkit-scrollbar-track {
-  background:#ebebeb62;
+  background:#374151;
   border-radius: 10px;
 }
 ::-webkit-scrollbar {
- background-color: #324141;
+ background-color:#1f2937;
  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: #000913f3;
+  background-color:#1f2937;
 }
 
 @tailwind base;

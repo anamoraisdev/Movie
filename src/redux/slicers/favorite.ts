@@ -2,21 +2,17 @@ import { createSlice } from '@reduxjs/toolkit'
 import { MovieSerie } from '../../interfaces/movieSerie'
 
 
-
-
 export interface FavoritesState {
-  all: MovieSerie[]
+  all: MovieSerie[] 
   filteredSeries: MovieSerie[]
   filteredMovies: MovieSerie[]
- 
 }
 
 const initialState: FavoritesState = {
-  all: [],
+  all: JSON.parse(localStorage.getItem("favoritos")) || [], 
   filteredSeries: [],
   filteredMovies: [],
-
-}
+} 
   
 
 export const favoritesSlicer = createSlice({
@@ -25,12 +21,14 @@ export const favoritesSlicer = createSlice({
     reducers: {
         addListFavorite: (state, action: {payload: MovieSerie}) => {
             state.all.push(action.payload)
+            localStorage.setItem("favoritos", JSON.stringify(state.all))
             return state
         },
 
         deleteFavorite: (state, {payload}) => {
             const result = state.all.filter((item) => item.id !== payload)
             state.all = result
+            localStorage.setItem("favoritos", JSON.stringify(state.all))
             return state
         },
 
