@@ -38,42 +38,46 @@ const Favorites = () => {
       </div>
 
       {typeSelect === "movie" && favorites.filteredMovies.length <= 0 &&
-       <AvisoFavorito />
+        <AvisoFavorito />
       }
 
       {typeSelect === "serie" && favorites.filteredSeries.length <= 0 &&
-        <AvisoFavorito/>
+        <AvisoFavorito />
+      }
+
+      {typeSelect === "all" && favorites.all.length <= 0 &&
+        <AvisoFavorito />
       }
       {
-        favorites.all.length > 0 ?
-          <div className="grid grid-cols-7 gap-5 mt-6 justify-center">
+        favorites.all.length > 0 &&
+        <div className="grid grid-cols-7 gap-5 mt-6 justify-center">
 
-            {typeSelect === "all" && favorites.all.map((favorite) =>
+          {typeSelect === "all" && favorites.all.map((favorite) =>
 
-              <div className="mt-6">
-                <Card item={favorite} />
-              </div>
+            <div className="mt-6">
+              <Card item={favorite} />
+            </div>
 
 
-            )}
+          )}
 
-            {typeSelect === "movie" && favorites.filteredMovies.length > 0 && favorites.filteredMovies.map((favorite) =>
+          {typeSelect === "movie" && favorites.filteredMovies.length > 0 && favorites.filteredMovies.map((favorite) =>
 
-              <div className="mt-6">
-                <Card item={favorite} />
-              </div>
+            <div className="mt-6">
+              <Card item={favorite} />
+            </div>
 
-            )}
+          )}
 
-            {typeSelect === "serie" && favorites.filteredSeries.length > 0 && favorites.filteredSeries.map((favorite) =>
-              <div className="mt-6">
-                <Card item={favorite} />
-              </div>
-            )}
-          </div>
-          :
+          {typeSelect === "serie" && favorites.filteredSeries.length > 0 && favorites.filteredSeries.map((favorite) =>
+            <div className="mt-6">
+              <Card item={favorite} />
+            </div>
+          )}
+        </div>
 
-          <AvisoFavorito/>
+
+
       }
     </div>
   )
