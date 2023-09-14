@@ -8,14 +8,12 @@ export interface FavoritesState {
   all: MovieSerie[]
   filteredSeries: MovieSerie[]
   filteredMovies: MovieSerie[]
- 
 }
 
 const initialState: FavoritesState = {
   all: [],
   filteredSeries: [],
   filteredMovies: [],
-
 }
   
 

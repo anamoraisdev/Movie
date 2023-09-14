@@ -29,16 +29,16 @@ const Item = () => {
 
                 <div className="flex gap-10 mt-8">
 
-
-                    <div className="flex flex-col gap-4 ">
-                        <img className="rounded-2xl" src={`https://image.tmdb.org/t/p/w500/${item.poster}`} />
+                    <section className="flex flex-col gap-4 ">
+                        <figure>
+                            <img className="rounded-2xl" src={`https://image.tmdb.org/t/p/w500/${item.poster}`} />
+                        </figure>
                         <div className="flex gap-3 justify-center flex-wrap">
                             {item?.genres.map((gender) => <button key={gender.id} className="border border-white rounded-lg p-2 hover:bg-white hover:text-slate-900">{gender.name}</button>)}
                         </div>
-                    </div>
+                    </section>
 
-
-                    <div className="w-[60%] flex flex-col gap-4">
+                    <section className="w-[60%] flex flex-col gap-4">
                         <header>
                             <div className="flex justify-between items-center gap-6">
                                 <h1 className="font-bold text-2xl">{item.name}</h1>
@@ -57,61 +57,77 @@ const Item = () => {
                             }
                         </header>
 
-                        <p>{item?.overview}</p>
+                        <main>
 
-                        <h3 className="font-bold text-medium">Production companies</h3>
-                        <div className="flex justify-start flex-wrap gap-4" >
-                            {item?.production_companies.map((i) =>
-                                <div key={i.id} className="flex gap-1 bg-slate-800 rounded-md p-2">
-                                    <p>{i.name}</p>
-                                    <p className="text-sm rounded bg-slate-600 px-2">{i.origin_country}</p>
-                                </div>
-                            )}
-                        </div>
-                        <h3 className="text-medium font-bold">Statistic <span className="text-slate-500">#{item.name}</span></h3>
+                            <article className={`${item.overview.length > 500 ? "h-auto mb-4" : "h-[110px]"}`}>
+                                <p>{item?.overview}</p>
+                            </article>
 
-                        <table className=" w-full">
-                            <thead>
-                                <tr className="text-center rounded-lg ">
-                                    <th className="bg-slate-800  rounded-lg hover:bg-slate-900">buget</th>
-                                    <th className="bg-slate-800  rounded-lg hover:bg-slate-900">revenue</th>
-                                    <th className="bg-slate-800  rounded-lg hover:bg-slate-900">vote average</th>
-                                    <th className="bg-slate-800  rounded-lg hover:bg-slate-900">vote count</th>
-                                    <th className="bg-slate-800  rounded-lg hover:bg-slate-900">populity</th>
-                                </tr>
+                            <section>
+                                <h3 className="font-bold text-medium ">Production companies</h3>
+                                <div className=" h-[100px] w-full mb-4">
+                                    <div className="flex justify-start flex-wrap gap-4" >
+                                        {item?.production_companies.map((i) =>
 
-                            </thead>
-                            <tbody>
-                                <tr className="text-center rounded-lg">
-                                    <td className="bg-slate-600  rounded-lg ">{item.budget ? `${item.budget}` : "-"}</td>
-                                    <td className="bg-slate-600 rounded-lg ">{item.revenue}</td>
-                                    <td className="bg-slate-600  rounded-lg ">{item.average}</td>
-                                    <td className="bg-slate-600 rounded-lg ">{item.count}</td>
-                                    <td className="bg-slate-600  rounded-lg ">{item.popularity}</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-
-
-                        <h1 className="font-bold text-medium">Elenco</h1>
-                        <div className="flex overflow-x-scroll gap-3">
-                            {credits && credits?.map((credit, index) => {
-                                const isRender = index <= 10
-                                if (isRender)
-                                    return (
-                                        <div key={credit.id} className="h-[200px]">
-                                            <img className="object-cover min-w-[8rem] max-h-[8rem]" src={`https://image.tmdb.org/t/p/w500/${credit?.profile_path}`} />
-                                            <div className="w-[90px]">
-                                                <p className="text-sm truncate">{credit.name}</p>
-                                                <p className="truncate text-sm">{credit.character}</p>
+                                            <div key={i.id} className="flex gap-1 bg-slate-800 rounded-md p-2 max-w-[200px] min-w-[100px]">
+                                                <p className="truncate">{i.name}</p>
+                                                <p className="text-sm rounded bg-slate-600 px-2">{i.origin_country}</p>
                                             </div>
-                                        </div>
-                                    )
-                            })}
-                        </div>
-                    </div>
-                </div>
+                                        )}
+                                    </div>
+
+                                </div>
+                            </section>
+
+                            <section className="h-[100px]">
+                                <h3 className="text-medium font-bold ">Statistic <span className="text-slate-500">#{item.name}</span></h3>
+                                <table className=" w-full">
+                                    <thead>
+                                        <tr className="text-center rounded-lg ">
+                                            <th className="bg-slate-800  rounded-lg hover:bg-slate-900">buget</th>
+                                            <th className="bg-slate-800  rounded-lg hover:bg-slate-900">revenue</th>
+                                            <th className="bg-slate-800  rounded-lg hover:bg-slate-900">vote average</th>
+                                            <th className="bg-slate-800  rounded-lg hover:bg-slate-900">vote count</th>
+                                            <th className="bg-slate-800  rounded-lg hover:bg-slate-900">populity</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr className="text-center rounded-lg">
+                                            <td className="bg-slate-600  rounded-lg ">{item.budget ? `${item.budget}` : "-"}</td>
+                                            <td className="bg-slate-600 rounded-lg ">{item.revenue ? `${item.revenue}` : "-"}</td>
+                                            <td className="bg-slate-600  rounded-lg ">{item.average ? `${item.average}` : "-"}</td>
+                                            <td className="bg-slate-600 rounded-lg ">{item.count ? `${item.count}` : "-"}</td>
+                                            <td className="bg-slate-600  rounded-lg ">{item.popularity ? `${item.popularity}` : "-"}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <section>
+                                <h1 className="font-bold text-medium">Elenco</h1>
+                                <div className={` ${credits && credits.length > 5 ? "h-[200px] p-2 " : ""} bg-gray-800 rounded-md`}>
+                                    <div className={`flex ${credits && credits?.length > 5 ? "overflow-x-scroll" : ""} gap-3`}>
+                                        {credits && credits?.map((credit, index) => {
+                                            const isRender = index <= 10
+                                            if (isRender)
+                                                return (
+                                                    <div key={credit.id} className={`${credits && credits.length > 5 ? "h-[200px] p-2" : "p-2"} `}>
+                                                        <img className="object-cover min-w-[8rem] max-h-[8rem] rounded-md" src={`${credit?.profile_path ? `https://image.tmdb.org/t/p/w500/${credit?.profile_path}` : "../src/default-avatar-icon-of-social-media-user-vector.jpg"}`} />
+                                                        <div className="w-[90px]">
+                                                            <p className="text-sm truncate">{credit.name}</p>
+                                                            <p className="truncate text-sm">{credit.character}</p>
+                                                        </div>
+                                                    </div>
+                                                )
+                                        })}
+                                    </div>
+                                </div>
+                            </section>
+                        </main>
+                    </section>
+                </div >
 
 
             }

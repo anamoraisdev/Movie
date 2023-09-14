@@ -10,7 +10,7 @@ import { PropsFilter } from "../interfaces/response"
 const Filter = () => {
     const dispatch = useAppDispatch()
     const [genre, setGenre] = useState<string>()
-    const [type, setType] = useState<string>("")
+    const [type, setType] = useState<string>("movie")
     const [name, setName] = useState<string>("")
     const [isFiltering, setIsFiltering] = useState<boolean>(false)
     const genres: Genre[] = useAppSelector(state => state.genres)

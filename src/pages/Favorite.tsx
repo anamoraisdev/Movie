@@ -36,35 +36,50 @@ const Favorites = () => {
         <button onClick={() => setTypeSelect("serie")} className={`bg-gray-800 px-3 py-1 rounded-md ${typeSelect === "serie" ? "bg-slate-600" : ""}`}>serie</button>
       </div>
 
-      <div className="grid grid-cols-7 gap-5 mt-6 justify-center">
-        {typeSelect === "all" && favorites.all.map((favorite) =>
+      {typeSelect === "movie" && favorites.filteredMovies.length <= 0 &&
+        <div className="flex justify-center items-center">
+          <h1 className="text-medium font-bold">Ops! Voce nao tem nenhum titulo favoritado. </h1>
+        </div>
+      }
 
-          <div className="mt-6">
-            <Card item={favorite} />
+      {typeSelect === "serie" && favorites.filteredSeries.length <= 0 &&
+        <div className="flex justify-center items-center">
+          <h1 className="text-medium font-bold">Ops! Voce nao tem nenhum titulo favoritado. </h1>
+        </div>
+      }
+      {
+        favorites.all.length > 0 ?
+          <div className="grid grid-cols-7 gap-5 mt-6 justify-center">
+
+            {typeSelect === "all" && favorites.all.map((favorite) =>
+
+              <div className="mt-6">
+                <Card item={favorite} />
+              </div>
+
+
+            )}
+
+            {typeSelect === "movie" && favorites.filteredMovies.length > 0 && favorites.filteredMovies.map((favorite) =>
+
+              <div className="mt-6">
+                <Card item={favorite} />
+              </div>
+
+            )}
+
+            {typeSelect === "serie" && favorites.filteredSeries.length > 0 && favorites.filteredSeries.map((favorite) =>
+              <div className="mt-6">
+                <Card item={favorite} />
+              </div>
+            )}
           </div>
+          :
 
-
-        )}
-
-        {typeSelect === "movie" && favorites.filteredMovies.map((favorite) =>
-
-          <div className="mt-6">
-            <Card item={favorite} />
+          <div className="flex justify-center items-center">
+            <h1 className="text-medium font-bold">Ops! Voce nao tem nenhum titulo favoritado. </h1>
           </div>
-
-        )}
-
-        {typeSelect === "serie" && favorites.filteredSeries.map((favorite) =>
-          <div className="mt-6">
-            <Card item={favorite} />
-          </div>
-        )
-
-        }
-
-
-
-      </div>
+      }
     </div>
   )
 }
