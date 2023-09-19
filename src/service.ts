@@ -1,10 +1,12 @@
 import axios from "axios"
-import { Credit, ResponseCredits, ResponseMovieDetails, ResponseSerieDetails } from "./interfaces/response"
+import { Credit, ResponseCredits, ResponseMovieDetails, ResponseMovies, ResponseSerieDetails, ResponseSeries } from "./interfaces/response"
 import { Details } from "./interfaces/details"
 import { optionsRequest } from "./redux/service"
+import { MovieSerie } from "./interfaces/movieSerie"
 
 
 const service = {
+    
     searchDetails: async (tag: string, id_format: number, setItem: React.Dispatch<React.SetStateAction<Details | undefined>>) => {
         if (tag === "m") {
             try {
@@ -37,7 +39,7 @@ const service = {
                 }
                 setItem(itemFormat)
             } catch (error) {
-                console.log(error)
+               console.log(error)
             }
 
         } else if (tag === "s") {
@@ -73,7 +75,8 @@ const service = {
                 setItem(itemFormat)
 
             } catch (error) {
-                console.log(error)
+                const idExternal = await axios.get(`https://api.themoviedb.org/3/movie/${id_format}/external_ids`)
+                console.log("id external:", idExternal)
             }
         }
 
@@ -100,6 +103,75 @@ const service = {
                 console.log(error)
             }
         }
+    },
+
+    getRecommendations:async ( tag: string, id_format: number, setRecommendations: React.Dispatch<React.SetStateAction<MovieSerie[] | undefined>>): Promise<void> => {
+       
+       if(tag === "m") {
+           try {
+                const response: ResponseMovies = await axios.get(`https://api.themoviedb.org/3/movie/${id_format}/recommendations`, optionsRequest)
+                const recommendations = response.data.results
+                const recommendationsFormat: MovieSerie[] = []
+          
+                recommendations.map((item) => {
+                    const itemFormat = {
+                        adult:  item.adult,
+                        id: item.id,
+                        name: item.title,
+                        original_name: item.original_title,
+                        first_air_date:undefined,
+                        backdrop: item.backdrop_path,
+                        genres: item.genre_ids,
+                        media_type: "movie",
+                        overview: item.overview,
+                        popularity: item.popularity,
+                        poster: item.poster_path,
+                        release: item.release_date,
+                        average: item.vote_average,
+                        count: item.vote_count,
+                        isMovie: true,
+                        favorite: false,
+                    }
+                    recommendationsFormat.push(itemFormat)
+                })
+                setRecommendations(recommendationsFormat)
+              
+            } catch (error) {
+               console.log(error)
+            }
+       }else if(tag === "s"){
+        try {
+            const response: ResponseSeries= await axios.get(`https://api.themoviedb.org/3/tv/${id_format}/recommendations`, optionsRequest)
+            const recommendations = response.data.results
+            const recommendationsFormat: MovieSerie[] = []
+      
+            recommendations.map((item) => {
+                const itemFormat = {
+                    adult: undefined,
+                    id: item.id,
+                    name: item.name,
+                    original_name: item.original_name,
+                    first_air_date:undefined,
+                    backdrop: item.backdrop_path,
+                    genres: item.genre_ids,
+                    media_type: "movie",
+                    overview: item.overview,
+                    popularity: item.popularity,
+                    poster: item.poster_path,
+                    release: undefined,
+                    average: item.vote_average,
+                    count: item.vote_count,
+                    isMovie: true,
+                    favorite: false,
+                }
+                recommendationsFormat.push(itemFormat)
+            })
+            setRecommendations(recommendationsFormat)
+          
+        } catch (error) {
+           console.log(error)
+        }
+       }
     }
 }
 

@@ -7,7 +7,6 @@ import Menu from "../components/menu"
 import UpcomingList from "../components/upcomingList"
 import { searchSeriesPopulity } from "../redux/slicers/seriesPopulitySlicer"
 import { searchPerson } from "../redux/slicers/personSlicer"
-import Card from "../components/card"
 import Navbar from "../components/navbar"
 import Footer from "../components/footer"
 
@@ -15,7 +14,6 @@ import Footer from "../components/footer"
 const PageBase = () => {
     const dispatch = useAppDispatch()
     const upcoming = useAppSelector(state => state.moviesPopulity.upcoming)
-    const movies = useAppSelector(state => state.movies.movies)
 
     useEffect(() => {
         dispatch(searchGenres())
@@ -30,8 +28,6 @@ const PageBase = () => {
             <div className="flex justify-between py-[2rem]">
                 <Menu />
                 <div className="w-[70%] flex flex-col justify-start">
-
-
                     <Outlet />
 
                 </div>

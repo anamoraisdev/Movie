@@ -32,16 +32,16 @@ const Carrosel = ({ itens, title }: PropsMoviesSeries) => {
 
     return (
         <>
-            <main className="relative flex flex-col gap-3">
-                <h1 className="font-bold">{title}</h1>
+            <main className="relative flex flex-col gap-3 mt-2">
+                <h1 className="font-bold ">{title}</h1>
                 <div className="flex items-center">
-                    <button className="h-[22rem] w-[20rem] bg-gradient-to-r from-black " onClick={previusImage}>{"<"}</button>
+                    <button className="h-[21.5rem] w-[20rem] bg-gradient-to-r from-gray-800 rounded-l-lg " onClick={previusImage}>{"<"}</button>
                     <div className="flex scroll-smooth overflow-hidden gap-3 touch-auto py-5" ref={refCarossel}>
                         {itens?.map((item) =>
                             <CardCarrosel key={item.id} item={item} />
                         )}
                     </div>
-                    <button className="h-[22rem] w-[20rem] bg-gradient-to-l from-black  " onClick={nextImage}>{">"}</button>
+                    <button className="h-[21.5rem] w-[20rem] bg-gradient-to-l from-gray-800  rounded-r-lg" onClick={nextImage}>{">"}</button>
                 </div>
             </main>
         </>

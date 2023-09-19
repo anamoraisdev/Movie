@@ -18,9 +18,10 @@ const Series = () => {
             
             {movies === null && !id &&
                 <div className="flex flex-col">
-                    <Carrosel itens={seriesPopulity.AllDay} title="Series populity today" />
-                    <ScrollCard itens={seriesPopulity.topRated} title="Top rated" />
-                    <ScrollCard itens={seriesPopulity.nowPlaying} title="now playing" />
+                    <Carrosel itens={seriesPopulity.airingToday} title="Airing Today"/>
+                    <ScrollCard itens={seriesPopulity.topRated} title="Top rated 🔥"  />
+                    <Carrosel itens={seriesPopulity.AllDay} title="Series populity today 🎖️"/>
+                    <ScrollCard itens={seriesPopulity.nowPlaying} title="now playing 🎬" />
                 </div>
             }
         </div>

@@ -1,5 +1,6 @@
 
 import { Genre } from "./genre";
+import { Person } from "./person";
 
 export interface MovieSerie {
     adult: boolean | undefined, 
@@ -57,9 +58,10 @@ export interface MovieApi {
 }
 
 export interface PropsMovieSerie {
-    item: MovieSerie
+    item: MovieSerie 
 }
 export interface PropsMoviesSeries{
-    itens: MovieSerie[] | undefined,
-    title: string
+    itens?: MovieSerie[] | undefined,
+    title: string,
+    person?: Person[]
 }

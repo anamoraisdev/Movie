@@ -13,6 +13,7 @@ const Card = ({ item }: PropsMovieSerie) => {
     const favorites = useAppSelector(state => state.favorites)
 
 
+
     const checkFavorite = () => {
         favorites.all.map((fav) => {
             if(fav.id === item.id){
@@ -25,6 +26,7 @@ const Card = ({ item }: PropsMovieSerie) => {
         if (!isFavorite) {
             setIsFavorite(true)
             dispatch(addListFavorite(item))
+            console.log("item card:", item)
             
         }else{
             setIsFavorite(false)
@@ -40,7 +42,7 @@ const Card = ({ item }: PropsMovieSerie) => {
     return (
         <div className="relative">
             <a onClick={() => navigate(`${ item.isMovie? `/movies/${`m${item.id}`}` : `/series/${`s${item.id}` }` } `)}>
-                <div className="min-w-[10rem] max-w-[10rem] max-h-[15rem] min-h-[15rem] flex flex-col items-center justify-center hover:scale-[105%]">
+                <div className="min-w-[10rem] max-w-[10rem] max-h-[15rem] min-h-[15rem] flex flex-col items-center justify-center hover:scale-[101%]">
                     <img className="rounded-2xl" alt={`poster do filme ${item?.name}`} src={`https://image.tmdb.org/t/p/w500/${item.poster}`} />
                     <div className="min-w-[10rem] max-w-[10rem] flex">
                         <p className="wrap truncate">{item?.name || item.original_name}</p>

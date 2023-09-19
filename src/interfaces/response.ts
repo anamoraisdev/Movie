@@ -39,6 +39,8 @@ export interface ResponseSearch {
     data: {
         page: number
         results: MovieApi[]
+        total_pages: number
+        total_results: number
     }
 }
 
