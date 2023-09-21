@@ -8,13 +8,15 @@ export const searchMovies = createAsyncThunk(
 );
 
 export interface MoviesState{
-  movies: MovieSerie[] | null 
-  pageAtual: number 
-  type?: string | null
+  movies: MovieSerie[] | null | undefined
+  pageAtual: number | undefined
+  type?: string | null | undefined
   isFiltering?: boolean
   id?: number | null
-  name?: string | null
-  isMovieOrSerie: string
+  name?: string | null 
+  isMovieOrSerie: string | undefined
+  totalPages: number | undefined
+  totalResults: number | undefined
 }
 
 const initialState: MoviesState = {
@@ -25,7 +27,8 @@ const initialState: MoviesState = {
   id: null,
   name: "",
   isMovieOrSerie:"",
-
+  totalPages: 0,
+  totalResults: 0,
 }
 
 export const moviesSlicer = createSlice({
@@ -45,6 +48,8 @@ export const moviesSlicer = createSlice({
        state.pageAtual = payload?.pageAtual
        state.movies = payload?.movies
        state.isMovieOrSerie = payload?.isMovieOrSerie
+       state.totalPages = payload?.totalPages
+       state.totalResults = payload?.totalResults
       }
     )
   }

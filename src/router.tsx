@@ -17,7 +17,7 @@ function Router() {
       <Routes>
   
         <Route path='/'element={<PageBase/>}>
-          <Route path='/home' element={<Home/>}/>
+          <Route path='/' element={<Home/>}/>
           <Route path='/movies/:id?' element={<Movies />}/>
           <Route path="/series/:id?" element={<Series/>}/>
           <Route path="/person" element={<Person/>}/>

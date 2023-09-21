@@ -6,17 +6,19 @@ import service from "../service"
 const DescriptionBanner = ({ item }: PropsMovieSerie) => {
     const [info, setInfo] = useState<Details>()
     const description: string = item?.overview.substring(0, 100)
+
     const tagMovie = "m"
     const tagSerie = "s"
 
-    
+
+
     useEffect(() => {
-        if(item.isMovie){
+        if (item.isMovie) {
             service.searchDetails(tagMovie, item.id, setInfo)
-        }else{
+        } else {
             service.searchDetails(tagSerie, item.id, setInfo)
         }
-     
+
     }, [item])
 
 
@@ -25,9 +27,9 @@ const DescriptionBanner = ({ item }: PropsMovieSerie) => {
         <div className="flex flex-col w-[50%]">
             <div className="flex justify-between">
                 <h1 className="font-bold">{item.name}</h1>
-              
+
                 <p>{info?.status}</p>
-              
+
 
             </div>
             {item.isMovie ?

@@ -42,7 +42,7 @@ const CardCarrosel = ({ item }: PropsMovieSerie) => {
     return (
         <div className="relative">
             <a onClick={() => navigate(`${ item.isMovie? `/movies/${`m${item.id}`}` : `/series/${`s${item.id}` }` } `)}>
-            <div className="relative hover:scale-[102%]">
+            <div className="relative hover:scale-[101%]">
                 <div className="w-[600px]">
                     <img className="opacity-20 rounded-3xl w-full" src={`https://image.tmdb.org/t/p/w500/${item.backdrop}`} />
                 </div>

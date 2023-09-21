@@ -2,8 +2,6 @@ import axios from "axios";
 import { MovieSerie, } from "../interfaces/movieSerie";
 import { PropsFilter, ResponseGenres, ResponseMovies, ResponsePerson, ResponseSearch, ResponseSeries } from "../interfaces/response";
 
-
-
 export const optionsRequest = {
     method: 'GET',
     headers: {
@@ -11,9 +9,6 @@ export const optionsRequest = {
         Authorization: import.meta.env.VITE_API_KEY
     }
 }
-
-
-
 
 const apiService = {
 
@@ -92,13 +87,16 @@ const apiService = {
             const response: ResponseSeries = await axios.get(`https://api.themoviedb.org/3/tv/popular`, optionsRequest)
             const allDay = response.data.results
 
-            const responseNowPlaying: ResponseSeries = await axios.get(`https://api.themoviedb.org/3/tv/airing_today`, optionsRequest)
+            const responseNowPlaying: ResponseSeries = await axios.get(`https://api.themoviedb.org/3/tv/on_the_air`, optionsRequest)
             const nowPlaying = responseNowPlaying.data.results
 
             const responseTopRated: ResponseSeries = await axios.get(`https://api.themoviedb.org/3/tv/top_rated`, optionsRequest)
             const topRated = responseTopRated.data.results
 
-            const allSeries = allDay.concat(topRated).concat(nowPlaying)
+            const responseAiringToday: ResponseSeries = await axios.get(`https://api.themoviedb.org/3/tv/airing_today?page=2`, optionsRequest)
+            const airingToday = responseAiringToday.data.results
+
+            const allSeries = allDay.concat(topRated).concat(nowPlaying).concat(airingToday)
             const allSeriesFormat: MovieSerie[] = []
 
             allSeries.map((item) => {
@@ -129,12 +127,14 @@ const apiService = {
             const allDayFormat = allSeriesFormat.slice(0, 20)
             const topRatedFormat = allSeriesFormat.slice(20, 40)
             const nowPlayingFormat = allSeriesFormat.slice(40, 60)
+            const airingTodayFormat = allSeriesFormat.slice(60)
 
 
             return {
                 allDay: allDayFormat,
                 nowPlaying: nowPlayingFormat,
-                topRated: topRatedFormat
+                topRated: topRatedFormat,
+                airingToday: airingTodayFormat            
             }
 
         } catch (error) {
@@ -153,7 +153,6 @@ const apiService = {
     },
 
     movies: async ({ name, id, type, isFiltering, pageCorrect, isMovieOrSerie }: PropsFilter) => {
-        console.log("isMovie", isMovieOrSerie)
         const options = {
             method: 'GET',
             headers: {
@@ -194,7 +193,7 @@ const apiService = {
                         result.push(dataFormat)
                     })
 
-                    console.log("result", response.data)
+                  
                     const payload = {
                         movies: result,
                         pageAtual: response.data.page,
@@ -203,6 +202,8 @@ const apiService = {
                         id: id,
                         name: "",
                         isMovieOrSerie: isMovieOrSerie,
+                        totalPages: response.data.total_pages,
+                        totalResults: response.data.total_results
                     }
                     return payload
 
@@ -243,7 +244,9 @@ const apiService = {
                         type: type,
                         id: null,
                         isFiltering: false,
-                        isMovieOrSerie: isMovieOrSerie
+                        isMovieOrSerie: isMovieOrSerie,
+                        totalPages: response.data.total_pages,
+                        totalResults: response.data.total_results
                     }
                     return payload
 
@@ -258,13 +261,15 @@ const apiService = {
                     type: null,
                     id: null,
                     isFiltering: false,
-                    isMovieOrSerie: ""
+                    isMovieOrSerie: "",
+                    totalPages: 0,
+                    totalResults: 0
 
                 }
                 return payload
             }
 
-        } else {
+        } else if(isMovieOrSerie === "serie"){
             if (type === "filter" && id !== undefined && isFiltering) {
                 try {
                     const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/discover/tv?with_genres=${id}`, options)
@@ -287,7 +292,7 @@ const apiService = {
                             original_name: movie.original_title,
                             average: movie.vote_average,
                             count: movie.vote_count,
-                            isMovie: true,
+                            isMovie: false,
                             favorite: false,
                         }
                         result.push(dataFormat)
@@ -301,7 +306,9 @@ const apiService = {
                         isFiltering: isFiltering,
                         id: id,
                         name: "",
-                        isMovieOrSerie: isMovieOrSerie
+                        isMovieOrSerie: isMovieOrSerie,
+                        totalPages: response.data.total_pages,
+                        totalResults: response.data.total_results
                     }
                     return payload
 
@@ -330,7 +337,7 @@ const apiService = {
                             original_name: movie.original_title,
                             average: movie.vote_average,
                             count: movie.vote_count,
-                            isMovie: true,
+                            isMovie: false,
                             favorite: false,
                         }
                         result.push(dataFormat)
@@ -342,7 +349,9 @@ const apiService = {
                         type: type,
                         id: null,
                         isFiltering: false,
-                        isMovieOrSerie: isMovieOrSerie
+                        isMovieOrSerie: isMovieOrSerie,
+                        totalPages: response.data.total_pages,
+                        totalResults: response.data.total_results
                     }
                     return payload
 
@@ -357,7 +366,9 @@ const apiService = {
                     type: null,
                     id: null,
                     isFiltering: false,
-                    isMovieOrSerie: ""
+                    isMovieOrSerie: "",
+                    totalPages: 0,
+                    totalResults: 0
 
                 }
                 return payload
@@ -370,6 +381,7 @@ const apiService = {
         try {
             const response: ResponsePerson = await axios.get(`https://api.themoviedb.org/3/person/popular`, optionsRequest)
             const data = response?.data?.results;
+            console.log("person:", data)
             return data
         } catch (error) {
             console.log(error)

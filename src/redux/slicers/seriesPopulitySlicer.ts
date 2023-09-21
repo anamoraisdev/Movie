@@ -10,13 +10,15 @@ export const searchSeriesPopulity = createAsyncThunk(
 export interface seriesPopulityState {
   AllDay: MovieSerie[] | undefined,
   topRated: MovieSerie[] | undefined,
-  nowPlaying: MovieSerie[] | undefined
+  nowPlaying: MovieSerie[] | undefined,
+  airingToday: MovieSerie [] | undefined
 }
 
 const initialState: seriesPopulityState = {
   AllDay: [],
   topRated: [],
-  nowPlaying: []
+  nowPlaying: [],
+  airingToday: [],
 }
 
 export const seriesPopulitySlicer = createSlice({
@@ -32,6 +34,7 @@ export const seriesPopulitySlicer = createSlice({
         state.AllDay = payload?.allDay
         state.nowPlaying = payload?.nowPlaying
         state.topRated = payload?.topRated
+        state.airingToday = payload?.airingToday
       }
     )
   }

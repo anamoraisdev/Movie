@@ -6,7 +6,7 @@ const Person = () => {
 
     return (
         <div>
-            <h1 className="font-bold mb-8">Populity Person</h1>
+            <h1 className="font-bold text-2xl mb-8">Populity Person 🎖️</h1>
             <div className="grid grid-cols-3  gap-5">
                 {persons && persons.map((person) => 
             

@@ -27,7 +27,7 @@ const Favorites = () => {
 
   return (
     <div className="m-0 flex flex-col">
-      <h1 className="font-bold text-2xl">Favorites</h1>
+      <h1 className="font-bold text-2xl mb-2">Favorites 🫰</h1>
 
 
       <div className="flex gap-4 items-center text-sm text-slate-400 ">

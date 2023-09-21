@@ -9,11 +9,11 @@ import { PropsFilter } from "../interfaces/response"
 
 const Filter = () => {
     const dispatch = useAppDispatch()
-    const [genre, setGenre] = useState<string>()
     const [type, setType] = useState<string>("movie")
     const [name, setName] = useState<string>("")
     const [isFiltering, setIsFiltering] = useState<boolean>(false)
     const genres: Genre[] = useAppSelector(state => state.genres)
+    const [genre, setGenre] = useState<string>("Action")
     const navigate = useNavigate()
 
 
@@ -21,11 +21,13 @@ const Filter = () => {
         const id = formatGenre();
         if (isFiltering) {
             setIsFiltering(false)
+            console.log("type FILTER:", type)
+    
             const infoRefresh: PropsFilter = { id: id, type: "filter", isFiltering: false, pageCorrect: 1, isMovieOrSerie: type }
             dispatch(searchMovies(infoRefresh))
         } else {
             setIsFiltering(true)
-            const info: PropsFilter = { id: id, type: "filter", isFiltering: true, pageCorrect: 1, isMovieOrSerie: type}
+            const info: PropsFilter = { id: id, type: "filter", isFiltering: true, pageCorrect: 1, isMovieOrSerie: type }
             console.log("filter:", isFiltering)
             dispatch(searchMovies(info))
         }
@@ -51,12 +53,13 @@ const Filter = () => {
         searchMoviesForName()
     }, [name])
 
+   
 
 
     return (
         <div className="flex justify-between gap-2 text-gray-700 w-[70%]">
             <div className="flex gap-3 text-gray-100">
-                <a onClick={() => navigate("/home")}>
+                <a onClick={() => navigate("/")}>
                     <button className="bg-gray-800 px-3 py-1 rounded-md">home</button>
                 </a>
                 <a onClick={() => navigate("/movies")}>
@@ -69,11 +72,9 @@ const Filter = () => {
                 </a>
             </div>
             <div className="flex gap-2">
-            <select className="px-8 rounded text-gray-700" value={type} onChange={(event) => setType(event.target.value)}>
-                   
-                        <option > movie</option>
-                        <option>serie</option>
-                
+                <select className="px-8 rounded text-gray-700" value={type} onChange={(event) => setType(event.target.value)}>
+                    <option>movie</option>
+                    <option>serie</option>
                 </select>
 
                 <input className="rounded-md px-4" placeholder="digite o nome" value={name} onChange={(event) => setName(event.target.value)}></input>
