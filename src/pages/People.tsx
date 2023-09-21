@@ -1,7 +1,7 @@
 import { useAppSelector } from "../redux/hooks";
 import CardPerson from "../components/cardPerson";
 
-const Person = () => {
+const People = () => {
     const persons = useAppSelector(state => state.person)
 
     return (
@@ -14,8 +14,6 @@ const Person = () => {
                             <CardPerson person={person} />
                     </div>
 
-               
-
                 
                 )}
             </div>
@@ -23,4 +21,4 @@ const Person = () => {
     )
 }
 
-export default Person;
+export default People;
