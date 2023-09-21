@@ -1,11 +1,12 @@
 import { BiStar } from "react-icons/bi";
 import { PropsPerson } from "../interfaces/person";
+import { useNavigate} from "react-router-dom";
 
 
 const CardPerson = ({ person}: PropsPerson) => {
-
+    const navigate = useNavigate()
     return (
-        <div className="flex items-center gap-4">
+        <div onClick={() => navigate(`/person/${person.id}`)} className="flex items-center gap-4">
             <img className="object-cover w-[10rem] h-[10rem] rounded-xl" src={`https://image.tmdb.org/t/p/w500/${person.profile_path}`} />
             <div className="w-[50%] ">
                 <h1 className="font-semibold mb-2">{person.name}</h1>

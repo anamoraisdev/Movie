@@ -49,7 +49,7 @@ const SearchResultView = () => {
   }
   
   const getMoviesPageClick = (page: number) => {
-    const info = {pageCorrect: page,name: name,id: id,isFiltering: isFiltering,type: type,isMovieOrSerie: isMovie}
+    const info = {pageCorrect: page, name: name,id: id,isFiltering: isFiltering,type: type,isMovieOrSerie: isMovie}
     dispatch(searchMovies(info))
   }
 

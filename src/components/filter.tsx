@@ -75,6 +75,7 @@ const Filter = () => {
                 <select className="px-8 rounded text-gray-700" value={type} onChange={(event) => setType(event.target.value)}>
                     <option>movie</option>
                     <option>serie</option>
+                    <option>person</option>
                 </select>
 
                 <input className="rounded-md px-4" placeholder="digite o nome" value={name} onChange={(event) => setName(event.target.value)}></input>

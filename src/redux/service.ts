@@ -376,7 +376,6 @@ const apiService = {
         }
     },
 
-
     person: async () => {
         try {
             const response: ResponsePerson = await axios.get(`https://api.themoviedb.org/3/person/popular`, optionsRequest)
