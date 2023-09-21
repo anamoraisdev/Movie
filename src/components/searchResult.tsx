@@ -3,65 +3,90 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks"
 import Card from "./card"
 import { searchMovies } from "../redux/slicers/searchMoviesSlicer"
 import { BiSearch } from "react-icons/bi"
+import { useState } from "react"
 
 
 const SearchResultView = () => {
   const dispatch = useAppDispatch()
+  const id = useAppSelector(state => state.movies.id)
   const movies = useAppSelector(state => state.movies)
+  const type = useAppSelector(state => state.movies.type)
+  const name = useAppSelector(state => state.movies.name)
   const pageAtualRedux = useAppSelector(state => state.movies.pageAtual)
   const isFiltering = useAppSelector(state => state.movies.isFiltering)
   const isMovie = useAppSelector(state => state.movies.isMovieOrSerie)
-  const type = useAppSelector(state => state.movies.type)
-  const name = useAppSelector(state => state.movies.name)
-  const id = useAppSelector(state => state.movies.id)
   let pageAtual = pageAtualRedux
-  let arrayNextPages = Object.keys(new Array(movies.totalPages).fill(null)).map(Number)
-  arrayNextPages = arrayNextPages.splice(1, 10)
+  
+  const totalPagesAtTime = 10
+  const arrayPagesComplet= Object.keys(new Array(movies.totalPages).fill(null)).map(Number)
+  const [arrayPages, setArrayPages] = useState<number[]>(arrayPagesComplet.slice(1, 11))
+
+  const [initialNext, setInitialNext] = useState(11)
+  const [finalNext, setFinalNext] = useState(initialNext + totalPagesAtTime)
+  const [limitPageNext, setlimitPageNext] = useState(10)
+
+  const [limitPagePrevius, setlimitPagePrevius] = useState<number>(11)
+  const [initialPrevius, setInitialPrevius] = useState<number>(initialNext - 10)
+  const [finalPrevius, setFinalPrevius] = useState<number>(initialNext)
+
 
   const getMoviesNextPage = () => {
-    console.log("page atual", pageAtual)
-    const pageCorrect = pageAtual += 1
-    const info = {
-      pageCorrect: pageCorrect,
-      name: name,
-      id: id,
-      isFiltering: isFiltering,
-      type: type,
-      isMovieOrSerie: isMovie
-
+    if(pageAtual){
+      const pageCorrect = pageAtual += 1
+      const info = { pageCorrect: pageCorrect, name: name,id: id, isFiltering: isFiltering, type: type, isMovieOrSerie: isMovie}
+      dispatch(searchMovies(info))
+      calculatePagination(pageCorrect)
     }
-    dispatch(searchMovies(info))
-
   }
-
+  
   const getMoviesPreviusPage = () => {
-    console.log("page atual", pageAtual)
-    const pageCorrect = pageAtual -= 1
-    const info = {
-      pageCorrect: pageCorrect,
-      name: name,
-      id: id,
-      isFiltering: isFiltering,
-      type: type,
-      isMovieOrSerie: isMovie
+    if(pageAtual){
+      const pageCorrect = pageAtual -= 1
+      const info = {pageCorrect: pageCorrect,name: name,id: id,isFiltering: isFiltering,type: type,isMovieOrSerie: isMovie}
+      dispatch(searchMovies(info))
+      calculatePagination(pageCorrect)
     }
-    dispatch(searchMovies(info))
   }
-
+  
   const getMoviesPageClick = (page: number) => {
-
-    const info = {
-      pageCorrect: page,
-      name: name,
-      id: id,
-      isFiltering: isFiltering,
-      type: type,
-      isMovieOrSerie: isMovie
-    }
+    const info = {pageCorrect: page,name: name,id: id,isFiltering: isFiltering,type: type,isMovieOrSerie: isMovie}
     dispatch(searchMovies(info))
   }
 
+  const calculatePagination = (pageCorrect: number) => {
+    if(pageCorrect && pageCorrect === limitPageNext + 1){
+      returnNewArrayPages(initialNext, finalNext)
+      returnValuesAfterAdvancing(initialNext, finalNext)
+    }else if(pageCorrect === limitPagePrevius - 1){
+      returnNewArrayPages(initialPrevius, finalPrevius)
+      returnValuesAfterReturning(initialNext, initialPrevius, finalNext)
+    }
+  }
 
+  const returnNewArrayPages = (initial: number, final: number) => {
+    setArrayPages(arrayPagesComplet.slice(initial, final))
+  }
+
+  const returnValuesAfterReturning = (initialNext: number, initialPrevius: number, finalNext: number) => {
+    setInitialNext(initialNext - totalPagesAtTime)
+    setFinalNext(finalNext - totalPagesAtTime)
+    setlimitPageNext(limitPageNext - totalPagesAtTime)
+
+    setlimitPagePrevius(initialPrevius)
+    setInitialPrevius(initialPrevius - totalPagesAtTime)
+    setFinalPrevius(initialPrevius)
+  }
+
+  const returnValuesAfterAdvancing = (initialNext: number, finalNext: number) => {
+    setlimitPagePrevius(initialNext)
+    setInitialPrevius(initialNext - totalPagesAtTime)
+    setFinalPrevius(initialNext)
+  
+    setInitialNext(initialNext + totalPagesAtTime)
+    setFinalNext(finalNext + totalPagesAtTime)
+    setlimitPageNext(limitPageNext + totalPagesAtTime)
+ 
+  }
 
   return (
     <>
@@ -90,8 +115,10 @@ const SearchResultView = () => {
               }
 
               <div className="flex gap-2">
-                {arrayNextPages && arrayNextPages.map((page, index) => 
-                  <button className={`bg-gray-700 px-2 rounded ${pageAtualRedux === page ? "bg-gray-600" : ""}`} onClick={() => getMoviesPageClick(page)}>{page}</button>
+                {arrayPages && arrayPages.map((page) => 
+                  
+                  <button className={`bg-gray-700 px-2 rounded ${pageAtualRedux === page ? "bg-green-400" : ""}`} onClick={() => getMoviesPageClick(page)}>{page}</button>
+                
                 )}
               </div>
               <button className="bg-gray-700 px-2 rounded" onClick={() => getMoviesNextPage()} >next</button>

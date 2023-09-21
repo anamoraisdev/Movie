@@ -193,7 +193,7 @@ const apiService = {
                         result.push(dataFormat)
                     })
 
-                    console.log("movies", result)
+                  
                     const payload = {
                         movies: result,
                         pageAtual: response.data.page,
