@@ -29,7 +29,7 @@ export interface ResponseGenres {
 export interface PropsFilter {
     name?: string,
     id?: number,
-    type: string
+    searchModel: string
     isFiltering: boolean | undefined
     pageCorrect?: number
     isMovieOrSerie: string

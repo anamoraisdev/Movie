@@ -13,7 +13,7 @@ import { Person } from "../interfaces/person";
 const Home = () => {
   const moviesPopulity: MoviesPopulityState = useAppSelector(state => state.moviesPopulity)
   const seriesPopulity: seriesPopulityState = useAppSelector(state => state.seriesPopulity)
-  const person: Person[] = useAppSelector(state => state.person)
+  const person: Person[] = useAppSelector(state => state.person.person)
 
   const movies = useAppSelector(state => state.movies.movies)
 

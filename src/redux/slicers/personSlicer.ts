@@ -7,12 +7,21 @@ export const searchPerson = createAsyncThunk(
   apiService.person
 );
 
-const initialState: Person[] = []
+
+export interface PersonState{
+  person: Person[] | undefined
+  search: Person[] | undefined | null
+}
+const initialState: PersonState = {
+  person: [],
+  search: []
+}
 
 export const personSlicer = createSlice({
   name: 'person',
   initialState,
   reducers: {
+    
 
   },
 
@@ -20,7 +29,8 @@ export const personSlicer = createSlice({
     builder.addCase(
       searchPerson.fulfilled,
       (state, { payload }) => {
-        return payload
+        state.person = payload?.person
+        state.search = payload?.search
       }
     )
   }

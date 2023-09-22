@@ -10,6 +10,11 @@ export const optionsRequest = {
     }
 }
 
+export interface PropsPerson {
+    name: string,
+    searchModel: string,
+}
+
 const apiService = {
 
     moviesPopulity: async () => {
@@ -152,7 +157,7 @@ const apiService = {
         }
     },
 
-    movies: async ({ name, id, type, isFiltering, pageCorrect, isMovieOrSerie }: PropsFilter) => {
+    movies: async ({ name, id, searchModel, isFiltering, pageCorrect, isMovieOrSerie }: PropsFilter) => {
         const options = {
             method: 'GET',
             headers: {
@@ -165,7 +170,7 @@ const apiService = {
 
         }
         if (isMovieOrSerie === "movie") {
-            if (type === "filter" && id !== undefined && isFiltering) {
+            if (searchModel === "filter" && id !== undefined && isFiltering) {
                 try {
                     const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/discover/movie?with_genres=${id}`, options)
                     const data = response.data.results
@@ -178,7 +183,7 @@ const apiService = {
                             backdrop: movie.backdrop_path,
                             genres: movie.genre_ids,
                             id: movie.id,
-                            media_type: "Movie",
+                            media_searchModel: "Movie",
                             overview: movie.overview,
                             popularity: movie.popularity,
                             poster: movie.poster_path,
@@ -197,7 +202,7 @@ const apiService = {
                     const payload = {
                         movies: result,
                         pageAtual: response.data.page,
-                        type: type,
+                        searchModel: searchModel,
                         isFiltering: isFiltering,
                         id: id,
                         name: "",
@@ -211,7 +216,7 @@ const apiService = {
                     console.log(error)
                 }
 
-            } else if (name && type === "search") {
+            } else if (name && searchModel === "search") {
                 try {
                     const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${name}&language=pt-BR`, options)
                     const data = response.data.results
@@ -223,7 +228,7 @@ const apiService = {
                             backdrop: movie.backdrop_path,
                             genres: movie.genre_ids,
                             id: movie.id,
-                            media_type: "Movie",
+                            media_searchModel: "Movie",
                             overview: movie.overview,
                             popularity: movie.popularity,
                             poster: movie.poster_path,
@@ -241,7 +246,7 @@ const apiService = {
                         movies: result,
                         pageAtual: response.data.page,
                         name: name,
-                        type: type,
+                        searchModel: searchModel,
                         id: null,
                         isFiltering: false,
                         isMovieOrSerie: isMovieOrSerie,
@@ -258,7 +263,7 @@ const apiService = {
                     movies: null,
                     pageAtual: 1,
                     name: null,
-                    type: null,
+                    searchModel: null,
                     id: null,
                     isFiltering: false,
                     isMovieOrSerie: "",
@@ -270,7 +275,7 @@ const apiService = {
             }
 
         } else if(isMovieOrSerie === "serie"){
-            if (type === "filter" && id !== undefined && isFiltering) {
+            if (searchModel === "filter" && id !== undefined && isFiltering) {
                 try {
                     const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/discover/tv?with_genres=${id}`, options)
                     const data = response.data.results
@@ -283,7 +288,7 @@ const apiService = {
                             backdrop: movie.backdrop_path,
                             genres: movie.genre_ids,
                             id: movie.id,
-                            media_type: "Movie",
+                            media_searchModel: "Movie",
                             overview: movie.overview,
                             popularity: movie.popularity,
                             poster: movie.poster_path,
@@ -302,7 +307,7 @@ const apiService = {
                     const payload = {
                         movies: result,
                         pageAtual: response.data.page,
-                        type: type,
+                        searchModel: searchModel,
                         isFiltering: isFiltering,
                         id: id,
                         name: "",
@@ -316,7 +321,7 @@ const apiService = {
                     console.log(error)
                 }
 
-            } else if (name && type === "search") {
+            } else if (name && searchModel === "search") {
                 try {
                     const response: ResponseSearch = await axios.get(`https://api.themoviedb.org/3/search/tv?query=${name}&language=pt-BR`, options)
                     const data = response.data.results
@@ -328,7 +333,7 @@ const apiService = {
                             backdrop: movie.backdrop_path,
                             genres: movie.genre_ids,
                             id: movie.id,
-                            media_type: "Movie",
+                            media_searchModel: "Movie",
                             overview: movie.overview,
                             popularity: movie.popularity,
                             poster: movie.poster_path,
@@ -346,7 +351,7 @@ const apiService = {
                         movies: result,
                         pageAtual: response.data.page,
                         name: name,
-                        type: type,
+                        searchModel: searchModel,
                         id: null,
                         isFiltering: false,
                         isMovieOrSerie: isMovieOrSerie,
@@ -363,7 +368,7 @@ const apiService = {
                     movies: null,
                     pageAtual: 1,
                     name: null,
-                    type: null,
+                    searchModel: null,
                     id: null,
                     isFiltering: false,
                     isMovieOrSerie: "",
@@ -376,14 +381,33 @@ const apiService = {
         }
     },
 
-    person: async () => {
-        try {
-            const response: ResponsePerson = await axios.get(`https://api.themoviedb.org/3/person/popular`, optionsRequest)
-            const data = response?.data?.results;
-            console.log("person:", data)
-            return data
-        } catch (error) {
-            console.log(error)
+    person: async ({name, searchModel} : PropsPerson) => {
+      
+        if(searchModel === "search"){
+            try {
+                const response: ResponsePerson = await axios.get(`https://api.themoviedb.org/3/search/person?query=${name}&language=pt-BR`, optionsRequest)
+                console.log("caiu no search person",response.data.results)
+                const payload ={
+                    person: response.data.results,
+                    search: null,
+                }
+                return payload
+            } catch (error) {
+                console.log(error)
+            }
+        }else{
+            try {
+                const response: ResponsePerson = await axios.get(`https://api.themoviedb.org/3/person/popular`, optionsRequest)
+                const data = response?.data?.results;
+                console.log("caiu no person")
+                const payload ={
+                    person: data,
+                    search: null,
+                }
+                return payload
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 

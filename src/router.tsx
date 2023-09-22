@@ -17,7 +17,6 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
-  
         <Route path='/'element={<PageBase/>}>
           <Route path='/' element={<Home/>}/>
           <Route path='/movies/:id?' element={<Movies />}/>

@@ -4,6 +4,7 @@ import { searchMovies } from "../redux/slicers/searchMoviesSlicer"
 import { Genre } from "../interfaces/genre"
 import { useNavigate } from "react-router-dom"
 import { PropsFilter } from "../interfaces/response"
+import { searchPerson } from "../redux/slicers/personSlicer"
 
 
 
@@ -22,25 +23,30 @@ const Filter = () => {
         if (isFiltering) {
             setIsFiltering(false)
             console.log("type FILTER:", type)
-    
-            const infoRefresh: PropsFilter = { id: id, type: "filter", isFiltering: false, pageCorrect: 1, isMovieOrSerie: type }
+
+            const infoRefresh: PropsFilter = { id: id, searchModel: "filter", isFiltering: false, pageCorrect: 1, isMovieOrSerie: type }
             dispatch(searchMovies(infoRefresh))
         } else {
             setIsFiltering(true)
-            const info: PropsFilter = { id: id, type: "filter", isFiltering: true, pageCorrect: 1, isMovieOrSerie: type }
+            const info: PropsFilter = { id: id, searchModel: "filter", isFiltering: true, pageCorrect: 1, isMovieOrSerie: type }
             console.log("filter:", isFiltering)
             dispatch(searchMovies(info))
         }
     }
 
     const searchMoviesForName = () => {
-        const info: PropsFilter = {
-            name: name,
-            type: "search",
-            isFiltering: undefined,
-            isMovieOrSerie: type,
+        if (type === "person") {
+
+            dispatch(searchPerson({ searchModel: "search", name: name }))
+        } else {
+            const info: PropsFilter = {
+                name: name,
+                searchModel: "search",
+                isFiltering: undefined,
+                isMovieOrSerie: type,
+            }
+            dispatch(searchMovies(info))
         }
-        dispatch(searchMovies(info))
     }
 
     const formatGenre = () => {
@@ -53,7 +59,7 @@ const Filter = () => {
         searchMoviesForName()
     }, [name])
 
-   
+
 
 
     return (
@@ -79,12 +85,21 @@ const Filter = () => {
                 </select>
 
                 <input className="rounded-md px-4" placeholder="digite o nome" value={name} onChange={(event) => setName(event.target.value)}></input>
-                <select className="px-8 rounded text-gray-700" value={genre} onChange={(event) => setGenre(event.target.value)}>
-                    {genres?.map((gender) =>
-                        <option key={gender.id}>{gender.name}</option>
-                    )}
-                </select>
+                {
+                    type !== "person" &&
+
+                    <select className="px-8 rounded text-gray-700" value={genre} onChange={(event) => setGenre(event.target.value)}>
+                        {genres?.map((gender) =>
+                            <option key={gender.id}>{gender.name}</option>
+                        )}
+                    </select>
+
+
+                }
+                {type !== "person" &&
+                
                 <button className={`hover:bg-gray-700 text-gray-100 px-4 rounded-lg  ${isFiltering ? "bg-gray-700" : "bg-gray-800"}`} onClick={() => filterMovies()}>{isFiltering ? "refresh" : "filter"}</button>
+                }
             </div>
         </div>
     )

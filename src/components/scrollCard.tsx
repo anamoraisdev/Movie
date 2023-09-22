@@ -2,7 +2,6 @@
 import { useEffect, useRef } from "react"
 import Card from "./card"
 import { PropsMoviesSeries } from "../interfaces/movieSerie"
-import CardPerson from "./cardPerson";
 import CardPersonScroll from "./cardPersonScroll";
 
 

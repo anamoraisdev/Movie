@@ -2,7 +2,7 @@ import { useAppSelector } from "../redux/hooks";
 import CardPerson from "../components/cardPerson";
 
 const People = () => {
-    const persons = useAppSelector(state => state.person)
+    const persons = useAppSelector(state => state.person.person)
 
     return (
         <div>
