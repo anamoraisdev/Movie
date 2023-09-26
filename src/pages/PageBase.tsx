@@ -1,26 +1,28 @@
-import { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "../redux/hooks"
-import { searchMoviesPopulity } from "../redux/slicers/moviePopulitySlicer"
-import { searchGenres } from "../redux/slicers/genresSlicer"
-import { Outlet } from "react-router-dom"
-import Menu from "../components/menu"
-import UpcomingList from "../components/upcomingList"
-import { searchSeriesPopulity } from "../redux/slicers/seriesPopulitySlicer"
-import { searchPerson } from "../redux/slicers/personSlicer"
+
 import Navbar from "../components/navbar"
+import Menu from "../components/menu"
+import { Outlet } from "react-router-dom"
+import UpcomingList from "../components/upcomingList"
 import Footer from "../components/footer"
+import { Populity, searchPopulity} from "../redux/slicers/populitySlicer"
+import { useAppDispatch, useAppSelector } from "../redux/useRedux"
+import { useEffect } from "react"
+import { searchGenres } from "../redux/slicers/genresSlicer"
+import { searchPerson } from "../redux/slicers/personSlicer"
+
+
 
 
 const PageBase = () => {
     const dispatch = useAppDispatch()
-    const upcoming = useAppSelector(state => state.moviesPopulity.upcoming)
+    const itens = useAppSelector(state => state.populity.movies) as Populity
 
     useEffect(() => {
         dispatch(searchGenres())
-        dispatch(searchMoviesPopulity())
-        dispatch(searchSeriesPopulity())
+        dispatch(searchPopulity())
         dispatch(searchPerson())
-    }, [dispatch])
+    },[dispatch])
+ 
 
     return (
         <main>
@@ -31,7 +33,7 @@ const PageBase = () => {
                     <Outlet />
 
                 </div>
-                <UpcomingList itens={upcoming} title={"upcoming Movies"} />
+                <UpcomingList itens={itens?.upcoming} title={"upcoming Movies"} />
             </div>
             <Footer/>
 

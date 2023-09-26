@@ -1,8 +1,8 @@
 import axios from "axios"
-import { Credit, ResponseCredits, ResponseMovieDetails, ResponseMovies, ResponseSerieDetails, ResponseSeries } from "./interfaces/response"
-import { Details } from "./interfaces/details"
-import { optionsRequest } from "./redux/service"
-import { MovieSerie } from "./interfaces/movieSerie"
+import { Credit, ResponseCredits, ResponseMovieDetails, ResponseMovies, ResponseSerieDetails, ResponseSeries } from "../../interfaces/response"
+import { Details } from "../../interfaces/details"
+import { optionsRequest } from "../../redux/service"
+import { MovieSerie } from "../../interfaces/movieSerie"
 
 
 const service = {

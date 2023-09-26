@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react"
 import Card from "../components/card"
-import { useAppDispatch, useAppSelector } from "../redux/hooks"
+import { useAppDispatch, useAppSelector } from "../redux/useRedux"
 import favorite, { filterFavoriteForGenre } from "../redux/slicers/favorite"
 import AvisoFavorito from "../components/avisoFavorito"
 

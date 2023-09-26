@@ -18,7 +18,6 @@ export interface MovieSerie {
     average: number,
     count: number,
     isMovie: boolean,
-    favorite: boolean
 }
 
 export interface SerieApi {

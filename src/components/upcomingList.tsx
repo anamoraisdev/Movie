@@ -2,13 +2,13 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import '../index.css'
 import { PropsMoviesSeries } from '../interfaces/movieSerie'
-import { useAppSelector } from '../redux/hooks'
+import { useAppSelector } from '../redux/useRedux'
 
 const UpcomingList = ({ itens, title }: PropsMoviesSeries) => {
     const navigate = useNavigate()
     const movies = useAppSelector(state => state.movies)
     const {id} = useParams()
-    const isPageFiltering = movies.movies === null 
+    const isPageFiltering = movies.resultSearch === null 
     const isPageItem = id
 
     return (

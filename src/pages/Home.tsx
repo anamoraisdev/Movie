@@ -1,35 +1,32 @@
 
-import { useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../redux/useRedux";
 import Carrosel from "../components/carrosel";
 import ScrollCard from "../components/scrollCard";
-import { MoviesPopulityState, } from "../redux/slicers/moviePopulitySlicer";
-import { seriesPopulityState } from "../redux/slicers/seriesPopulitySlicer";
-
 import SearchResultView from "../components/searchResult";
-import { Person } from "../interfaces/person";
-
+import { Populity } from "../redux/slicers/populitySlicer";
 
 
 const Home = () => {
-  const moviesPopulity: MoviesPopulityState = useAppSelector(state => state.moviesPopulity)
-  const seriesPopulity: seriesPopulityState = useAppSelector(state => state.seriesPopulity)
-  const person: Person[] = useAppSelector(state => state.person.person)
+  const person = useAppSelector(state => state.person.person)
+  const resultSearch = useAppSelector(state => state.movies.resultSearch)
+ 
+  const moviesPopulity = useAppSelector(state => state.populity.movies) as Populity
+  const seriesPopulity = useAppSelector(state => state.populity.series) as Populity
 
-  const movies = useAppSelector(state => state.movies.movies)
 
   return (
     <>
       <div className="w-[100%]">
-        {movies !== null ?
-          <SearchResultView/>
-          :
+        {!resultSearch ?
           <div>
             <Carrosel itens={moviesPopulity.topRated} title={"Top rated movies 🔥"} />
             <ScrollCard itens={moviesPopulity.nowPlaying} title={"Now playing movies 🎬"} />
-            <ScrollCard person={person} title={"people popularity 🎖️"}/>
+            <ScrollCard person={person} title={"people popularity 🎖️"} />
             <Carrosel itens={seriesPopulity.topRated} title="Top rated series 🔥" />
-            <ScrollCard itens={seriesPopulity.AllDay} title="Series populity today 🎖️"/>
+            <ScrollCard itens={seriesPopulity.allDay} title="Series populity today 🎖️" />
           </div>
+          :
+          <SearchResultView />
         }
       </div>
     </>

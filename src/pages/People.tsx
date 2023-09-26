@@ -1,4 +1,4 @@
-import { useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../redux/useRedux";
 import CardPerson from "../components/cardPerson";
 
 const People = () => {

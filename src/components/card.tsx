@@ -1,6 +1,6 @@
 import { BiHeart, BiSolidHeart } from "react-icons/bi"
 import { useEffect, useState } from "react"
-import { useAppDispatch, useAppSelector } from "../redux/hooks"
+import { useAppDispatch, useAppSelector } from "../redux/useRedux"
 import { addListFavorite, deleteFavorite } from "../redux/slicers/favorite"
 import {PropsMovieSerie } from "../interfaces/movieSerie"
 import { useNavigate } from "react-router-dom"

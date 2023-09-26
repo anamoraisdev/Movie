@@ -3,7 +3,7 @@ import { MovieSerie } from '../../interfaces/movieSerie'
 
 
 export interface FavoritesState {
-  all: MovieSerie[] 
+  all: MovieSerie[]
   filteredSeries: MovieSerie[]
   filteredMovies: MovieSerie[]
 }

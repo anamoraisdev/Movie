@@ -1,26 +1,30 @@
 
 import { useParams } from "react-router-dom";
-import { useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../redux/useRedux";
 import Carrosel from "../components/carrosel";
 import ScrollCard from "../components/scrollCard";
 import Item from "./Item";
 import SearchResultView from "../components/searchResult";
 
 
+
+
 const Series = () => {
     const { id } = useParams()
-    const seriesPopulity = useAppSelector(state => state.seriesPopulity)
-    const movies = useAppSelector(state => state.movies.movies)
 
+    const seriesPopulity = useAppSelector(state => state.populity.series) 
+    const resultSearch = useAppSelector(state => state.movies.resultSearch)
+  
+    
     return (
         <div>
             {id ? <Item /> : <SearchResultView /> }
             
-            {movies === null && !id &&
+            {!resultSearch && !id  && seriesPopulity && 
                 <div className="flex flex-col">
-                    <Carrosel itens={seriesPopulity.airingToday} title="Airing Today"/>
+                    <Carrosel itens={seriesPopulity.upcoming} title="Airing Today"/>
                     <ScrollCard itens={seriesPopulity.topRated} title="Top rated 🔥"  />
-                    <Carrosel itens={seriesPopulity.AllDay} title="Series populity today 🎖️"/>
+                    <Carrosel itens={seriesPopulity.allDay} title="Series populity today 🎖️"/>
                     <ScrollCard itens={seriesPopulity.nowPlaying} title="now playing 🎬" />
                 </div>
             }

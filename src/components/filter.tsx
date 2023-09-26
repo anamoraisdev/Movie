@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react"
-import { useAppDispatch, useAppSelector } from "../redux/hooks"
-import { searchMovies } from "../redux/slicers/searchMoviesSlicer"
+import { useAppDispatch, useAppSelector } from "../redux/useRedux"
 import { Genre } from "../interfaces/genre"
 import { useNavigate } from "react-router-dom"
-import { PropsFilter } from "../interfaces/response"
-import { searchPerson } from "../redux/slicers/personSlicer"
+import { searchResultTitles } from "../redux/slicers/searchMoviesSlicer"
 
 
 
@@ -22,31 +20,24 @@ const Filter = () => {
         const id = formatGenre();
         if (isFiltering) {
             setIsFiltering(false)
-            console.log("type FILTER:", type)
-
-            const infoRefresh: PropsFilter = { id: id, searchModel: "filter", isFiltering: false, pageCorrect: 1, isMovieOrSerie: type }
-            dispatch(searchMovies(infoRefresh))
+            const infoRefresh = { id: id, searchModel: "filter", isFiltering: false, pageCorrect: 1, isMovieOrSerie: type }
+            dispatch(searchResultTitles(infoRefresh))
         } else {
             setIsFiltering(true)
-            const info: PropsFilter = { id: id, searchModel: "filter", isFiltering: true, pageCorrect: 1, isMovieOrSerie: type }
-            console.log("filter:", isFiltering)
-            dispatch(searchMovies(info))
+            const info = { id: id, searchModel: "filter", isFiltering: true, pageCorrect: 1, isMovieOrSerie: type }
+            dispatch(searchResultTitles(info))
         }
     }
 
     const searchMoviesForName = () => {
-        if (type === "person") {
-
-            dispatch(searchPerson({ searchModel: "search", name: name }))
-        } else {
-            const info: PropsFilter = {
-                name: name,
-                searchModel: "search",
-                isFiltering: undefined,
-                isMovieOrSerie: type,
-            }
-            dispatch(searchMovies(info))
+        const info = {
+            name: name,
+            searchModel: "search",
+            isFiltering: undefined,
+            isMovieOrSerie: type,
         }
+        dispatch(searchResultTitles(info))
+
     }
 
     const formatGenre = () => {
@@ -97,8 +88,8 @@ const Filter = () => {
 
                 }
                 {type !== "person" &&
-                
-                <button className={`hover:bg-gray-700 text-gray-100 px-4 rounded-lg  ${isFiltering ? "bg-gray-700" : "bg-gray-800"}`} onClick={() => filterMovies()}>{isFiltering ? "refresh" : "filter"}</button>
+
+                    <button className={`hover:bg-gray-700 text-gray-100 px-4 rounded-lg  ${isFiltering ? "bg-gray-700" : "bg-gray-800"}`} onClick={() => filterMovies()}>{isFiltering ? "refresh" : "filter"}</button>
                 }
             </div>
         </div>

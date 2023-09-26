@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { Details } from "../interfaces/details"
 import { Credit } from "../interfaces/response"
-import service from "../service"
+import service from "../utils/services/service"
 import ScrollCard from "../components/scrollCard"
 import { MovieSerie } from "../interfaces/movieSerie"
 
