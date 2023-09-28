@@ -1,5 +1,5 @@
 
-import { useAppSelector } from "../redux/useRedux";
+import { useAppSelector } from "../utils/hooks/useRedux";
 import Carrosel from "../components/carrosel";
 import ScrollCard from "../components/scrollCard";
 import SearchResultView from "../components/searchResult";

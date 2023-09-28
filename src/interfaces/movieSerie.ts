@@ -20,6 +20,8 @@ export interface MovieSerie {
     isMovie: boolean,
 }
 
+
+
 export interface SerieApi {
     backdrop_path: string,
     first_air_date: number,

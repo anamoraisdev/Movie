@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useAppDispatch, useAppSelector } from "../redux/useRedux"
+import { useAppDispatch, useAppSelector } from "../utils/hooks/useRedux"
 import { Genre } from "../interfaces/genre"
 import { useNavigate } from "react-router-dom"
 import { searchResultTitles } from "../redux/slicers/searchMoviesSlicer"
@@ -9,7 +9,7 @@ import { searchResultTitles } from "../redux/slicers/searchMoviesSlicer"
 const Filter = () => {
     const dispatch = useAppDispatch()
     const [type, setType] = useState<string>("movie")
-    const [name, setName] = useState<string>("")
+    const [name, setName] = useState<string>()
     const [isFiltering, setIsFiltering] = useState<boolean>(false)
     const genres: Genre[] = useAppSelector(state => state.genres)
     const [genre, setGenre] = useState<string>("Action")
@@ -30,6 +30,7 @@ const Filter = () => {
     }
 
     const searchMoviesForName = () => {
+        console.log("name :", name)
         const info = {
             name: name,
             searchModel: "search",

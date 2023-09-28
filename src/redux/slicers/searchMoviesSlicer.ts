@@ -16,7 +16,7 @@ export interface MoviesState {
   pageAtual: number | undefined
   totalPages: number | undefined
   totalResults: number | undefined
-  searchModel?: string | undefined
+  searchModel?: string | undefined | null
   isMovieOrSerie: string | undefined
 }
 

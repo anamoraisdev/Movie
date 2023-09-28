@@ -32,7 +32,9 @@ const ScrollCard = ({ itens, title, person }: PropsMoviesSeries) => {
             }
         }, 3000);
     }, [])
-
+useEffect(() => {
+    console.log("Items", itens)
+}, [itens])
 
 
     return (

@@ -6,7 +6,8 @@ import Home from "./pages/Home"
 
 import Favorites from "./pages/Favorite"
 import People from "./pages/People"
-import Person from "./pages/Person"
+
+import PersonView from "./pages/PersonView"
 
 
 
@@ -22,7 +23,7 @@ function Router() {
           <Route path='/movies/:id?' element={<Movies />}/>
           <Route path="/series/:id?" element={<Series/>}/>
           <Route path="/person" element={<People/>}/>
-          <Route path="/person/:id" element={<Person/>}/>
+          <Route path="/person/:id" element={<PersonView/>}/>
           <Route path="/favorites" element={<Favorites/>}/>
         </Route>
       </Routes>

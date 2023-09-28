@@ -1,6 +1,6 @@
 import { BiHeart, BiSolidHeart } from "react-icons/bi"
 import { useEffect, useState } from "react"
-import { useAppDispatch, useAppSelector } from "../redux/useRedux"
+import { useAppDispatch, useAppSelector } from "../utils/hooks/useRedux"
 import { addListFavorite, deleteFavorite } from "../redux/slicers/favorite"
 import {PropsMovieSerie } from "../interfaces/movieSerie"
 import { useNavigate } from "react-router-dom"
@@ -11,7 +11,7 @@ const Card = ({ item }: PropsMovieSerie) => {
   
     const [isFavorite, setIsFavorite] = useState<boolean>(false)
     const favorites = useAppSelector(state => state.favorites)
-
+    
 
 
     const checkFavorite = () => {

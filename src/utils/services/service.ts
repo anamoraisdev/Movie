@@ -1,9 +1,19 @@
 import axios from "axios"
-import { Credit, ResponseCredits, ResponseMovieDetails, ResponseMovies, ResponseSerieDetails, ResponseSeries } from "../../interfaces/response"
+import { Credit, ResponseCredits, ResponseMovieDetails, ResponseMovies, ResponsePerson, ResponseSerieDetails, ResponseSeries } from "../../interfaces/response"
 import { Details } from "../../interfaces/details"
 import { optionsRequest } from "../../redux/service"
 import { MovieSerie } from "../../interfaces/movieSerie"
+import { Person, PersonDetails } from "../../interfaces/person"
 
+export interface ResponseDetailsPerson{
+    data: PersonDetails
+}
+export interface response{
+    data:{
+        cast: object[],
+        craw: object[]
+    }
+}
 
 const service = {
     
@@ -172,7 +182,68 @@ const service = {
            console.log(error)
         }
        }
-    }
+    },
+
+    getDetailsPerson: async (id: number, setPerson: React.Dispatch<React.SetStateAction<Person | undefined>>): Promise<void> => {
+        try {
+            const response: ResponseDetailsPerson = await axios.get(`https://api.themoviedb.org/3/person/${id}`, optionsRequest)
+            const data = response?.data
+            console.log("person:", data)
+            setPerson(data)
+            
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    
+    getCreditsPerson:async (id: number, setCredits: React.Dispatch<React.SetStateAction<object[]>>): Promise<void> => {
+        try {
+            const response: response = await axios.get(`https://api.themoviedb.org/3/person/${id}/combined_credits`, optionsRequest)
+            const data = response?.data.cast
+            console.log("data", data)
+     
+                const allMoviesFormat: MovieSerie[] = []
+
+                data.map((movie) => {
+                    let isMovie: boolean;
+                    if(movie.media_type === "movie"){
+                        isMovie = true
+                    }else{
+                        isMovie = false
+                    }
+                    const movieFormat = {
+                        adult: movie.adult,
+                        first_air_date: undefined,
+                        backdrop: movie.backdrop_path,
+                        genres: movie.genre_ids,
+                        id: movie.id,
+                        media_type: movie.media_type,
+                        overview: movie.overview,
+                        popularity: movie.popularity,
+                        poster: movie.poster_path,
+                        release: movie.release_date,
+                        name: movie.title,
+                        original_name: movie.original_title,
+                        average: movie.vote_average,
+                        count: movie.vote_count,
+                        isMovie: isMovie,
+                        favorite: false,
+                        character: movie.character
+                    }
+        
+                    allMoviesFormat.push(movieFormat)
+                })
+              
+        
+        
+            
+         
+            setCredits(allMoviesFormat)
+            
+        } catch (error) {
+            console.log(error)
+        }
+    },
 }
 
 export default service

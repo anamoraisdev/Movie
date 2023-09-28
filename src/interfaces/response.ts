@@ -40,7 +40,15 @@ export interface PropsFilter {
 export interface ResponseSearch {
     data: {
         page: number
-        results: MovieApi[]
+        results: SerieApi[] 
+        total_pages: number
+        total_results: number
+    }
+}
+export interface ResponseSearchMovies {
+    data: {
+        page: number
+        results: MovieApi[] 
         total_pages: number
         total_results: number
     }

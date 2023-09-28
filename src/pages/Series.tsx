@@ -1,6 +1,6 @@
 
 import { useParams } from "react-router-dom";
-import { useAppSelector } from "../redux/useRedux";
+import { useAppSelector } from "../utils/hooks/useRedux";
 import Carrosel from "../components/carrosel";
 import ScrollCard from "../components/scrollCard";
 import Item from "./Item";
@@ -20,12 +20,12 @@ const Series = () => {
         <div>
             {id ? <Item /> : <SearchResultView /> }
             
-            {!resultSearch && !id  && seriesPopulity && 
+            {!resultSearch && !id && seriesPopulity &&
                 <div className="flex flex-col">
-                    <Carrosel itens={seriesPopulity.upcoming} title="Airing Today"/>
-                    <ScrollCard itens={seriesPopulity.topRated} title="Top rated 🔥"  />
-                    <Carrosel itens={seriesPopulity.allDay} title="Series populity today 🎖️"/>
-                    <ScrollCard itens={seriesPopulity.nowPlaying} title="now playing 🎬" />
+                    <Carrosel itens={seriesPopulity?.upcoming} title="Airing Today"/>
+                    <ScrollCard itens={seriesPopulity?.topRated} title="Top rated 🔥"  />
+                    <Carrosel itens={seriesPopulity?.allDay} title="Series populity today 🎖️"/>
+                    <ScrollCard itens={seriesPopulity?.nowPlaying} title="now playing 🎬" />
                 </div>
             }
         </div>

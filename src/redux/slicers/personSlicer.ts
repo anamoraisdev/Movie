@@ -10,12 +10,12 @@ export const searchPerson = createAsyncThunk(
 
 export interface PersonState{
   person: Person[] | undefined
-  search: Person[] | undefined | null
+  
  
 }
 const initialState: PersonState = {
   person: [],
-  search: [],
+
 
 }
 
@@ -31,9 +31,7 @@ export const personSlicer = createSlice({
     builder.addCase(
       searchPerson.fulfilled,
       (state, { payload }) => {
-        state.person = payload?.person
-        state.search= payload?.search
-     
+        state.person = payload
       }
     )
   }

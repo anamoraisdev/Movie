@@ -2,7 +2,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import '../index.css'
 import { PropsMoviesSeries } from '../interfaces/movieSerie'
-import { useAppSelector } from '../redux/useRedux'
+import { useAppSelector } from '../utils/hooks/useRedux'
 
 const UpcomingList = ({ itens, title }: PropsMoviesSeries) => {
     const navigate = useNavigate()

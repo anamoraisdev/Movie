@@ -1,4 +1,4 @@
-import { useAppSelector } from "../redux/useRedux.ts"
+import { useAppSelector } from "../utils/hooks/useRedux.ts"
 import ScrollCard from "../components/scrollCard.tsx"
 import Carrosel from "../components/carrosel.tsx"
 import { useParams } from "react-router-dom"
@@ -18,17 +18,10 @@ const Movies = () => {
     return (
         <>
 
-            {id ?
-                <div>
-                    <Item />
-                </div>
-
-                : <SearchResultView />
-            }
-
+            {id ? <Item /> : <SearchResultView />}
 
             {
-                !resultSearch && !id &&
+                !resultSearch && !id && moviesPopulity &&
 
                 <div className="flex flex-col">
                     <Carrosel itens={moviesPopulity.allDay} title="Populity today 🎖️" />

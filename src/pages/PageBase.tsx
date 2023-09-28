@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom"
 import UpcomingList from "../components/upcomingList"
 import Footer from "../components/footer"
 import { Populity, searchPopulity} from "../redux/slicers/populitySlicer"
-import { useAppDispatch, useAppSelector } from "../redux/useRedux"
+import { useAppDispatch, useAppSelector } from "../utils/hooks/useRedux"
 import { useEffect } from "react"
 import { searchGenres } from "../redux/slicers/genresSlicer"
 import { searchPerson } from "../redux/slicers/personSlicer"
@@ -25,7 +25,7 @@ const PageBase = () => {
  
 
     return (
-        <main>
+        <main className="">
             <Navbar />
             <div className="flex justify-between py-[2rem]">
                 <Menu />

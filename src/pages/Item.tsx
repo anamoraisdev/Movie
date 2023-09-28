@@ -17,7 +17,6 @@ const Item = () => {
 
     useEffect(() => {
         if (tag && id_format) {
-            console.log("tag item", tag)
             service.searchDetails(tag, id_format, setItem)
             service.getCredits(tag, id_format, setCredits)
         }
@@ -69,12 +68,18 @@ const Item = () => {
                                 <h3 className="font-bold text-medium ">Production companies</h3>
                                 <div className=" h-[100px] w-full mb-4">
                                     <div className="flex justify-start flex-wrap gap-4" >
-                                        {item?.production_companies.map((i) =>
+                                        {item?.production_companies.map((i, index) => {
+                                            const isRender = index < 5
+                                            if (isRender)
+                                                return (
+                                                    <div key={i.id} className="flex gap-1 bg-gray-800 rounded-md p-2 max-w-[200px] min-w-[100px]">
+                                                        <p className="truncate">{i.name}</p>
+                                                        <p className="text-sm rounded bg-gray-600 px-2">{i.origin_country}</p>
+                                                    </div>
+                                                )
 
-                                            <div key={i.id} className="flex gap-1 bg-gray-800 rounded-md p-2 max-w-[200px] min-w-[100px]">
-                                                <p className="truncate">{i.name}</p>
-                                                <p className="text-sm rounded bg-gray-600 px-2">{i.origin_country}</p>
-                                            </div>
+                                        }
+
                                         )}
                                     </div>
 
