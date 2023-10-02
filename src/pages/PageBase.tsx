@@ -11,8 +11,6 @@ import { searchGenres } from "../redux/slicers/genresSlicer"
 import { searchPerson } from "../redux/slicers/personSlicer"
 
 
-
-
 const PageBase = () => {
     const dispatch = useAppDispatch()
     const itens = useAppSelector(state => state.populity.movies) as Populity
