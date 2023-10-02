@@ -1,9 +1,9 @@
 import axios from "axios"
-import { Credit, ResponseCredits, ResponseMovieDetails, ResponseMovies, ResponsePerson, ResponseSerieDetails, ResponseSeries } from "../../interfaces/response"
+import { Credit, ResponseCredits, ResponseMovieDetails, ResponseMovies, ResponseSerieDetails, ResponseSeries } from "../../interfaces/response"
 import { Details } from "../../interfaces/details"
 import { optionsRequest } from "../../redux/service"
 import { MovieApi, MovieSerie } from "../../interfaces/movieSerie"
-import { Person, PersonDetails } from "../../interfaces/person"
+import {PersonDetails } from "../../interfaces/person"
 
 export interface ResponseDetailsPerson {
     data: PersonDetails
@@ -187,7 +187,7 @@ const service = {
         }
     },
 
-    getDetailsPerson: async (id: number, setPerson: React.Dispatch<React.SetStateAction<Person | undefined>>): Promise<void> => {
+    getDetailsPerson: async (id: number, setPerson: React.Dispatch<React.SetStateAction<PersonDetails | undefined>>): Promise<void> => {
         try {
             const response: ResponseDetailsPerson = await axios.get(`https://api.themoviedb.org/3/person/${id}`, optionsRequest)
             const data = response?.data
@@ -198,7 +198,7 @@ const service = {
         }
     },
 
-    getCreditsPerson: async (id: number, setCredits: React.Dispatch<React.SetStateAction<MovieSerie[]>>): Promise<void> => {
+    getCreditsPerson: async (id: number, setCredits: React.Dispatch<React.SetStateAction<MovieSerie[] | undefined>>): Promise<void> => {
         try {
             const response: response = await axios.get(`https://api.themoviedb.org/3/person/${id}/combined_credits`, optionsRequest)
             const data = response?.data.cast

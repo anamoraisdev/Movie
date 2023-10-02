@@ -1,6 +1,6 @@
 import axios from "axios";
 import { MovieApi, MovieSerie, SerieApi } from "../interfaces/movieSerie";
-import { PropsFilter, ResponseGenres, ResponseMovies, ResponsePerson, ResponseSearch, ResponseSearchMovies, ResponseSearchSeries, ResponseSeries } from "../interfaces/response";
+import { PropsFilter, ResponseGenres, ResponsePerson, ResponseSearch, ResponseSearchMovies} from "../interfaces/response";
 import { Person } from "../interfaces/person";
 
 

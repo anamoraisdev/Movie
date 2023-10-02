@@ -20,20 +20,20 @@ const CardCarrosel = ({ item }: PropsMovieSerie) => {
 
     const checkFavorite = () => {
         favorites.all.map((fav) => {
-            if(fav.id === item.id){
+            if(fav.id === item?.id){
                setIsFavorite(true)
             }
         })
     }
 
     const favoriteTitle = () => {
-        if (!isFavorite) {
+        if (item && !isFavorite) {
             setIsFavorite(true)
             dispatch(addListFavorite(item))
             
         }else{
             setIsFavorite(false)
-            dispatch(deleteFavorite(item.id))
+            dispatch(deleteFavorite(item?.id))
             
         }
     }

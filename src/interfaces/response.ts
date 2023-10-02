@@ -30,8 +30,8 @@ export interface ResponseGenres {
 }
 export interface PropsFilter {
     name?: string | undefined,
-    id?: number,
-    searchModel: string | undefined
+    id?: number | undefined,
+    searchModel: string | undefined | null
     isFiltering: boolean | undefined
     pageCorrect?: number
     isMovieOrSerie: string | undefined

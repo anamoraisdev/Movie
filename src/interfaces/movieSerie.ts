@@ -18,7 +18,7 @@ export interface MovieSerie {
     average: number,
     count: number,
     isMovie: boolean,
-    character: string,
+    character?: string,
 }
 
 
