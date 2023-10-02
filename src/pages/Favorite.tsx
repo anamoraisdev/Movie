@@ -1,8 +1,8 @@
 
 import { useEffect, useState } from "react"
 import Card from "../components/card"
-import { useAppDispatch, useAppSelector } from "../redux/hooks"
-import favorite, { filterFavoriteForGenre } from "../redux/slicers/favorite"
+import { useAppDispatch, useAppSelector } from "../utils/hooks/useRedux"
+import  { filterFavoriteForGenre } from "../redux/slicers/favorite"
 import AvisoFavorito from "../components/avisoFavorito"
 
 const Favorites = () => {
@@ -54,7 +54,7 @@ const Favorites = () => {
 
           {typeSelect === "all" && favorites.all.map((favorite) =>
 
-            <div className="mt-6">
+            <div className="mt-6" key={favorite.id}>
               <Card item={favorite} />
             </div>
 
@@ -63,14 +63,14 @@ const Favorites = () => {
 
           {typeSelect === "movie" && favorites.filteredMovies.length > 0 && favorites.filteredMovies.map((favorite) =>
 
-            <div className="mt-6">
+            <div className="mt-6" key={favorite.id}>
               <Card item={favorite} />
             </div>
 
           )}
 
           {typeSelect === "serie" && favorites.filteredSeries.length > 0 && favorites.filteredSeries.map((favorite) =>
-            <div className="mt-6">
+            <div className="mt-6" key={favorite.id}>
               <Card item={favorite} />
             </div>
           )}

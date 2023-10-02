@@ -1,32 +1,33 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import apiService from '../service';
 import { MovieSerie } from '../../interfaces/movieSerie';
+import { Person } from '../../interfaces/person';
 
-export const searchMovies = createAsyncThunk(
+export const searchResultTitles = createAsyncThunk(
   'movies/search',
-  apiService.movies
+  apiService.getResultSearch
 );
 
-export interface MoviesState{
-  movies: MovieSerie[] | null | undefined
-  pageAtual: number | undefined
-  type?: string | null | undefined
+export interface MoviesState {
+  id?: number | undefined
+  resultSearch: Person[] | MovieSerie[] | undefined | null
+  name?: string | undefined
   isFiltering?: boolean
-  id?: number | null
-  name?: string | null 
-  isMovieOrSerie: string | undefined
+  pageAtual: number | undefined
   totalPages: number | undefined
   totalResults: number | undefined
+  searchModel?: string | undefined | null
+  isMovieOrSerie: string | undefined
 }
 
 const initialState: MoviesState = {
-  movies: null,
+  resultSearch: null,
   pageAtual: 0,
-  type: "",
+  searchModel: "",
   isFiltering: false,
-  id: null,
+  id: undefined,
   name: "",
-  isMovieOrSerie:"",
+  isMovieOrSerie: "",
   totalPages: 0,
   totalResults: 0,
 }
@@ -35,27 +36,28 @@ export const moviesSlicer = createSlice({
   name: 'movies',
   initialState,
   reducers: {
-},
+  },
 
   extraReducers: builder => {
     builder.addCase(
-      searchMovies.fulfilled,
-      (state, {payload}) => {
-       state.id = payload?.id
-       state.isFiltering = payload?.isFiltering
-       state.name = payload?.name
-       state.type = payload?.type
-       state.pageAtual = payload?.pageAtual
-       state.movies = payload?.movies
-       state.isMovieOrSerie = payload?.isMovieOrSerie
-       state.totalPages = payload?.totalPages
-       state.totalResults = payload?.totalResults
+      searchResultTitles.fulfilled,
+      (state, { payload }) => {
+        state.resultSearch = payload?.resultSearch
+        state.id = payload?.id
+        state.isFiltering = payload?.isFiltering
+        state.name = payload?.name
+        state.searchModel = payload?.searchModel
+        state.pageAtual = payload?.pageAtual
+        state.isMovieOrSerie = payload?.isMovieOrSerie
+        state.totalPages = payload?.totalPages
+        state.totalResults = payload?.totalResults
+
       }
     )
   }
 })
 
 
-export const {} = moviesSlicer.actions
+export const { } = moviesSlicer.actions
 
 export default moviesSlicer.reducer

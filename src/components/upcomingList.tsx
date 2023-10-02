@@ -2,14 +2,12 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import '../index.css'
 import { PropsMoviesSeries } from '../interfaces/movieSerie'
-import { useAppSelector } from '../redux/hooks'
+
 
 const UpcomingList = ({ itens, title }: PropsMoviesSeries) => {
     const navigate = useNavigate()
-    const movies = useAppSelector(state => state.movies)
     const {id} = useParams()
-    const isPageFiltering = movies.movies === null 
-    const isPageItem = id
+    const isPageItem:boolean = typeof id === "string"
 
     return (
 
@@ -17,7 +15,7 @@ const UpcomingList = ({ itens, title }: PropsMoviesSeries) => {
             
                 <h1 className='font-bold mb-6 text-medium'>{title} &#x1F37F;</h1>
               
-                <div className={`flex flex-col gap-4 overflow-y-scroll ${isPageFiltering ? "h-[107rem]" : "h-[50rem]"}  ${isPageItem ? "h-[71.6rem]" : ""}`}>
+                <div className={`flex flex-col gap-4 overflow-y-scroll  ${isPageItem ? "h-[71.2rem]" : "h-[107rem]"}`}>
                     {itens && itens.map((item, )  =>  
                     <a key={item.id} onClick={() => navigate(item.isMovie ? `/movies/${`m${item.id}`}` : `/series/${`s${item.id}`}`)}>
                         <main  className="bg-gray-800 p-2 rounded-lg" >

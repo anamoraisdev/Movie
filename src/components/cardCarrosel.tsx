@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { PropsMovieSerie } from "../interfaces/movieSerie";
 import DescriptionBanner from "./bannerDescription"
 import { BiHeart, BiSolidHeart } from "react-icons/bi";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../utils/hooks/useRedux";
 import { useEffect, useState } from "react";
 import { addListFavorite, deleteFavorite } from "../redux/slicers/favorite";
 

@@ -1,131 +1,104 @@
 
-import { useAppDispatch, useAppSelector } from "../redux/hooks"
+import { useAppDispatch, useAppSelector } from "../utils/hooks/useRedux"
 import Card from "./card"
-import { searchMovies } from "../redux/slicers/searchMoviesSlicer"
 import { BiSearch } from "react-icons/bi"
 import { useState } from "react"
+import usePagination from "../utils/hooks/usePagination"
+import { searchResultTitles } from "../redux/slicers/searchMoviesSlicer"
+import CardPerson from "./cardPerson"
+import { MovieSerie } from "../interfaces/movieSerie"
+
 
 
 const SearchResultView = () => {
   const dispatch = useAppDispatch()
-  const id = useAppSelector(state => state.movies.id)
-  const movies = useAppSelector(state => state.movies)
-  const type = useAppSelector(state => state.movies.type)
-  const name = useAppSelector(state => state.movies.name)
-  const pageAtualRedux = useAppSelector(state => state.movies.pageAtual)
-  const isFiltering = useAppSelector(state => state.movies.isFiltering)
-  const isMovie = useAppSelector(state => state.movies.isMovieOrSerie)
-  let pageAtual = pageAtualRedux
-  
-  const totalPagesAtTime = 10
-  const arrayPagesComplet= Object.keys(new Array(movies.totalPages).fill(null)).map(Number)
+  const { calculatePagination } = usePagination()
+  const resultSearch = useAppSelector(state => state.movies)
+  const arrayPagesComplet = Object.keys(new Array(resultSearch.totalPages).fill(null)).map(Number)
   const [arrayPages, setArrayPages] = useState<number[]>(arrayPagesComplet.slice(1, 11))
 
-  const [initialNext, setInitialNext] = useState(11)
-  const [finalNext, setFinalNext] = useState(initialNext + totalPagesAtTime)
-  const [limitPageNext, setlimitPageNext] = useState(10)
 
-  const [limitPagePrevius, setlimitPagePrevius] = useState<number>(11)
-  const [initialPrevius, setInitialPrevius] = useState<number>(initialNext - 10)
-  const [finalPrevius, setFinalPrevius] = useState<number>(initialNext)
+  let pageAtual = resultSearch.pageAtual
 
 
-  const getMoviesNextPage = () => {
-    if(pageAtual){
+  const getResultSearchNextPage = () => {
+    if (pageAtual) {
       const pageCorrect = pageAtual += 1
-      const info = { pageCorrect: pageCorrect, name: name,id: id, isFiltering: isFiltering, type: type, isMovieOrSerie: isMovie}
-      dispatch(searchMovies(info))
-      calculatePagination(pageCorrect)
+      const infoPagination = { pageCorrect: pageCorrect, arrayPagesComplet: arrayPagesComplet, setArrayPages: setArrayPages }
+      const infoSearch = { pageCorrect: pageCorrect, name: resultSearch.name, id: resultSearch.id, isFiltering: resultSearch.isFiltering, searchModel: resultSearch.searchModel, isMovieOrSerie: resultSearch.isMovieOrSerie }
+      dispatch(searchResultTitles(infoSearch))
+      calculatePagination(infoPagination)
+
     }
   }
-  
-  const getMoviesPreviusPage = () => {
-    if(pageAtual){
+
+  const getResultSearchPreviusPage = () => {
+    if (pageAtual) {
       const pageCorrect = pageAtual -= 1
-      const info = {pageCorrect: pageCorrect,name: name,id: id,isFiltering: isFiltering,type: type,isMovieOrSerie: isMovie}
-      dispatch(searchMovies(info))
-      calculatePagination(pageCorrect)
-    }
-  }
-  
-  const getMoviesPageClick = (page: number) => {
-    const info = {pageCorrect: page, name: name,id: id,isFiltering: isFiltering,type: type,isMovieOrSerie: isMovie}
-    dispatch(searchMovies(info))
-  }
-
-  const calculatePagination = (pageCorrect: number) => {
-    if(pageCorrect && pageCorrect === limitPageNext + 1){
-      returnNewArrayPages(initialNext, finalNext)
-      returnValuesAfterAdvancing(initialNext, finalNext)
-    }else if(pageCorrect === limitPagePrevius - 1){
-      returnNewArrayPages(initialPrevius, finalPrevius)
-      returnValuesAfterReturning(initialNext, initialPrevius, finalNext)
+      const infoSearch = { pageCorrect: pageCorrect, name: resultSearch.name, id: resultSearch.id, isFiltering: resultSearch.isFiltering, searchModel: resultSearch.searchModel, isMovieOrSerie: resultSearch.isMovieOrSerie }
+      const infoPagination = { pageCorrect: pageCorrect, arrayPagesComplet: arrayPagesComplet, setArrayPages: setArrayPages }
+      dispatch(searchResultTitles(infoSearch))
+      calculatePagination(infoPagination)
     }
   }
 
-  const returnNewArrayPages = (initial: number, final: number) => {
-    setArrayPages(arrayPagesComplet.slice(initial, final))
-  }
-
-  const returnValuesAfterReturning = (initialNext: number, initialPrevius: number, finalNext: number) => {
-    setInitialNext(initialNext - totalPagesAtTime)
-    setFinalNext(finalNext - totalPagesAtTime)
-    setlimitPageNext(limitPageNext - totalPagesAtTime)
-
-    setlimitPagePrevius(initialPrevius)
-    setInitialPrevius(initialPrevius - totalPagesAtTime)
-    setFinalPrevius(initialPrevius)
-  }
-
-  const returnValuesAfterAdvancing = (initialNext: number, finalNext: number) => {
-    setlimitPagePrevius(initialNext)
-    setInitialPrevius(initialNext - totalPagesAtTime)
-    setFinalPrevius(initialNext)
-  
-    setInitialNext(initialNext + totalPagesAtTime)
-    setFinalNext(finalNext + totalPagesAtTime)
-    setlimitPageNext(limitPageNext + totalPagesAtTime)
- 
+  const getResultSearchPageClick = (page: number) => {
+    const info = { pageCorrect: page, name: resultSearch.name, id: resultSearch.id, isFiltering: resultSearch.isFiltering, searchModel: resultSearch.searchModel, isMovieOrSerie: resultSearch.isMovieOrSerie }
+    dispatch(searchResultTitles(info))
   }
 
   return (
     <>
+      {resultSearch.resultSearch &&
+        < div className="flex flex-col gap-4">
 
-      {movies &&
-        <div className="flex flex-col gap-4">
           <article>
             <h1 className="text-2xl font-bold">Resultado</h1>
-            <h2 className="flex items-center gap-2 text-xl"><span><BiSearch /></span>{movies.totalResults} {movies.isMovieOrSerie ? "filmes" : "series"} encontrados na sua busca</h2>
+            <h2 className="flex items-center gap-2 text-xl"><span><BiSearch /></span> {resultSearch.totalResults} {resultSearch.isMovieOrSerie} encontrados na sua busca</h2>
           </article>
 
-          <div className="flex flex-wrap gap-6 w-full">
-            {movies.movies?.map((movie) => (
-              <div className="mt-8" key={movie.id}>
-                <Card key={movie?.id} item={movie} />
-              </div>
-            )
-            )}
-          </div>
-         
-            <div className="flex justify-center gap-2 mt-12">
-              {pageAtualRedux === 1 ?
-                <button className="bg-gray-800 px-2 rounded " disabled onClick={() => getMoviesPreviusPage()}>previus</button>
-                :
-                <button className="bg-gray-700 px-2 rounded" onClick={() => getMoviesPreviusPage()}>previus</button>
-              }
 
-              <div className="flex gap-2">
-                {arrayPages && arrayPages.map((page) => 
-                  
-                  <button className={`bg-gray-700 px-2 rounded ${pageAtualRedux === page ? "bg-green-400" : ""}`} onClick={() => getMoviesPageClick(page)}>{page}</button>
-                
-                )}
-              </div>
-              <button className="bg-gray-700 px-2 rounded" onClick={() => getMoviesNextPage()} >next</button>
-            </div>
+          <section>
 
-          
-        </div>
+            <main className="flex flex-wrap gap-6 w-full">
+
+              {resultSearch.resultSearch && resultSearch.resultSearch.map((item) => {
+                if (resultSearch.isMovieOrSerie === "person")
+                  return (
+                    <div className="max-w-[25rem] min-w-[25rem] p-2 bg-gray-800 rounded-2xl hover:scale-105">
+                      <CardPerson person={item} />
+                    </div>
+                  )
+                else return (
+                  <div className="mt-8">
+                    <Card key={item?.id} item={item} />
+                  </div>
+                )
+              })}
+
+            </main>
+
+            {resultSearch.totalPages && resultSearch.totalPages > 10 &&
+              <footer className="flex justify-center gap-2 mt-12">
+                {pageAtual === 1 ?
+                  <button className="bg-gray-800 px-2 rounded " disabled onClick={() => getResultSearchPreviusPage()}>previus</button>
+                  :
+                  <button className="bg-gray-700 px-2 rounded" onClick={() => getResultSearchPreviusPage()}>previus</button>
+                }
+
+                <div className="flex gap-2">
+                  {arrayPages && arrayPages.map((page) =>
+
+                    <button key={page} className={`bg-gray-700 px-2 rounded ${pageAtual === page ? "bg-green-400" : ""}`} onClick={() => getResultSearchPageClick(page)}>{page}</button>
+
+                  )}
+                </div>
+                <button className="bg-gray-700 px-2 rounded" onClick={() => getResultSearchNextPage()} >next</button>
+              </footer>
+            }
+
+          </section>
+        </div >
 
       }
     </>

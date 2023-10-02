@@ -1,13 +1,15 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { Details } from "../interfaces/details"
 import { Credit } from "../interfaces/response"
-import service from "../service"
+import service from "../utils/services/service"
 import ScrollCard from "../components/scrollCard"
 import { MovieSerie } from "../interfaces/movieSerie"
+import profile from '../utils/assets/profile.jpg'
 
 const Item = () => {
     const { id } = useParams()
+    const navigate = useNavigate()
     const tag = id?.substring(0, 1)
     const [item, setItem] = useState<Details>()
     const [credits, setCredits] = useState<Credit[]>()
@@ -17,7 +19,6 @@ const Item = () => {
 
     useEffect(() => {
         if (tag && id_format) {
-            console.log("tag item", tag)
             service.searchDetails(tag, id_format, setItem)
             service.getCredits(tag, id_format, setCredits)
         }
@@ -69,12 +70,18 @@ const Item = () => {
                                 <h3 className="font-bold text-medium ">Production companies</h3>
                                 <div className=" h-[100px] w-full mb-4">
                                     <div className="flex justify-start flex-wrap gap-4" >
-                                        {item?.production_companies.map((i) =>
+                                        {item?.production_companies.map((i, index) => {
+                                            const isRender = index < 5
+                                            if (isRender)
+                                                return (
+                                                    <div key={i.id} className="flex gap-1 bg-gray-800 rounded-md p-2 max-w-[200px] min-w-[100px]">
+                                                        <p className="truncate">{i.name}</p>
+                                                        <p className="text-sm rounded bg-gray-600 px-2">{i.origin_country}</p>
+                                                    </div>
+                                                )
 
-                                            <div key={i.id} className="flex gap-1 bg-gray-800 rounded-md p-2 max-w-[200px] min-w-[100px]">
-                                                <p className="truncate">{i.name}</p>
-                                                <p className="text-sm rounded bg-gray-600 px-2">{i.origin_country}</p>
-                                            </div>
+                                        }
+
                                         )}
                                     </div>
 
@@ -115,8 +122,8 @@ const Item = () => {
                                             const isRender = index <= 10
                                             if (isRender)
                                                 return (
-                                                    <div key={credit.id} className={`${credits && credits.length > 5 ? "h-[200px] p-2" : "p-2"} `}>
-                                                        <img className="object-cover min-w-[8rem] max-h-[8rem] rounded-md" src={`${credit?.profile_path ? `https://image.tmdb.org/t/p/w500/${credit?.profile_path}` : "../src/default-avatar-icon-of-social-media-user-vector.jpg"}`} />
+                                                    <div onClick={() => navigate(`/person/${credit.id}`)} key={credit.id} className={`${credits && credits.length > 5 ? "h-[200px] p-2" : "p-2"} `}>
+                                                        <img className="object-cover min-w-[8rem] max-h-[8rem] rounded-md" src={`${credit?.profile_path ? `https://image.tmdb.org/t/p/w500/${credit?.profile_path}` : `${profile}`}`} />
                                                         <div className="w-[90px]">
                                                             <p className="text-sm truncate">{credit.name}</p>
                                                             <p className="truncate text-sm">{credit.character}</p>
@@ -133,17 +140,19 @@ const Item = () => {
 
 
             }
+            {recommendations && recommendations.length > 0 && 
+                <section className="mt-10">
+                    <div className="flex gap-4">
+                        <h1 className="text-2xl">Ja que buscou por </h1>
+                        <div className="flex gap-3 justify-center flex-wrap">
+                            {item?.genres.map((gender) => <button key={gender.id} className="border border-white rounded-lg p-2 hover:bg-white hover:text-gray-900">{gender.name}</button>)}
+                        </div>
 
-            <section className="mt-10">
-                <div className="flex gap-4">
-                    <h1 className="text-2xl">Ja que buscou por </h1>
-                    <div className="flex gap-3 justify-center flex-wrap">
-                        {item?.genres.map((gender) => <button key={gender.id} className="border border-white rounded-lg p-2 hover:bg-white hover:text-gray-900">{gender.name}</button>)}
                     </div>
-
-                </div>
-                <ScrollCard title="Recommendations" itens={recommendations} />
-            </section>
+                    <ScrollCard title="Recommendations" itens={recommendations} />
+                </section>
+            
+            }
         </>
 
     )

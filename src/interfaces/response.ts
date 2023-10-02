@@ -19,6 +19,8 @@ export interface ResponsePerson {
     data: {
         page: number
         results: Person[]
+        total_pages: number
+        total_results: number
     }
 }
 export interface ResponseGenres {
@@ -27,18 +29,26 @@ export interface ResponseGenres {
     }
 }
 export interface PropsFilter {
-    name?: string,
+    name?: string | undefined,
     id?: number,
-    type: string
+    searchModel: string | undefined
     isFiltering: boolean | undefined
     pageCorrect?: number
-    isMovieOrSerie: string
+    isMovieOrSerie: string | undefined
     
 }
 export interface ResponseSearch {
     data: {
         page: number
-        results: MovieApi[]
+        results: SerieApi[] 
+        total_pages: number
+        total_results: number
+    }
+}
+export interface ResponseSearchMovies {
+    data: {
+        page: number
+        results: MovieApi[] 
         total_pages: number
         total_results: number
     }

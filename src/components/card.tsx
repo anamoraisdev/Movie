@@ -1,51 +1,56 @@
 import { BiHeart, BiSolidHeart } from "react-icons/bi"
 import { useEffect, useState } from "react"
-import { useAppDispatch, useAppSelector } from "../redux/hooks"
+import { useAppDispatch, useAppSelector } from "../utils/hooks/useRedux"
 import { addListFavorite, deleteFavorite } from "../redux/slicers/favorite"
 import {PropsMovieSerie } from "../interfaces/movieSerie"
 import { useNavigate } from "react-router-dom"
+import poster from '../utils/assets/poster.png'
 
 const Card = ({ item }: PropsMovieSerie) => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-  
+
     const [isFavorite, setIsFavorite] = useState<boolean>(false)
     const favorites = useAppSelector(state => state.favorites)
+    const idFormat = item?.id.toString() as string
 
 
 
     const checkFavorite = () => {
         favorites.all.map((fav) => {
-            if(fav.id === item.id){
+            if(fav.id === item?.id){
                setIsFavorite(true)
             }
         })
     }
 
     const favoriteTitle = () => {
-        if (!isFavorite) {
-            setIsFavorite(true)
-            dispatch(addListFavorite(item))
-            console.log("item card:", item)
-            
-        }else{
-            setIsFavorite(false)
-            dispatch(deleteFavorite(item.id))
-            
+        if(item){
+            if (!isFavorite) {
+                setIsFavorite(true)
+                dispatch(addListFavorite(item))
+                
+            }else{
+                setIsFavorite(false)
+                dispatch(deleteFavorite(item.id))
+                
+            }
         }
     }
 
     useEffect(() => {
         checkFavorite()
     }, [item])
+
+    
     
     return (
         <div className="relative">
-            <a onClick={() => navigate(`${ item.isMovie? `/movies/${`m${item.id}`}` : `/series/${`s${item.id}` }` } `)}>
+            <a onClick={() => navigate(`${ item?.isMovie? `/movies/${`m${item.id}`}` : `/series/${`s${idFormat}` }` } `)}>
                 <div className="min-w-[10rem] max-w-[10rem] max-h-[15rem] min-h-[15rem] flex flex-col items-center justify-center hover:scale-[101%]">
-                    <img className="rounded-2xl" alt={`poster do filme ${item?.name}`} src={`https://image.tmdb.org/t/p/w500/${item.poster}`} />
+                    <img className="rounded-2xl" alt={`poster do filme ${item ? `${item.name}` : ''}`} src={item?.poster ? `https://image.tmdb.org/t/p/w500/${item.poster}` : `${poster}`}  />
                     <div className="min-w-[10rem] max-w-[10rem] flex">
-                        <p className="wrap truncate">{item?.name || item.original_name}</p>
+                        <p className="wrap truncate">{item?.name}</p>
                     </div>
                 </div>
             </a>

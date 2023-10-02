@@ -18,8 +18,10 @@ export interface MovieSerie {
     average: number,
     count: number,
     isMovie: boolean,
-    favorite: boolean
+    character: string,
 }
+
+
 
 export interface SerieApi {
     backdrop_path: string,
@@ -58,7 +60,8 @@ export interface MovieApi {
 }
 
 export interface PropsMovieSerie {
-    item: MovieSerie 
+    item?: MovieSerie 
+    person?: Person[]
 }
 export interface PropsMoviesSeries{
     itens?: MovieSerie[] | undefined,

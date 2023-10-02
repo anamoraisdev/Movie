@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { PropsMovieSerie } from "../interfaces/movieSerie"
 import { Details } from "../interfaces/details"
-import service from "../service"
+import service from "../utils/services/service"
 
 const DescriptionBanner = ({ item }: PropsMovieSerie) => {
     const [info, setInfo] = useState<Details>()

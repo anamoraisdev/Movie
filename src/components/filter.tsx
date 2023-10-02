@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react"
-import { useAppDispatch, useAppSelector } from "../redux/hooks"
-import { searchMovies } from "../redux/slicers/searchMoviesSlicer"
+import { useAppDispatch, useAppSelector } from "../utils/hooks/useRedux"
 import { Genre } from "../interfaces/genre"
 import { useNavigate } from "react-router-dom"
-import { PropsFilter } from "../interfaces/response"
+import { searchResultTitles } from "../redux/slicers/searchMoviesSlicer"
 
 
 
 const Filter = () => {
     const dispatch = useAppDispatch()
     const [type, setType] = useState<string>("movie")
-    const [name, setName] = useState<string>("")
+    const [name, setName] = useState<string>()
     const [isFiltering, setIsFiltering] = useState<boolean>(false)
     const genres: Genre[] = useAppSelector(state => state.genres)
     const [genre, setGenre] = useState<string>("Action")
@@ -21,26 +20,25 @@ const Filter = () => {
         const id = formatGenre();
         if (isFiltering) {
             setIsFiltering(false)
-            console.log("type FILTER:", type)
-    
-            const infoRefresh: PropsFilter = { id: id, type: "filter", isFiltering: false, pageCorrect: 1, isMovieOrSerie: type }
-            dispatch(searchMovies(infoRefresh))
+            const infoRefresh = { id: id, searchModel: "filter", isFiltering: false, pageCorrect: 1, isMovieOrSerie: type }
+            dispatch(searchResultTitles(infoRefresh))
         } else {
             setIsFiltering(true)
-            const info: PropsFilter = { id: id, type: "filter", isFiltering: true, pageCorrect: 1, isMovieOrSerie: type }
-            console.log("filter:", isFiltering)
-            dispatch(searchMovies(info))
+            const info = { id: id, searchModel: "filter", isFiltering: true, pageCorrect: 1, isMovieOrSerie: type }
+            dispatch(searchResultTitles(info))
         }
     }
 
     const searchMoviesForName = () => {
-        const info: PropsFilter = {
+        console.log("name :", name)
+        const info = {
             name: name,
-            type: "search",
+            searchModel: "search",
             isFiltering: undefined,
             isMovieOrSerie: type,
         }
-        dispatch(searchMovies(info))
+        dispatch(searchResultTitles(info))
+
     }
 
     const formatGenre = () => {
@@ -53,7 +51,7 @@ const Filter = () => {
         searchMoviesForName()
     }, [name])
 
-   
+
 
 
     return (
@@ -77,14 +75,24 @@ const Filter = () => {
                     <option>serie</option>
                     <option>person</option>
                 </select>
-
+               
                 <input className="rounded-md px-4" placeholder="digite o nome" value={name} onChange={(event) => setName(event.target.value)}></input>
-                <select className="px-8 rounded text-gray-700" value={genre} onChange={(event) => setGenre(event.target.value)}>
-                    {genres?.map((gender) =>
-                        <option key={gender.id}>{gender.name}</option>
-                    )}
-                </select>
-                <button className={`hover:bg-gray-700 text-gray-100 px-4 rounded-lg  ${isFiltering ? "bg-gray-700" : "bg-gray-800"}`} onClick={() => filterMovies()}>{isFiltering ? "refresh" : "filter"}</button>
+
+                {
+                    type !== "person" &&
+
+                    <select className="px-8 rounded text-gray-700" value={genre} onChange={(event) => setGenre(event.target.value)}>
+                        {genres?.map((gender) =>
+                            <option key={gender.id}>{gender.name}</option>
+                        )}
+                    </select>
+
+
+                }
+                {type !== "person" &&
+
+                    <button className={`hover:bg-gray-700 text-gray-100 px-4 rounded-lg  ${isFiltering ? "bg-gray-700" : "bg-gray-800"}`} onClick={() => filterMovies()}>{isFiltering ? "refresh" : "filter"}</button>
+                }
             </div>
         </div>
     )

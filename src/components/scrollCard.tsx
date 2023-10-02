@@ -2,7 +2,6 @@
 import { useEffect, useRef } from "react"
 import Card from "./card"
 import { PropsMoviesSeries } from "../interfaces/movieSerie"
-import CardPerson from "./cardPerson";
 import CardPersonScroll from "./cardPersonScroll";
 
 
@@ -35,13 +34,12 @@ const ScrollCard = ({ itens, title, person }: PropsMoviesSeries) => {
     }, [])
 
 
-
     return (
 
         <main className="relative flex flex-col gap-3">
             <h1 className="font-bold">{title}</h1>
             <div className="flex items-center">
-                <button className="h-[16.5rem] w-20 bg-gradient-to-r from-gray-800 rounded-l-lg" onClick={previusImage}>{"<"}</button>
+                <button className={itens && itens?.length < 6 ? "hidden" :`h-[16.5rem] w-20 bg-gradient-to-r from-gray-800 rounded-l-lg`} onClick={previusImage}>{"<"}</button>
                 {person ? 
                     <div className="flex scroll-smooth overflow-hidden gap-3 touch-auto py-5" ref={refCarossel}>
                         {person && person.map((item) =>
@@ -49,13 +47,13 @@ const ScrollCard = ({ itens, title, person }: PropsMoviesSeries) => {
                         )}
                     </div>
                     :
-                    <div className="flex scroll-smooth overflow-hidden gap-3 touch-auto py-5" ref={refCarossel}>
+                    <div className={`${itens && itens.length < 6 ? "flex gap-4" : "scroll-smooth overflow-hidden flex gap-3 touch-auto py-5" }`} ref={refCarossel}>
                         {itens && itens.map((item) =>
                             <Card key={item.id} item={item} />
                         )}
                     </div>
                 }
-                <button className="h-[16.5rem] w-20 bg-gradient-to-l from-gray-800 rounded-r-lg" onClick={nextImage}>{">"}</button>
+                <button className={itens && itens?.length < 6 ? "hidden" : `h-[16.5rem] w-20 bg-gradient-to-l from-gray-800 rounded-r-lg`} onClick={nextImage}>{">"}</button>
             </div>
 
         </main>
