@@ -9,11 +9,12 @@ const DescriptionBanner = ({ item }: PropsMovieSerie) => {
 
     const tagMovie = "m"
     const tagSerie = "s"
+ 
 
 
 
     useEffect(() => {
-        if (item && item?.isMovie) {
+        if (item && item?.isMovie && item.id) {
             service.searchDetails(tagMovie, item?.id, setInfo)
         } else {
             service.searchDetails(tagSerie, item?.id, setInfo)

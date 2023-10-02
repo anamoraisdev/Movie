@@ -1,9 +1,9 @@
 import axios from "axios"
-import { Credit, ResponseCredits, ResponseMovieDetails, ResponseMovies, ResponsePerson, ResponseSerieDetails, ResponseSeries } from "../../interfaces/response"
+import { Credit, ResponseCredits, ResponseMovieDetails, ResponseMovies, ResponseSerieDetails, ResponseSeries } from "../../interfaces/response"
 import { Details } from "../../interfaces/details"
 import { optionsRequest } from "../../redux/service"
 import { MovieApi, MovieSerie } from "../../interfaces/movieSerie"
-import { Person, PersonDetails } from "../../interfaces/person"
+import {PersonDetails } from "../../interfaces/person"
 
 export interface ResponseDetailsPerson {
     data: PersonDetails

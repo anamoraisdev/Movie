@@ -10,7 +10,7 @@ import profile from '../utils/assets/profile.jpg'
 const Item = () => {
     const { id } = useParams()
     const navigate = useNavigate()
-    const tag = id?.substring(0, 1)
+    const tag = id?.substring(0, 1) as string
     const [item, setItem] = useState<Details>()
     const [credits, setCredits] = useState<Credit[]>()
     const [recommendations, setRecommendations] = useState<MovieSerie[]>()
