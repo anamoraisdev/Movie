@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 import { MovieSerie } from '../../interfaces/movieSerie';
 import apiService from '../service';
+import { Person } from '../../interfaces/person';
 
 export const searchPopulity = createAsyncThunk(
   'populity/getPopulity',
@@ -10,10 +11,10 @@ export const searchPopulity = createAsyncThunk(
 
 
 export interface Populity {
-  allDay: MovieSerie[] | undefined 
-  topRated: MovieSerie[] | undefined 
-  nowPlaying: MovieSerie[] | undefined 
-  upcoming: MovieSerie[] | undefined 
+  allDay: MovieSerie[] | Person[] | undefined 
+  topRated: MovieSerie[] | Person[] | undefined 
+  nowPlaying: MovieSerie[] | Person[] | undefined 
+  upcoming: MovieSerie[] | Person[] | undefined 
 }
 
 const initial: Populity = {
