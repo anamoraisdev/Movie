@@ -8,7 +8,7 @@ import { MovieSerie } from "../interfaces/movieSerie";
 const PersonView = () => {
     const { id } = useParams()
     const [person, setPerson] = useState<PersonDetails>()
-    const [credits, setCredits] = useState<MovieSerie[]>()
+    const [credits, setCredits] = useState<MovieSerie[]>() 
     const idFormat = Number(id)
     const [openBiografy, setOpenBiografy] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false)

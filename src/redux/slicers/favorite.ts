@@ -1,15 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { MovieSerie } from '../../interfaces/movieSerie'
 
+const local = JSON.parse(localStorage.getItem("favoritos") as string) as MovieSerie[]
 
 export interface FavoritesState {
-  all: MovieSerie[]
+  all: MovieSerie[] 
   filteredSeries: MovieSerie[]
   filteredMovies: MovieSerie[]
 }
 
 const initialState: FavoritesState = {
-  all: JSON.parse(localStorage.getItem("favoritos")) || [], 
+  all: local || [], 
   filteredSeries: [],
   filteredMovies: [],
 } 

@@ -18,7 +18,7 @@ export const genresSlicer = createSlice({
   extraReducers: builder => {
     builder.addCase(
       searchGenres.fulfilled,
-      (state, {payload}) => {
+      (payload) => {
         return payload
       }
     )

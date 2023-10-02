@@ -187,7 +187,7 @@ const service = {
         }
     },
 
-    getDetailsPerson: async (id: number, setPerson: React.Dispatch<React.SetStateAction<Person | undefined>>): Promise<void> => {
+    getDetailsPerson: async (id: number, setPerson: React.Dispatch<React.SetStateAction<PersonDetails | undefined>>): Promise<void> => {
         try {
             const response: ResponseDetailsPerson = await axios.get(`https://api.themoviedb.org/3/person/${id}`, optionsRequest)
             const data = response?.data
@@ -198,7 +198,7 @@ const service = {
         }
     },
 
-    getCreditsPerson: async (id: number, setCredits: React.Dispatch<React.SetStateAction<MovieSerie[]>>): Promise<void> => {
+    getCreditsPerson: async (id: number, setCredits: React.Dispatch<React.SetStateAction<MovieSerie[] | undefined>>): Promise<void> => {
         try {
             const response: response = await axios.get(`https://api.themoviedb.org/3/person/${id}/combined_credits`, optionsRequest)
             const data = response?.data.cast
