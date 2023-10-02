@@ -14,6 +14,9 @@ const CardCarrosel = ({ item }: PropsMovieSerie) => {
   
     const [isFavorite, setIsFavorite] = useState<boolean>(false)
     const favorites = useAppSelector(state => state.favorites)
+    const id_format = item?.id.toString() as string
+    const backdrop = item?.backdrop as string
+    const poster = item?.poster as string
 
     const checkFavorite = () => {
         favorites.all.map((fav) => {
@@ -41,14 +44,14 @@ const CardCarrosel = ({ item }: PropsMovieSerie) => {
 
     return (
         <div className="relative">
-            <a onClick={() => navigate(`${ item.isMovie? `/movies/${`m${item.id}`}` : `/series/${`s${item.id}` }` } `)}>
+            <a onClick={() => navigate(`${ item?.isMovie? `/movies/${`m${id_format}`}` : `/series/${`s${id_format}` }` } `)}>
             <div className="relative hover:scale-[101%]">
                 <div className="w-[600px]">
-                    <img className="opacity-20 rounded-3xl w-full" src={`https://image.tmdb.org/t/p/w500/${item.backdrop}`} />
+                    <img className="opacity-20 rounded-3xl w-full" src={`https://image.tmdb.org/t/p/w500/${backdrop}`} />
                 </div>
                 <div className="absolute flex gap-10 top-[10%] left-[8%]">
-                    <img className=" w-44 rounded-2xl shadow-xl" src={`https://image.tmdb.org/t/p/w500/${item.poster}`} />
-                    <DescriptionBanner key={item.id} item={item} />
+                    <img className=" w-44 rounded-2xl shadow-xl" src={`https://image.tmdb.org/t/p/w500/${poster}`} />
+                    <DescriptionBanner key={item?.id} item={item} />
                 </div>
 
             </div>

@@ -7,9 +7,6 @@ import SearchResultView from "../components/searchResult.tsx"
 import { Populity } from "../redux/slicers/populitySlicer.ts"
 
 
-
-
-
 const Movies = () => {
     const { id } = useParams()
     const moviesPopulity = useAppSelector(state => state.populity.movies) as Populity
@@ -17,7 +14,6 @@ const Movies = () => {
 
     return (
         <>
-
             {id ? <Item /> : <SearchResultView />}
 
             {
@@ -31,7 +27,6 @@ const Movies = () => {
                 </div>
 
             }
-
         </>
     )
 }

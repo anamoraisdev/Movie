@@ -6,7 +6,10 @@ import { useState } from "react"
 import usePagination from "../utils/hooks/usePagination"
 import { searchResultTitles } from "../redux/slicers/searchMoviesSlicer"
 import CardPerson from "./cardPerson"
+import { Person } from "../interfaces/person"
 import { MovieSerie } from "../interfaces/movieSerie"
+
+
 
 
 
@@ -62,18 +65,26 @@ const SearchResultView = () => {
 
             <main className="flex flex-wrap gap-6 w-full">
 
-              {resultSearch.resultSearch && resultSearch.resultSearch.map((item) => {
-                if (resultSearch.isMovieOrSerie === "person")
-                  return (
-                    <div className="max-w-[25rem] min-w-[25rem] p-2 bg-gray-800 rounded-2xl hover:scale-105">
-                      <CardPerson person={item} />
-                    </div>
-                  )
-                else return (
-                  <div className="mt-8">
-                    <Card key={item?.id} item={item} />
+              {resultSearch.isMovieOrSerie === 'person' && resultSearch.resultSearch.map((item) => {
+                const person = item as Person
+                return (
+                  <div className="max-w-[25rem] min-w-[25rem] p-2 bg-gray-800 rounded-2xl hover:scale-105">
+                    <CardPerson person={person} />
                   </div>
+
                 )
+
+              })}
+
+              {resultSearch.isMovieOrSerie !== 'person' && resultSearch.resultSearch.map((item) => {
+                const movieSerie = item as MovieSerie
+                return (
+                  <div className="mt-8">
+                    <Card key={item?.id} item={movieSerie} />
+                  </div>
+
+                )
+
               })}
 
             </main>
