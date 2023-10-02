@@ -5,6 +5,8 @@ import { BiSearch } from "react-icons/bi"
 import { useState } from "react"
 import usePagination from "../utils/hooks/usePagination"
 import { searchResultTitles } from "../redux/slicers/searchMoviesSlicer"
+import CardPerson from "./cardPerson"
+import { MovieSerie } from "../interfaces/movieSerie"
 
 
 
@@ -47,9 +49,9 @@ const SearchResultView = () => {
 
   return (
     <>
-      {resultSearch.resultSearch && 
+      {resultSearch.resultSearch &&
         < div className="flex flex-col gap-4">
-          
+
           <article>
             <h1 className="text-2xl font-bold">Resultado</h1>
             <h2 className="flex items-center gap-2 text-xl"><span><BiSearch /></span> {resultSearch.totalResults} {resultSearch.isMovieOrSerie} encontrados na sua busca</h2>
@@ -59,13 +61,21 @@ const SearchResultView = () => {
           <section>
 
             <main className="flex flex-wrap gap-6 w-full">
-              {resultSearch?.resultSearch?.map((movie) => 
 
-                <div className="mt-8" key={movie.id}>
-                  <Card key={movie?.id} item={movie} />
-                </div>
-              
-              )}
+              {resultSearch.resultSearch && resultSearch.resultSearch.map((item) => {
+                if (resultSearch.isMovieOrSerie === "person")
+                  return (
+                    <div className="max-w-[25rem] min-w-[25rem] p-2 bg-gray-800 rounded-2xl hover:scale-105">
+                      <CardPerson person={item} />
+                    </div>
+                  )
+                else return (
+                  <div className="mt-8">
+                    <Card key={item?.id} item={item} />
+                  </div>
+                )
+              })}
+
             </main>
 
             {resultSearch.totalPages && resultSearch.totalPages > 10 &&
@@ -89,7 +99,7 @@ const SearchResultView = () => {
 
           </section>
         </div >
-      
+
       }
     </>
   )

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import service from "../utils/services/service";
+import service, { creditePerson } from "../utils/services/service";
 import { PersonDetails } from "../interfaces/person";
 import ScrollCard from "../components/scrollCard";
 import { MovieSerie } from "../interfaces/movieSerie";
+
+
 
 
 
@@ -12,6 +14,7 @@ const PersonView = () => {
     const { id } = useParams()
     const [person, setPerson] = useState<PersonDetails>()
     const [credits, setCredits] = useState<MovieSerie[]>()
+
     const idFormat = Number(id)
     const [openBiografy, setOpenBiografy] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false)
@@ -80,7 +83,7 @@ const PersonView = () => {
                         <div>
                             <h3 className="font-bold text-md">Know for</h3>
                             <div className="bg-gray-800 p-2">
-                                {person && person.also_known_as.map((item) => <p>{item}</p>)}
+                                {person && person.also_known_as.map((item) => <p key={item}>{item}</p>)}
                             </div>
                         </div>
                     </section>
@@ -99,9 +102,11 @@ const PersonView = () => {
 
                     }
 
+
                     <section className="">
                         <ScrollCard title="Know for" itens={credits} />
                     </section>
+                    
 
                     <section className="w-full relative flex flex-col">
                         <div>

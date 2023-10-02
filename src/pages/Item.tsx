@@ -1,13 +1,15 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { Details } from "../interfaces/details"
 import { Credit } from "../interfaces/response"
 import service from "../utils/services/service"
 import ScrollCard from "../components/scrollCard"
 import { MovieSerie } from "../interfaces/movieSerie"
+import profile from '../utils/assets/profile.jpg'
 
 const Item = () => {
     const { id } = useParams()
+    const navigate = useNavigate()
     const tag = id?.substring(0, 1)
     const [item, setItem] = useState<Details>()
     const [credits, setCredits] = useState<Credit[]>()
@@ -120,8 +122,8 @@ const Item = () => {
                                             const isRender = index <= 10
                                             if (isRender)
                                                 return (
-                                                    <div key={credit.id} className={`${credits && credits.length > 5 ? "h-[200px] p-2" : "p-2"} `}>
-                                                        <img className="object-cover min-w-[8rem] max-h-[8rem] rounded-md" src={`${credit?.profile_path ? `https://image.tmdb.org/t/p/w500/${credit?.profile_path}` : "../src/default-avatar-icon-of-social-media-user-vector.jpg"}`} />
+                                                    <div onClick={() => navigate(`/person/${credit.id}`)} key={credit.id} className={`${credits && credits.length > 5 ? "h-[200px] p-2" : "p-2"} `}>
+                                                        <img className="object-cover min-w-[8rem] max-h-[8rem] rounded-md" src={`${credit?.profile_path ? `https://image.tmdb.org/t/p/w500/${credit?.profile_path}` : `${profile}`}`} />
                                                         <div className="w-[90px]">
                                                             <p className="text-sm truncate">{credit.name}</p>
                                                             <p className="truncate text-sm">{credit.character}</p>
@@ -138,17 +140,19 @@ const Item = () => {
 
 
             }
+            {recommendations && recommendations.length > 0 && 
+                <section className="mt-10">
+                    <div className="flex gap-4">
+                        <h1 className="text-2xl">Ja que buscou por </h1>
+                        <div className="flex gap-3 justify-center flex-wrap">
+                            {item?.genres.map((gender) => <button key={gender.id} className="border border-white rounded-lg p-2 hover:bg-white hover:text-gray-900">{gender.name}</button>)}
+                        </div>
 
-            <section className="mt-10">
-                <div className="flex gap-4">
-                    <h1 className="text-2xl">Ja que buscou por </h1>
-                    <div className="flex gap-3 justify-center flex-wrap">
-                        {item?.genres.map((gender) => <button key={gender.id} className="border border-white rounded-lg p-2 hover:bg-white hover:text-gray-900">{gender.name}</button>)}
                     </div>
-
-                </div>
-                <ScrollCard title="Recommendations" itens={recommendations} />
-            </section>
+                    <ScrollCard title="Recommendations" itens={recommendations} />
+                </section>
+            
+            }
         </>
 
     )

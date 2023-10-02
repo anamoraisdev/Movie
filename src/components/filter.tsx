@@ -75,8 +75,9 @@ const Filter = () => {
                     <option>serie</option>
                     <option>person</option>
                 </select>
-
+               
                 <input className="rounded-md px-4" placeholder="digite o nome" value={name} onChange={(event) => setName(event.target.value)}></input>
+
                 {
                     type !== "person" &&
 

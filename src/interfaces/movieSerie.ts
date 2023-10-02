@@ -18,6 +18,7 @@ export interface MovieSerie {
     average: number,
     count: number,
     isMovie: boolean,
+    character: string,
 }
 
 
@@ -59,7 +60,8 @@ export interface MovieApi {
 }
 
 export interface PropsMovieSerie {
-    item: MovieSerie 
+    item?: MovieSerie 
+    person?: Person[]
 }
 export interface PropsMoviesSeries{
     itens?: MovieSerie[] | undefined,
