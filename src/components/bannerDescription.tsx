@@ -16,7 +16,7 @@ const DescriptionBanner = ({ item }: PropsMovieSerie) => {
     useEffect(() => {
         if (item && item?.isMovie && item.id) {
             service.searchDetails(tagMovie, item?.id, setInfo)
-        } else {
+        } else if(item && item.id) {
             service.searchDetails(tagSerie, item?.id, setInfo)
         }
 
