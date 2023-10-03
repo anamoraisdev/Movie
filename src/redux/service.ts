@@ -3,8 +3,6 @@ import { MovieApi, MovieSerie, SerieApi } from "../interfaces/movieSerie";
 import { PropsFilter, ResponseGenres, ResponsePerson, ResponseSearch, ResponseSearchMovies} from "../interfaces/response";
 import { Person } from "../interfaces/person";
 
-
-
 export const optionsRequest = {
     method: 'GET',
     headers: {
@@ -185,7 +183,6 @@ const apiService = {
         const topRatedSerie = await apiService.get("tv/top_rated", "serie", 1)
         const airingToday = await apiService.get("tv/airing_today", "serie", 1)
 
-        // Movies Populity
         const allDay = await apiService.get("trending/all/day", "movie", 1)
         const topRated = await apiService.get("movie/top_rated", "movie", 1)
         const nowPlaying = await apiService.get("movie/now_playing", "movie", 1)
