@@ -180,7 +180,7 @@ const apiService = {
 
     getPopulity: async () => {
 
-        const allDaySerie = await apiService.get("tv/popular", "serie",1)
+        const allDaySerie = await apiService.get("tv/popular", "serie",1) 
         const nowPlayingSerie = await apiService.get("tv/on_the_air", "serie", 1)
         const topRatedSerie = await apiService.get("tv/top_rated", "serie", 1)
         const airingToday = await apiService.get("tv/airing_today", "serie", 1)
@@ -192,17 +192,17 @@ const apiService = {
         const upcoming = await apiService.get("movie/upcoming", "movie", 1)
         
         const movies = {
-            allDay: allDay?.data,
-            topRated: topRated?.data,
-            nowPlaying: nowPlaying?.data,
-            upcoming: upcoming?.data
+            allDay: allDay?.data as MovieSerie[],
+            topRated: topRated?.data as MovieSerie[],
+            nowPlaying: nowPlaying?.data as MovieSerie[],
+            upcoming: upcoming?.data as MovieSerie[]
         }
 
         const series = {
-            allDay: allDaySerie?.data,
-            topRated: topRatedSerie?.data,
-            nowPlaying: nowPlayingSerie?.data,
-            upcoming: airingToday?.data
+            allDay: allDaySerie?.data as MovieSerie[],
+            topRated: topRatedSerie?.data as MovieSerie[],
+            nowPlaying: nowPlayingSerie?.data as MovieSerie[],
+            upcoming: airingToday?.data as MovieSerie[]
         }
         return { movies: movies, series: series }
     },

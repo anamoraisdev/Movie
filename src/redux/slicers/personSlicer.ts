@@ -10,13 +10,9 @@ export const searchPerson = createAsyncThunk(
 
 export interface PersonState{
   person: Person[] | undefined
-  
- 
 }
 const initialState: PersonState = {
   person: [],
-
-
 }
 
 export const personSlicer = createSlice({
