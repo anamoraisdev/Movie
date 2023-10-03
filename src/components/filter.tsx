@@ -11,7 +11,7 @@ const Filter = () => {
     const [type, setType] = useState<string>("movie")
     const [name, setName] = useState<string>()
     const [isFiltering, setIsFiltering] = useState<boolean>(false)
-    const genres: Genre[] = useAppSelector(state => state.genres)
+    const genres = useAppSelector(state => state.genres.state) as Genre[]
     const [genre, setGenre] = useState<string>("Action")
     const navigate = useNavigate()
 
@@ -30,7 +30,6 @@ const Filter = () => {
     }
 
     const searchMoviesForName = () => {
-        console.log("name :", name)
         const info = {
             name: name,
             searchModel: "search",
@@ -50,9 +49,6 @@ const Filter = () => {
     useEffect(() => {
         searchMoviesForName()
     }, [name])
-
-
-
 
     return (
         <div className="flex justify-between gap-2 text-gray-700 w-[70%]">
@@ -82,7 +78,7 @@ const Filter = () => {
                     type !== "person" &&
 
                     <select className="px-8 rounded text-gray-700" value={genre} onChange={(event) => setGenre(event.target.value)}>
-                        {genres?.map((gender) =>
+                        {genres && genres.map((gender) =>
                             <option key={gender.id}>{gender.name}</option>
                         )}
                     </select>

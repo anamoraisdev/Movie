@@ -280,6 +280,7 @@ const apiService = {
         try {
             const response: ResponseGenres = await axios.get(`https://api.themoviedb.org/3/genre/movie/list`, optionsRequest)
             const data = response?.data?.genres;
+            console.log("data",data)
             return data
         } catch (error) {
             console.log(error)

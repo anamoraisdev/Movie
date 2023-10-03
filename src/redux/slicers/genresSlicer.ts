@@ -8,7 +8,12 @@ export const searchGenres = createAsyncThunk(
   apiService.genres
 );
   
-const initialState: Genre[] = []
+export interface State{
+  state: Genre[] | undefined 
+}
+const initialState: State = {
+  state: []
+}
 
 export const genresSlicer = createSlice({
   name: 'genres',
@@ -18,8 +23,8 @@ export const genresSlicer = createSlice({
   extraReducers: builder => {
     builder.addCase(
       searchGenres.fulfilled,
-      (payload) => {
-        return payload
+      (state, {payload}) => {
+        state.state = payload
       }
     )
   }
