@@ -16,9 +16,9 @@ const Home = () => {
 
   return (
     <>
-      <div className="w-[100%]">
+      <div className="w-[100%] ">
         {!resultSearch ?
-          <div>
+          <div className="flex flex-col">
             <Carrosel itens={moviesPopulity.topRated} title={"Top rated movies 🔥"} />
             <ScrollCard itens={moviesPopulity.nowPlaying} title={"Now playing movies 🎬"} />
             <ScrollCard person={person} title={"people popularity 🎖️"} />

@@ -4,13 +4,15 @@ const Footer = () => {
     return (
         <div className="bg-gray-800 px-20 pt-20 pb-4 flex flex-col gap-2">
 
-            <div className="flex gap-36 text-gray-400 ml-32">
+            <div className="flex text-gray-400">
                 <div className="w-[30%] flex flex-col gap-4">
                     <h1 className="font-bold text-gray-300 text-medium">LOGO</h1>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur obcaecati nesciunt distinctio aperiam? Ullam, aliquid incidunt.Lorem ipsum dolor sit amet consectetur, adipisicing elit. oMaxime cum blanditiis quod, ab molestias soluta deleniti, laboriosam esse culpa eaque quo praesentium sunt accusamus ad. Esse reprehenderit consequatur molestias soluta. Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
 
                 </div>
-                <div className="flex flex-col gap-4">
+
+
+                <div className="flex flex-col gap-4 w-[45%]">
                     <h1 className="font-bold text-gray-300">Important Links</h1>
                     <div className="flex flex-col gap-2">
                         <div className="flex items-center gap-1 hover:underline">
@@ -43,9 +45,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-
-
-                <div className="w-80 flex flex-col gap-4">
+                <div className="w-[45%] flex flex-col gap-4 ">
                     <h1 className="font-bold text-gray-300">Contact</h1>
                     <div className="flex flex-col gap-6">
                         <div>
@@ -77,6 +77,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
+
 
             </div>
 
