@@ -4,10 +4,14 @@ import Filter from "./filter"
 const Navbar = () => {
     
     return (
-        <div className="flex items-center gap-[7rem] pt-10">
-            <h1 className="font-bold pl-[3rem]">LOGO</h1>
-           <Filter/>
-      
+        <div className="w-screen flex items-center pt-5 ">
+            <h1 className="font-bold w-[10%] border">LOGO</h1>
+            <div className="w-[70%]  xl:w-[75%]">
+                 <Filter/>
+            </div>
+           <div className="w-[10%] border">
+           </div>
+
         </div>
     )
 }

@@ -11,7 +11,7 @@ const UpcomingList = ({ itens, title }: PropsMoviesSeries) => {
 
     return (
 
-            <div className='px-3 mt-2 '>
+            <div className=''>
             
                 <h1 className='font-bold mb-6 text-medium'>{title} &#x1F37F;</h1>
               

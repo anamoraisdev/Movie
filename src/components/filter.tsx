@@ -51,7 +51,8 @@ const Filter = () => {
     }, [name])
 
     return (
-        <div className="flex justify-between gap-2 text-gray-700 w-[70%]">
+        <div className="flex justify-between gap-2 text-gray-700 w-[100%]">
+           
             <div className="flex gap-3 text-gray-100">
                 <a onClick={() => navigate("/")}>
                     <button className="bg-gray-800 px-3 py-1 rounded-md">home</button>

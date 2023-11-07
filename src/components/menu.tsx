@@ -6,7 +6,7 @@ const Menu = () => {
     const navigate = useNavigate()
     
     return(
-        <div className="mx-10 flex flex-col items-start gap-4 ">
+        <div className="flex flex-col items-start gap-4 w-[60%]">
            
             <ul className="flex flex-col gap-5">
                 <a onClick={() => navigate("/person")}>

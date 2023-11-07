@@ -33,15 +33,15 @@ const Item = () => {
         <>
             {item &&
 
-                <div className="flex gap-10 mt-2 h-[50rem]">
+                <div className="flex flex-col lg:flex-row xl:flex-row gap-10 mt-2 lg:h-[50rem] xl:[50rem]">
 
-                    <section className="flex flex-col gap-4 w-[40%]">
+                    <section className="flex flex-col gap-4 w-full lg:w-[40%] xl:w-[40%]">
                         <figure className="w-full h-full ">
                             <img className="object-cover rounded-2xl w-full h-full" src={`https://image.tmdb.org/t/p/w500/${item.poster}`} />
                         </figure>
                     </section>
 
-                    <section className="w-[60%] flex flex-col gap-4 mr-10">
+                    <section className="w-full lg:w-[60%] xl:w-[60%] flex flex-col gap-4 mr-10">
                         <header>
                             <div className="flex justify-between items-center gap-6">
                                 <h1 className="font-bold text-2xl">{item.name}</h1>
