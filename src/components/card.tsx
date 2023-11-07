@@ -46,8 +46,8 @@ const Card = ({ item }: PropsMovieSerie) => {
     
     return (
         <>
-            <a className="relative" onClick={() => navigate(`${ item?.isMovie? `/movies/${`m${item.id}`}` : `/series/${`s${idFormat}` }` } `)}>
-                <div className="w-full flex flex-col items-center justify-center hover:scale-[101%]">
+            <a className="" onClick={() => navigate(`${ item?.isMovie? `/movies/${`m${item.id}`}` : `/series/${`s${idFormat}` }` } `)}>
+                <div className="relative w-full flex flex-col items-center justify-center hover:scale-[101%]">
                     <img className="rounded-2xl" alt={`poster do filme ${item ? `${item.name}` : ''}`} src={item?.poster ? `https://image.tmdb.org/t/p/w500/${item.poster}` : `${poster}`}  />
                     <div className="min-w-[10rem] max-w-[10rem] flex">
                         <p className="wrap truncate">{item?.name}</p>
