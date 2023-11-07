@@ -31,6 +31,7 @@ const Item = () => {
 
     return (
         <>
+        
             {item &&
 
                 <div className="flex flex-col lg:flex-row xl:flex-row gap-10 mt-2 lg:h-[50rem] xl:[50rem]">

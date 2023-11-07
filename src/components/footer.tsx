@@ -2,9 +2,9 @@ import { BiCopyright, BiLink, BiLogoGmail, BiLogoInstagram, BiLogoTiktok, BiLogo
 
 const Footer = () => {
     return (
-        <div className="bg-gray-800 px-20 pt-20 pb-4 flex flex-col gap-2">
+        <div className="bg-gray-800 px-20 pt-20 pb-4 flex flex-col gap-2 ">
 
-            <div className="flex text-gray-400 justify-between sm:flex-wrap ">
+            <div className="flex text-gray-400 justify-between flex-col">
                 <div className="flex flex-col gap-4 max-w-[600px] min-w-[300px]">
                     <h1 className="font-bold text-gray-300 text-medium">LOGO</h1>
                     <p className="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur obcaecati nesciunt distinctio aperiam? Ullam, aliquid incidunt.Lorem ipsum dolor sit amet consectetur, adipisicing elit. oMaxime cum blanditiis quod, ab molestias soluta deleniti, laboriosam esse culpa eaque quo praesentium sunt accusamus ad. Esse reprehenderit consequatur molestias soluta. Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
