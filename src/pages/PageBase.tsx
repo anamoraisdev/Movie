@@ -44,7 +44,7 @@ const PageBase = () => {
             </div>
 
             <div className=" 2xl:flex xl:flex hidden">
-                <div className="w-[10%] ">
+                <div className="w-[10%] mx-8">
                     <Menu />
                 </div>
                 <div className="w-[70%] xl:w-[75%]">
@@ -54,7 +54,7 @@ const PageBase = () => {
                     <UpcomingList itens={itens?.upcoming} title={"upcoming Movies"} />
                 </div>
             </div>
-            <div className="flex hidden xl:hidden">
+            <div className="flex 2xl:hidden xl:hidden">
                 <NavbarMobile openMenu={openMenu} />
             </div>
 
@@ -85,7 +85,7 @@ const PageBase = () => {
             }
            
             <div className="w-screen xl:hidden 2xl:hidden lg:flex lg:justify-center md:flex md:justify-center">
-                <div className="md:w-[95%] border lg:w-[95%]">
+                <div className="md:w-[95%] lg:w-[95%]">
                     <Outlet />
                 </div>
             </div>
