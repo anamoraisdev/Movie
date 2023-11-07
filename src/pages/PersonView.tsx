@@ -22,6 +22,13 @@ const PersonView = () => {
         }
     }
 
+    const checkOpenBiografy = () => {
+        if (open) {
+            setOpenBiografy(false)
+        } else {
+            setOpenBiografy(true)
+        }
+    }
 
     useEffect(() => {
         service.getDetailsPerson(idFormat, setPerson)
@@ -32,13 +39,11 @@ const PersonView = () => {
 
     return (
         <>
-            <div className="flex gap-6">
-                <section className="w-[30%] mr-4">
-                    <figure className="w-full">
-                        <img className="w-full rounded-lg h-[33.5rem] object-cover" src={`https://image.tmdb.org/t/p/w500/${person?.profile_path}`} />
-
-                    </figure>
-                    <section className=" gap-10 justify-center w-full mt-5 ">
+            <div className="flex flex-col items-center mb-10 lg:flex-row xl:flex-row lg:items-start xl:items-start">
+                <section className="w-[90%] xl:w-[30%] lg:w-[30%] mr-4 mt-0">
+                    <img className="w-full h-full rounded-lg " src={`https://image.tmdb.org/t/p/w500/${person?.profile_path}`} />
+                    <h1 className="font-bold text-2xl lg:hidden xl:hidden">{person?.name}</h1>
+                    <section className=" gap-10 justify-center w-full ">
                         <h2 className="font-bold text-lg">Personal information</h2>
                         <div>
                             <h3 className="font-bold text-md">Known for departament</h3>
@@ -82,19 +87,19 @@ const PersonView = () => {
                         </div>
                     </section>
                 </section>
-                <section className="w-[70%] flex flex-col gap-2">
+                <section className="xl:w-[70%] lg:w-[70%] w-[90%] flex flex-col gap-2">
                     <article className="flex flex-col gap-4">
-                        <h1 className="font-bold text-2xl ">{person?.name}</h1>
+                        <h1 className="font-bold text-2xl sm:hidden md:hidden">{person?.name}</h1>
                         <h2 className="font-bold">Biography</h2>
                     </article>
 
-                    <section className="">
+                    <section className="relative">
                         <p className={` ${openBiografy ? "line-clamp-none" : ""} line-clamp-6 text-justify break-words relative`}>{person?.biography ? `${person.biography}` : `We don't have a biography for ${person?.name} `}</p>
-                    </section>
-                    {!openBiografy && person?.biography && person?.biography.length > 1000 &&
-                        <button className=" text-end absolute top-[300px] right-[21rem]  p-1 rounded w-[50rem] text-sm bg-gradient-to-r from-transparent via-[#000913] to-[#000913] " onClick={() => setOpenBiografy(true)}>Read more </button>
+                        { !openBiografy &&
+                            <button className="bg-gray-800 px-2 rounded absolute bottom-15 right-[0rem] ${}" onClick={() => checkOpenBiografy()}>read more</button>
 
-                    }
+                        }
+                    </section>
 
 
                     <section className="">

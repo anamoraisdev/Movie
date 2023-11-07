@@ -50,7 +50,7 @@ const Favorites = () => {
       }
       {
         favorites.all.length > 0 &&
-        <div className="grid grid-cols-7 gap-5 mt-6 justify-center">
+        <div className="flex flex-col md:grid md:grid-cols-2 xl:grid lg:grid-cols-7 lg:grid lg:grid-cols-7 gap-5 mt-6 justify-center">
 
           {typeSelect === "all" && favorites.all.map((favorite) =>
 
